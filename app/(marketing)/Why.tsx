@@ -14,25 +14,25 @@ const Why = () => {
   const whyCards: WhyCard[] = [
     {
       icon: "barChart",
-      title: "Short And To The Point ",
+      title: "*Copy needed ",
       description:
         "copy needed* lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
       icon: "learn",
-      title: "Short And To The Point ",
+      title: "*Copy needed ",
       description:
         "copy needed* lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
       icon: "gauge",
-      title: "Short And To The Point ",
+      title: "*Copy needed ",
       description:
         "copy needed* lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
       icon: "celebrate",
-      title: "Short And To The Point ",
+      title: "*Copy needed ",
       description:
         "copy needed* lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
