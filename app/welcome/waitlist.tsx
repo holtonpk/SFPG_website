@@ -35,7 +35,7 @@ const Waitlist = () => {
     <div className="bg-theme1/10 h-screen max-h-screen w-screen ">
       <div className="md:max-w-xl mx-auto relative h-screen p-4  w-screen ">
         <div className="absolute  top-0 left-1/2 -translate-x-1/2 z-10 w-[150%] h-screen  ">
-          <Image src="/image/brush2.svg" alt="logo" fill objectFit="contain" />
+          <Image src="/image/brush2.svg" alt="brush" fill objectFit="contain" />
         </div>
         <span className="text-2xl p-2 text-primary font-bold w-fit  flex items-center mx-auto ">
           <div className="h-7 w-7 relative mb-1 mr-2">
@@ -47,10 +47,10 @@ const Waitlist = () => {
           The Perfect Book For Business Junkies
         </h1>
 
-        <div className="translate-x-4 h-[50%] w-[70%] z-20 relative mx-auto mt-8">
+        <div className="translate-x-4 h-[40%] w-[70%] z-20 relative mx-auto mt-8">
           <Image
             src="/image/cover-shadow.svg"
-            alt="logo"
+            alt="book cover"
             fill
             objectFit="contain"
           />
