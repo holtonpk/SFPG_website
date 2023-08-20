@@ -48,15 +48,16 @@ const Why = () => {
             About Short Form Books
           </h1>
           <p className="text- font-head text-black">
-            Our mission is simple: we're bringing short-form content to the book
-            publishing industry. We believe in creating books that align with
-            modern consumption habits while preserving the charm and depth of
-            traditional reading.
+            Our mission is simple: we&apos;re bringing short-form content to the
+            book publishing industry. We believe in creating books that align
+            with modern consumption habits while preserving the charm and depth
+            of traditional reading.
           </p>
         </div>
         <div className="grid grid-flow-col gap-3 mt-32 z-10 relative">
           {whyCards.map((card, i) => (
             <Cards
+              key={i}
               card={card}
               i={i}
               selected={selectedCard}

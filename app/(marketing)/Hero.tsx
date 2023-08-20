@@ -30,7 +30,7 @@ const Hero = () => {
           </h1>
           <h2 className="font-body text-xl">
             Craving a little motivation? Open this book to dive into a world of
-            riveting tales and lessons from history's most influential
+            riveting tales and lessons from history&apos;s most influential
             businessman.
           </h2>
           {/* <div className="flex gap-6">

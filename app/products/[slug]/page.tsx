@@ -11,7 +11,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     price: 29.95,
     cover: "/image/cover.png",
     description:
-      "The greatest investment advisor of the twentieth century, Benjamin Graham taught and inspired people worldwide. Graham's philosophy of “value investing”—which shields investors from substantial error and teaches them to develop long-term strategies—has made The Intelligent Investor the stock market bible ever since its original publication in 1949.",
+      "The greatest investment advisor of the twentieth century, Benjamin Graham taught and inspired people worldwide. Graham&apos;s philosophy of “value investing”—which shields investors from substantial error and teaches them to develop long-term strategies—has made The Intelligent Investor the stock market bible ever since its original publication in 1949.",
 
     productVariants: [
       {
@@ -87,20 +87,20 @@ export default function Page({ params }: { params: { slug: string } }) {
           Ever wondered how the most successful entrepreneurs of our time
           transformed their dreams into reality? How they faced adversity,
           overcame hurdles, and pioneered industries? Get ready for an inspiring
-          journey through the triumphs and trials of the business world's
-          biggest success stories. <br /> "Snapshots of Success" is not just a
-          book; it's a thrilling masterclass in innovation and grit. Each page
-          is a treasure trove of insights from 50 of the most impactful business
-          journeys, distilled into riveting, short-form narratives. <br /> This
-          unique compilation is perfect for anyone who craves inspiration and
-          insight but struggles to find the time to sift through lengthy
-          biographies and business texts. Each tale is meticulously crafted to
-          be devoured in just 15-20 minutes - a perfect fit for your coffee
-          break or when you need a shot of motivation.
-          <br /> So, whether you're an aspiring entrepreneur seeking guidance, a
-          business veteran hunting for inspiration, or just someone who enjoys
-          captivating stories, this book is your ticket to a world of exciting
-          entrepreneurial journeys.
+          journey through the triumphs and trials of the business world&apos;s
+          biggest success stories. <br /> &quotSnapshots of Success&quot is not
+          just a book; it&apos;s a thrilling masterclass in innovation and grit.
+          Each page is a treasure trove of insights from 50 of the most
+          impactful business journeys, distilled into riveting, short-form
+          narratives. <br /> This unique compilation is perfect for anyone who
+          craves inspiration and insight but struggles to find the time to sift
+          through lengthy biographies and business texts. Each tale is
+          meticulously crafted to be devoured in just 15-20 minutes - a perfect
+          fit for your coffee break or when you need a shot of motivation.
+          <br /> So, whether you&apos;re an aspiring entrepreneur seeking
+          guidance, a business veteran hunting for inspiration, or just someone
+          who enjoys captivating stories, this book is your ticket to a world of
+          exciting entrepreneurial journeys.
           <br /> Dive in and discover how empires were built, fortunes were
           made, and how you, too, can etch your name in the annals of business
           history.
