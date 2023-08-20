@@ -21,6 +21,16 @@
   animation: arrow-wave 1s infinite;
   animation-direction: alternate;
 }
+
+.scroll-arrow-theme {
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  border-right: 2px solid rgb(77 164 224);
+  border-bottom: 2px solid rgb(77 164 224);
+  animation: arrow-wave 1s infinite;
+  animation-direction: alternate;
+}
 .scroll-arrow:nth-child(1) {
   animation-delay: 0.1s;
 }
