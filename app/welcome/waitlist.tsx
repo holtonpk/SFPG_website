@@ -34,7 +34,7 @@ const Waitlist = () => {
   return (
     <div className="bg-theme1/10 h-screen max-h-screen w-screen ">
       <div className="md:max-w-xl mx-auto relative h-screen p-4  w-screen ">
-        <div className="absolute  top-0 left-1/2 -translate-x-1/2 z-10 w-[150%] h-screen  ">
+        <div className="absolute  top-0 left-1/2 -translate-x-1/2 z-10 w-screen md:w-[150%] h-screen  ">
           <Image src="/image/brush2.svg" alt="brush" fill objectFit="contain" />
         </div>
         <span className="text-2xl p-2 text-primary font-bold w-fit  flex items-center mx-auto ">
@@ -56,7 +56,7 @@ const Waitlist = () => {
           />
         </div>
         <h2 className="capitalize text-theme1 mx-auto w-fit text-sm">
-          Sign up for our Wait list here
+          Sign up for our Waitlist here
         </h2>
         <div className="scroll-arrow-theme mx-auto mt-3" />
         {errors?.email && (
