@@ -25,7 +25,7 @@ const About = () => {
           <div className="relative h-[120px]  w-[170px] mt-10">
             <Image
               src="/image/mo-sig.svg"
-              alt="logo"
+              alt="signature"
               fill
               objectFit="contain"
             />
