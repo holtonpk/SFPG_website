@@ -24,7 +24,7 @@ const About = () => {
           </p>
           <div className="relative h-[120px]  w-[170px] mt-10">
             <Image
-              src="/image/mo-sig.svg"
+              src="/image/Mo-sig.svg"
               alt="signature"
               fill
               objectFit="contain"
@@ -33,14 +33,14 @@ const About = () => {
             {/* <div className="absolute h-[2px] w-full bg-black bottom-4 left-0"></div> */}
           </div>
 
-          {/* <div className="absolute left-1/2  top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[50%] h-screen  ">
+          <div className="absolute left-1/2  top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[50%] h-screen  ">
             <Image
               src="/image/brush3.svg"
               alt="logo"
               fill
               objectFit="contain"
             />
-          </div> */}
+          </div>
         </div>
         <div className="w-full relative justify-center flex">
           <div className="w-[60%] border-theme1 border  aspect-square absolute -translate-y-2 translate-x-2 z-10" />
