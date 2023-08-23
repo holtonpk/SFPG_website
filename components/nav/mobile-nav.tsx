@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { Icons } from "@/components/icons";
 import { marketingConfig } from "@/config/marketing";
+import { siteConfig } from "@/config/site";
 
 const sidebar = {
   open: (height = 1000) => ({
@@ -40,18 +41,18 @@ export default function MobileNav() {
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
-      className={`fixed inset-0 z-50 w-full sm:hidden ${
+      className={` top-0 inset-0 z-50 w-full md:hidden ${
         isOpen ? "" : "pointer-events-none"
       }`}
       ref={containerRef}
     >
       <motion.div
-        className="absolute inset-0 right-0 w-full bg-background"
+        className="absolute inset-0 right-0 w-full bg-white"
         variants={sidebar}
       />
       <motion.ul
         variants={variants}
-        className="absolute grid w-full gap-3 px-10 py-16"
+        className="absolute grid w-full gap-3 px-10 py-16 "
       >
         {marketingConfig.mainNav.map((item, i) => (
           <div key={i} className="grid gap-3">
@@ -68,7 +69,7 @@ export default function MobileNav() {
           </div>
         ))}
 
-        <MenuItem key="Login">
+        {/* <MenuItem key="Login">
           <Link href="/login" className="flex w-full font-semibold capitalize">
             Log in
           </Link>
@@ -82,18 +83,30 @@ export default function MobileNav() {
           >
             Sign Up
           </Link>
-        </MenuItem>
+        </MenuItem> */}
       </motion.ul>
-      <MenuToggle toggle={toggleOpen} isOpen={isOpen} />
+      <div className="flex items-center justify-between px-4 relative z-20">
+        <Link href="/#" className="pb-1 ">
+          <span className="text-2xl p-2 text-primary font-bold  flex items-center ">
+            <div className="h-8 w-8 relative  -mr-2">
+              <Icons.logo
+                className="text-white h-full w-full "
+                color="rgb(77 164 224)"
+              />
+            </div>
+            <span className="ml-1 font-head text-theme1 text-sm">
+              {siteConfig.name}
+            </span>
+          </span>
+        </Link>
+        <MenuToggle toggle={toggleOpen} isOpen={isOpen} />
+      </div>
     </motion.nav>
   );
 }
 
 const MenuToggle = ({ toggle, isOpen }: { toggle: any; isOpen: boolean }) => (
-  <button
-    onClick={toggle}
-    className="pointer-events-auto absolute right-5 -translate-y-1/2 top-10 z-20 text-primary"
-  >
+  <button onClick={toggle} className="pointer-events-auto z-20 text-primary">
     {/* <svg width="23" height="23" viewBox="0 0 23 23">
       <Path
         variants={{

@@ -30,18 +30,18 @@ export default function Nav() {
     //   })}
     // >
 
-    <div className="mx-auto w-full z-20  absolute  container">
+    <div className="mx-auto w-full z-20  absolute  container hidden md:block">
       <div className="flex h-20 items-center justify-between w-full  border-b">
         <div className="flex   w-fit items-center sticky  md:gap-10 ">
           <Link href="/#" className="pb-1 ">
             <span className="text-2xl p-2 text-primary font-bold  flex items-center ">
-              <div className="h-14 w-14 relative  -mr-2">
+              <div className="h-10 w-10 lg:h-14 lg:w-14 relative  -mr-2">
                 <Icons.logo
                   className="text-white h-full w-full "
                   color="rgb(77 164 224)"
                 />
               </div>
-              <span className="ml-1 font-head text-theme1">
+              <span className="ml-1 font-head text-theme1 text-base lg:text-xl">
                 {siteConfig.name}
               </span>
             </span>
@@ -54,7 +54,7 @@ export default function Nav() {
                     key={index}
                     href={item.disabled ? "#" : item.href}
                     className={cn(
-                      "flex items-center text-base font-body transition-colors hover:text-foreground/80 ",
+                      "flex items-center text-[12px] font-body transition-colors hover:text-foreground/80 ",
                       item?.cta ? "text-theme1" : "text-black",
 
                       item.disabled && "cursor-not-allowed opacity-80"
@@ -67,21 +67,21 @@ export default function Nav() {
             ) : null}
           </div>
         </div>
-        <div className="flex w-fit items-center sticky  md:gap-10 ">
-          <form className="border rounded-full flex items-center bg-transparent border-black px-2">
-            <Icons.search className="h-6 w-6" />
+        <div className="flex w-fit items-center relative gap-4 lg:gap-10  h-10">
+          <form className="border rounded-full flex items-center bg-transparent border-black px-2 h-full">
+            <Icons.search className="h-4 w-4 lg:h-6 lg:w-6" />
             <Input
               type="text"
               placeholder="Search for a title"
-              className="border-none pr-6 "
+              className="border-none pr-6 text-[12px] lg:text-base py-1 h-full"
             ></Input>
           </form>
-          <div className="flex gap-6">
+          <div className="flex gap-4 lg:gap-6">
             <Button className=" text-theme2 rounded-full aspect-square p-3 h-fit shadow-md">
-              <Icons.cart className="h-6 w-6" />
+              <Icons.cart className="h-4 w-4 lg:h-6 lg:w-6" />
             </Button>
             <Button className=" text-theme3 rounded-full aspect-square p-3 h-fit  shadow-md">
-              <Icons.user className="h-6 w-6" />
+              <Icons.user className="h-4 w-4 lg:h-6 lg:w-6" />
             </Button>
           </div>
         </div>

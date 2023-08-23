@@ -9,8 +9,8 @@ const Hero = () => {
   const scrolled = useScroll(50);
 
   return (
-    <div className=" relative pt-20 ">
-      <div className="absolute -right-[200px] bottom-0 translate-y-32 z-10 w-[50%] h-screen  ">
+    <div className=" relative pt-8 lg:pt-20  ">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 md:-right-[200px] md:bottom-0 md:translate-y-32 z-10 w-full md:w-[50%] h-screen  ">
         <Image src="/image/brush2.svg" alt="logo" fill objectFit="contain" />
       </div>
       <div className="absolute left-0 -translate-x-1/2  top-0 -translate-y-1/2 z-10 w-[50%] h-screen  ">
@@ -23,25 +23,17 @@ const Hero = () => {
           <div className="scroll-arrow" />
         </div>
       )}
-      <div className="grid grid-cols-2  py-10 container min-h-[90vh] max-w-screen-xl ">
-        <div className="flex flex-col gap-10 mt-10 h-fit  top-[5%] relative ">
-          <h1 className="text-6xl font-head ">
+      <div className="gap-6 flex flex-col md:grid md:grid-cols-2  md:py-10 container min-h-[90vh] max-w-screen-xl  ">
+        <div className="flex flex-col md:gap-10 md:mt-10 h-fit md:top-[5%] relative ">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-head text-center md:text-left ">
             The Perfect Book For Business Junkies
           </h1>
-          <h2 className="font-body text-xl">
+          <h2 className="block font-body text-[12px] mt-4 md:mt-0 md:text-base lg:text-xl text-center md:text-left">
             Craving a little motivation? Open this book to dive into a world of
             riveting tales and lessons from history&apos;s most influential
             businessman.
           </h2>
-          {/* <div className="flex gap-6">
-            <Button size="lg" className=" text-white bg-theme1">
-              Buy Now
-            </Button>
-            <Button variant="secondary" size="lg" className=" bg-theme1/10 ">
-              Browse Books
-            </Button>
-          </div> */}
-          <form className="flex gap-4 w-3/4 border border-black p-1 rounded-full bg-transparent  ">
+          <form className="gap-4 hidden md:flex w-3/4 border border-black p-1 rounded-full bg-transparent  ">
             <Input
               type="email"
               placeholder="Want early access? Join our newsletter"
@@ -51,47 +43,43 @@ const Hero = () => {
           </form>
         </div>
 
-        <div className="relative w-full h-full  ">
-          {/* <div className="absolute left-0 z-10 h-8 w-8   ">
-            <Image src="/image/dots1.svg" alt="logo" fill objectFit="contain" />
-          </div>
-          <div className="absolute right-10 bottom-20 z-10 h-8 w-8   ">
-            <Image src="/image/dots2.svg" alt="logo" fill objectFit="contain" />
-          </div> */}
-          <div className="absolute rounded-full h-2 w-2 bg-theme1 top-[114px] left-[0px]" />
-          <div className="absolute rounded-full h-1 w-1 bg-theme2 top-[140px] left-[26px]" />
-          <div className="absolute rounded-full h-3 w-3 bg-theme3 top-[157px] left-[90px]" />
-          <div className="absolute rounded-full h-3 w-3 bg-theme3 top-[57px] left-[20px]" />
-          <div className="absolute rounded-full h-2 w-2 bg-theme4 top-[100px] left-[70px]" />
-          <div className="absolute rounded-full h-2 w-2 bg-theme2 top-[162px] left-[60px]" />
-          <div className="absolute rounded-full h-2 w-2 bg-theme1 top-[202px] left-[80px]" />
+        <div className=" sm:max-w-[60%] mx-auto  relative w-full h-full ">
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme1 top-[114px] lg:left-[0px] left-[0px]" />
+          <div className="absolute rounded-full lg:h-1 lg:w-1 h-1 w-1 bg-theme2 top-[140px] lg:left-[26px] left-[16px]" />
+          <div className="absolute rounded-full lg:h-3 lg:w-3 h-2 w-2 bg-theme3 top-[157px] lg:left-[90px] left-[70px]" />
+          <div className="absolute rounded-full lg:h-3 lg:w-3 h-2 w-2 bg-theme3 top-[57px] lg:left-[20px] left-[20px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme4 top-[100px] lg:left-[70px] left-[50px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme2 top-[162px] lg:left-[60px] left-[40px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme1 top-[202px] lg:left-[80px] left-[60px]" />
 
-          <div className="absolute rounded-full h-2 w-2 bg-theme1 bottom-[220px] right-[80px]" />
-          <div className="absolute rounded-full h-2 w-2 bg-theme4 bottom-[210px] right-[40px]" />
-          <div className="absolute rounded-full h-1 w-1 bg-theme2 bottom-[240px] right-[80px]" />
-          <div className="absolute rounded-full h-3 w-3 bg-theme3 bottom-[270px] right-[110px]" />
-          <div className="absolute rounded-full h-2 w-2 bg-theme4 bottom-[250px] right-[120px]" />
-          <div className="absolute rounded-full h-2 w-2 bg-theme2 bottom-[190px] right-[98px]" />
-          <div className="absolute rounded-full h-2 w-2 bg-theme3 bottom-[160px] right-[38px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme1 bottom-[220px] lg:right-[80px] right-[6px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme4 bottom-[210px] lg:right-[40px] right-[20px]" />
+          <div className="absolute rounded-full lg:h-1 lg:w-1 h-1 w-1 bg-theme2 bottom-[240px] lg:right-[80px] right-[30px]" />
+          <div className="absolute rounded-full lg:h-3 lg:w-3 h-2 w-2 bg-theme3 bottom-[270px] lg:right-[110px] right-[40px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme4 bottom-[250px] lg:right-[120px] right-[50px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme2 bottom-[190px] lg:right-[98px] right-[48px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme3 bottom-[160px] lg:right-[38px] right-[0px]" />
 
-          <div className="w-[400px] h-[85%] z-20 relative mx-auto">
-            {/* <div className="h-24 absolute z-30 right-0 -translate-y-1/3  mx-auto">
-              <Icons.star
-                className=" h-full w-full z-10"
-                color=" rgb(77 164 224)"
-              />
-              <h1 className="absolute top-1/2 -translate-x-1/2 left-1/2  w-[80%] -translate-y-1/2 z-20 text-[12px] text-center text-white font-extrabold ">
-                Pre-Order Today
-              </h1>
-            </div> */}
+          <div className="w-[250px] md:w-[300px] lg:w-[400px] h-[40vh] md:h-[85%] md:top-1/2 md:-translate-y-1/2 md:left-1/2 md:-translate-x-1/2  z-20 relative md:absolute mx-auto">
             <Image
               src="/image/cover-shadow.svg"
               alt="logo"
               fill
               objectFit="contain"
+              className="ml-3"
             />
           </div>
         </div>
+        <form className="gap-4 flex md:hidden w-full border border-black p-1 rounded-full bg-transparent  ">
+          <Input
+            type="email"
+            placeholder="Want early access? Join our newsletter"
+            className=" border-none text-[12px] md:text-base"
+          />
+          <Button className="bg-theme2 text-white text-[12px] md:text-base">
+            Submit
+          </Button>
+        </form>
       </div>
     </div>
   );
