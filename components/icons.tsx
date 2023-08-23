@@ -165,7 +165,6 @@ export const Icons = {
   update: RefreshCcwIcon,
   followers: User,
   error: AlertTriangleIcon,
-  trash: Trash,
   trendingUp: TrendingUp,
   trendingDown: TrendingDown,
   post: FileText,
