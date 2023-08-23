@@ -9,8 +9,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
     <footer className={cn(className, "bg-theme1 text-white z-40 border-t ")}>
       <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
         <span className="text-2xl p-2 text-primary font-bold  flex items-center ">
-          <div className="h-7 w-7 relative mb-1 mr-2">
-            {" "}
+          <div className="h-14 w-14 relative -mr-2">
             <Icons.logo className="text-white" color="rgb(255 255 255) " />
           </div>
           <span className="ml-1 font-head text-white">{siteConfig.name}</span>

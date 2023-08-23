@@ -13,28 +13,28 @@ type WhyCard = {
 const Why = () => {
   const whyCards: WhyCard[] = [
     {
-      icon: "barChart",
-      title: "*Copy needed ",
+      icon: "circuitBoard",
+      title: "Born from the digital age",
       description:
-        "copy needed* lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "Founded by three young enthusiasts with a knack for modern media, Short Form Books fuse the allure of traditional books with the rapid content style of the modern era.",
     },
     {
-      icon: "learn",
-      title: "*Copy needed ",
+      icon: "graduationCap",
+      title: "We are changing how you read",
       description:
-        "copy needed* lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "The liberty to pick up our books, flip to any story, and consume it in one sitting is our gift to readers today. No more boring 500 page novels to get to the punchline.",
     },
     {
-      icon: "gauge",
-      title: "*Copy needed ",
+      icon: "bookX",
+      title: "Ditch the long reads.",
       description:
-        "copy needed* lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "Filled with a compilation of short stories that can be enjoyed in 15-20 minutes, Short Form Books offers the perfect escape for readers seeking captivating, quick-to-read stories.",
     },
     {
       icon: "celebrate",
-      title: "*Copy needed ",
+      title: "Relevant and captivating stories",
       description:
-        "copy needed* lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "Dive into stories curated for the modern reader. From inspiring business tales to spine-tingling conspiracies, our diverse range is here to captivate your curiosity.",
     },
   ];
 

@@ -35,9 +35,11 @@ export default function Nav() {
         <div className="flex   w-fit items-center sticky  md:gap-10 ">
           <Link href="/#" className="pb-1 ">
             <span className="text-2xl p-2 text-primary font-bold  flex items-center ">
-              <div className="h-7 w-7 relative mb-1 mr-2">
-                {" "}
-                <Icons.logo className="text-white" color="rgb(77 164 224)" />
+              <div className="h-14 w-14 relative  -mr-2">
+                <Icons.logo
+                  className="text-white h-full w-full "
+                  color="rgb(77 164 224)"
+                />
               </div>
               <span className="ml-1 font-head text-theme1">
                 {siteConfig.name}

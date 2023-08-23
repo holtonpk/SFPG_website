@@ -38,7 +38,7 @@ const Waitlist = () => {
           <Image src="/image/brush2.svg" alt="brush" fill objectFit="contain" />
         </div>
         <span className="text-2xl p-2 text-primary font-bold w-fit  flex items-center mx-auto ">
-          <div className="h-7 w-7 relative mb-1 mr-2">
+          <div className="h-12 w-12 relative ">
             <Icons.logo className="text-white" color="rgb(238 33 127)" />
           </div>
           <span className="ml-1 font-head text-theme2">Short Form Books</span>
