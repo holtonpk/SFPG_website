@@ -115,7 +115,7 @@ const Display = () => {
       </div>
       <div
         id="mobileDisplayScrollBox"
-        className="w-screen overflow-scroll px-10 no-scrollbar"
+        className="w-screen overflow-scroll px-10 no-scrollbar h-fit b-b"
       >
         <div
           id="mobileView"
@@ -228,7 +228,7 @@ const ProductCardMobile = ({ product }: { product: DisplayedProduct }) => {
   return (
     <div
       ref={cardRef}
-      className="flex w-[300px] h-[350px] relative  flex-col items-center group "
+      className="flex w-[300px] h-[50vh] relative  flex-col items-center group "
     >
       <Link
         href={`${product.href}`}
