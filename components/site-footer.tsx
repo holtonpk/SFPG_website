@@ -24,7 +24,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             </div>
 
             <div className="border rounded-full p-2">
-              <Icons.facebook className="md:h-6 md:w-6 h-4 w-4" />
+              <Icons.tiktok className="md:h-6 md:w-6 h-4 w-4" color="white" />
             </div>
           </div>
         </span>

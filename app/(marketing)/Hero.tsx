@@ -36,14 +36,14 @@ const Hero = () => {
           <form className="gap-4 hidden md:flex w-3/4 border border-black p-1 rounded-full bg-transparent  ">
             <Input
               type="email"
-              placeholder="Want early access? Join our newsletter"
+              placeholder="Want early access? Enter your email"
               className=" border-none"
             />
             <Button className="bg-theme2 text-white">Submit</Button>
           </form>
         </div>
 
-        <div className=" sm:max-w-[60%] mx-auto  relative w-full h-full ">
+        <div className=" sm:max-w-[60%] lg:max-w-full mx-auto  relative w-full h-full  ">
           <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme1 top-[114px] lg:left-[0px] left-[0px]" />
           <div className="absolute rounded-full lg:h-1 lg:w-1 h-1 w-1 bg-theme2 top-[140px] lg:left-[26px] left-[16px]" />
           <div className="absolute rounded-full lg:h-3 lg:w-3 h-2 w-2 bg-theme3 top-[157px] lg:left-[90px] left-[70px]" />
@@ -73,7 +73,7 @@ const Hero = () => {
         <form className="gap-4 flex md:hidden w-full border border-black p-1 rounded-full bg-transparent  ">
           <Input
             type="email"
-            placeholder="Want early access? Join our newsletter"
+            placeholder="Want early access? Enter your email"
             className=" border-none text-[12px] md:text-base"
           />
           <Button className="bg-theme2 text-white text-[12px] md:text-base">
