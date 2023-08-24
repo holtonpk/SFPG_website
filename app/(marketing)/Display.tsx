@@ -115,11 +115,11 @@ const Display = () => {
       </div>
       <div
         id="mobileDisplayScrollBox"
-        className="w-screen overflow-scroll px-10 no-scrollbar h-fit b-b"
+        className="w-screen overflow-x-scroll px-10 no-scrollbar h-fit b-b"
       >
         <div
           id="mobileView"
-          className="grid md:hidden grid-flow-col  gap-8  mx-auto relative z-10 mt-10 mb-4 justify-between w-fit bg-white rounded-lg h-[432px]  p-4"
+          className="grid md:hidden grid-flow-col  gap-8  mx-auto relative z-10 mt-10 mb-4 justify-between w-fit bg-white rounded-lg h-[432px]  p-4 b-r"
         >
           {displayedProducts.map((product, i) => (
             <ProductCardMobile key={i} {...{ product }} />
@@ -256,7 +256,7 @@ ${centerPosition < 150 && centerPosition > -150 ? "text-white" : `black`}
           className={`relative z-10 p-4 py-6 rounded-md  w-full left-1/2 -translate-x-1/2  transition-all duration-500 bg-theme-1  delay-[100ms]
 ${
   centerPosition < 150 && centerPosition > -150
-    ? "h-[200px] bg-white/10"
+    ? "h-[300px] bg-white/10"
     : "bg-theme1/10 h-[350px] "
 }
 `}
