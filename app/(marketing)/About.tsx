@@ -114,7 +114,7 @@ const Cards = ({
   }, [i]);
 
   return (
-    <div className=" h-[348px] relative snap-center px-3 md:px-0">
+    <div className=" h-[348px] relative snap-center px-3 md:px-0 b-b">
       <div
         ref={cardRef}
         className={`snap-centers relative  md:hidden bottom-0 h-[300px] w-[300px] md:w-full rounded-lg shadow-lg bg-white border-t-4 flex flex-col gap-3 p-4 transition-all duration-300
