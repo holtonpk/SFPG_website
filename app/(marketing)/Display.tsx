@@ -119,7 +119,7 @@ const Display = () => {
       >
         <div
           id="mobileView"
-          className="grid md:hidden grid-flow-col  gap-8  mx-auto relative z-10 mt-10 mb-4 justify-between w-fit bg-white rounded-lg h-[432px]  p-4 b-r"
+          className="grid md:hidden grid-flow-col overflow-hidden gap-8  mx-auto relative z-10 mt-10 mb-4 justify-between w-fit bg-white rounded-lg h-[432px]  p-4 b-r"
         >
           {displayedProducts.map((product, i) => (
             <ProductCardMobile key={i} {...{ product }} />
