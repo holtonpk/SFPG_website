@@ -225,7 +225,7 @@ const ProductCardMobile = ({ product }: { product: DisplayedProduct }) => {
   return (
     <div
       ref={cardRef}
-      className="flex w-[300px] h-[50vh] relative  flex-col items-center group snap-center "
+      className="flex w-[300px] b-b h-fit relative  flex-col items-center group snap-center "
     >
       <Link
         href={`${product.href}`}
@@ -253,7 +253,7 @@ ${centerPosition < 150 && centerPosition > -150 ? "text-white" : `black`}
           className={`relative z-10 p-4 py-6 rounded-md  w-full left-1/2 -translate-x-1/2  transition-all duration-500 bg-theme-1  delay-[100ms]
 ${
   centerPosition < 150 && centerPosition > -150
-    ? "h-[300px] bg-white/10"
+    ? "flex-grow bg-white/10"
     : "bg-theme1/10 h-[350px] "
 }
 `}
