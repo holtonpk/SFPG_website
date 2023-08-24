@@ -378,11 +378,11 @@ export function constructMetadata({
     //   creator: "@dubdotsh",
     // },
     icons: {
-      icon: "image/favicon.ico",
-      shortcut: "image/favicon-16x16.png",
-      apple: "image/apple-touch-icon.png",
+      icon: "image/brand/favicon.ico",
+      shortcut: "image/brand/favicon-16x16.png",
+      apple: "image/brand/apple-touch-icon.png",
     },
-    metadataBase: new URL("https://dub.sh"),
+    metadataBase: new URL("https://shortformbooks.com"),
     themeColor: "#FFF",
   };
 }

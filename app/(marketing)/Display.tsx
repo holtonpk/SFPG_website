@@ -115,7 +115,7 @@ const Display = () => {
       </div>
       <div
         id="mobileDisplayScrollBox"
-        className="w-screen overflow-x-scroll px-10 no-scrollbar h-fit b-b"
+        className="w-screen overflow-x-scroll px-10 no-scrollbar h-[500px] b-b"
       >
         <div
           id="mobileView"
