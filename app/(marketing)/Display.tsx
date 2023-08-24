@@ -238,7 +238,7 @@ const ProductCardMobile = ({ product }: { product: DisplayedProduct }) => {
         className={`w-full  rounded-lg relative p-2 delay-[100ms] flex items-center flex-col transition-all  duration-500 cursor-pointer
 ${
   centerPosition < 150 && centerPosition > -150
-    ? `bg-${product.color} py-4 h-[400px]`
+    ? `bg-${product.color} py-4 h-[400px] b-r`
     : " pt-0 h-[400px] "
 }
 `}
@@ -256,7 +256,7 @@ ${centerPosition < 150 && centerPosition > -150 ? "text-white" : `black`}
           className={`relative z-10 p-4 py-6 rounded-md  w-full left-1/2 -translate-x-1/2  transition-all duration-500 bg-theme-1  delay-[100ms]
 ${
   centerPosition < 150 && centerPosition > -150
-    ? "h-[350px] bg-white/10"
+    ? "h-[200px] bg-white/10"
     : "bg-theme1/10 h-[350px] "
 }
 `}
