@@ -113,19 +113,16 @@ const Display = () => {
           />
         ))}
       </div>
+
       <div
         id="mobileDisplayScrollBox"
-        className="w-screen overflow-x-scroll px-10 no-scrollbar h-[500px] b-b"
+        className="w-screen overflow-x-scroll px-10 no-scrollbar snap-x grid md:hidden grid-flow-col overflow-hidden gap-8  mx-auto relative z-10 mt-10 mb-4 justify-between  bg-white rounded-lg h-[432px]  p-4 "
       >
-        <div
-          id="mobileView"
-          className="grid md:hidden grid-flow-col overflow-hidden gap-8  mx-auto relative z-10 mt-10 mb-4 justify-between w-fit bg-white rounded-lg h-[432px]  p-4 b-r"
-        >
-          {displayedProducts.map((product, i) => (
-            <ProductCardMobile key={i} {...{ product }} />
-          ))}
-        </div>
+        {displayedProducts.map((product, i) => (
+          <ProductCardMobile key={i} {...{ product }} />
+        ))}
       </div>
+
       <Button className="border-black">
         View All Books
         <Icons.arrowRight className="h-5 w-5 ml-4" />
@@ -228,7 +225,7 @@ const ProductCardMobile = ({ product }: { product: DisplayedProduct }) => {
   return (
     <div
       ref={cardRef}
-      className="flex w-[300px] h-[50vh] relative  flex-col items-center group "
+      className="flex w-[300px] h-[50vh] relative  flex-col items-center group snap-center "
     >
       <Link
         href={`${product.href}`}
@@ -238,14 +235,14 @@ const ProductCardMobile = ({ product }: { product: DisplayedProduct }) => {
         className={`w-full  rounded-lg relative p-2 delay-[100ms] flex items-center flex-col transition-all  duration-500 cursor-pointer
 ${
   centerPosition < 150 && centerPosition > -150
-    ? `bg-${product.color} py-4 h-[400px] b-r`
+    ? `bg-${product.color} py-4 h-[400px] `
     : " pt-0 h-[400px] "
 }
 `}
       >
         <Link
           href={product.href}
-          className={`font-head   h-20  font-bold text-center text-base  w-full hover:underline  group-hover:underline delay-[100ms]
+          className={`font-head b-b  h-20  font-bold text-center text-base  w-full hover:underline  group-hover:underline delay-[100ms]
 ${centerPosition < 150 && centerPosition > -150 ? "text-white" : `black`}
 `}
         >
