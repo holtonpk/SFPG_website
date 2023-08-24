@@ -116,7 +116,7 @@ const Display = () => {
 
       <div
         id="mobileDisplayScrollBox"
-        className="w-screen overflow-x-scroll px-10 no-scrollbar snap-x grid md:hidden grid-flow-col overflow-hidden gap-8  mx-auto relative z-10 mt-10 mb-4 justify-between  bg-white rounded-lg h-[432px]  p-4 "
+        className="w-screen overflow-x-scroll no-scrollbar snap-x grid md:hidden grid-flow-col overflow-hidden gap-8  mx-auto relative z-10 mt-10 mb-4 justify-between px-20   bg-white rounded-lg h-[432px]  p-4 "
       >
         {displayedProducts.map((product, i) => (
           <ProductCardMobile key={i} {...{ product }} />
@@ -225,7 +225,7 @@ const ProductCardMobile = ({ product }: { product: DisplayedProduct }) => {
   return (
     <div
       ref={cardRef}
-      className="flex w-[300px] b-b h-fit relative  flex-col items-center group snap-center "
+      className="flex w-[300px]  h-fit relative  flex-col items-center group snap-center "
     >
       <Link
         href={`${product.href}`}
@@ -242,7 +242,7 @@ ${
       >
         <Link
           href={product.href}
-          className={`font-head b-b  h-20  font-bold text-center text-base  w-full hover:underline  group-hover:underline delay-[100ms]
+          className={`font-head   h-12  font-bold text-center text-base  w-full hover:underline  group-hover:underline delay-[100ms]
 ${centerPosition < 150 && centerPosition > -150 ? "text-white" : `black`}
 `}
         >
@@ -250,11 +250,11 @@ ${centerPosition < 150 && centerPosition > -150 ? "text-white" : `black`}
         </Link>
 
         <div
-          className={`relative z-10 p-4 py-6 rounded-md  w-full left-1/2 -translate-x-1/2  transition-all duration-500 bg-theme-1  delay-[100ms]
+          className={`relative z-10 p-4 py-6 rounded-md  w-full left-1/2 -translate-x-1/2   bg-theme-1  delay-[100ms]
 ${
   centerPosition < 150 && centerPosition > -150
     ? "flex-grow bg-white/10"
-    : "bg-theme1/10 h-[350px] "
+    : "bg-theme1/10 flex-grow "
 }
 `}
         >
