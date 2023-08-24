@@ -58,7 +58,7 @@ const About = () => {
           id="scrollBox"
           className=" max-w-screen-xl no-scrollbar overflow-scroll md:overflow-hidden  px-20 md:px-0 snap-x"
         >
-          <div className="grid grid-flow-col md:grid-cols-4 gap-6 md:gap-3 mt-32 z-10 relative  w-fit md:w-full">
+          <div className="grid grid-flow-col md:grid-cols-4  md:gap-3 mt-32 z-10 relative  w-fit md:w-full">
             {whyCards.map((card, i) => (
               <Cards
                 key={i}
@@ -114,10 +114,10 @@ const Cards = ({
   }, [i]);
 
   return (
-    <>
+    <div className=" h-[348px] relative snap-center px-3 md:px-0">
       <div
         ref={cardRef}
-        className={`snap-centers md:hidden h-[300px] w-[300px] md:w-full rounded-lg shadow-lg bg-white border-t-4 flex flex-col gap-3 p-4 transition-all duration-300
+        className={`snap-centers relative  md:hidden bottom-0 h-[300px] w-[300px] md:w-full rounded-lg shadow-lg bg-white border-t-4 flex flex-col gap-3 p-4 transition-all duration-300
       ${
         centerPosition < 150 && centerPosition > -150
           ? "border-t-theme1 -translate-y-12 "
@@ -177,6 +177,6 @@ const Cards = ({
           {card.description}
         </p>
       </div>
-    </>
+    </div>
   );
 };
