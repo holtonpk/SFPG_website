@@ -225,7 +225,7 @@ const ProductCardMobile = ({ product }: { product: DisplayedProduct }) => {
   return (
     <div
       ref={cardRef}
-      className="flex w-[300px]   h-fit relative px-4 flex-col items-center group snap-center "
+      className="flex w-[300px]   h-fit relative px-2 flex-col items-center group snap-center "
     >
       <Link
         href={`${product.href}`}
