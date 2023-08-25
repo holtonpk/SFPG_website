@@ -2,47 +2,49 @@
 
 import { Icons } from "@/components/icons";
 import Image from "next/image";
-import React from "react";
-
+import React, { use, useEffect } from "react";
+import { useLockBody } from "@/lib/hooks/use-lock-body";
 type WhyCard = {
   icon: keyof typeof Icons;
   title: string;
   description: string;
 };
+const whyCards: WhyCard[] = [
+  {
+    icon: "circuitBoard",
+    title: "Born from the digital age",
+    description:
+      "Founded by three young enthusiasts with a knack for modern media, Short Form Books fuse the allure of traditional books with the rapid content style of the modern era.",
+  },
+  {
+    icon: "graduationCap",
+    title: "We are changing how you read",
+    description:
+      "The liberty to pick up our books, flip to any story, and consume it in one sitting is our gift to readers today. No more boring 500 page novels to get to the punchline.",
+  },
+  {
+    icon: "bookX",
+    title: "Ditch the long reads",
+    description:
+      "Filled with a compilation of short stories that can be enjoyed in 15-20 minutes, Short Form Books offers the perfect escape for readers seeking captivating, quick-to-read stories.",
+  },
+  {
+    icon: "celebrate",
+    title: "Relevant and captivating stories",
+    description:
+      "Dive into stories curated for the modern reader. From inspiring business tales to spine-tingling conspiracies, our diverse range is here to captivate your curiosity.",
+  },
+];
 
 const About = () => {
-  const whyCards: WhyCard[] = [
-    {
-      icon: "circuitBoard",
-      title: "Born from the digital age",
-      description:
-        "Founded by three young enthusiasts with a knack for modern media, Short Form Books fuse the allure of traditional books with the rapid content style of the modern era.",
-    },
-    {
-      icon: "graduationCap",
-      title: "We are changing how you read",
-      description:
-        "The liberty to pick up our books, flip to any story, and consume it in one sitting is our gift to readers today. No more boring 500 page novels to get to the punchline.",
-    },
-    {
-      icon: "bookX",
-      title: "Ditch the long reads",
-      description:
-        "Filled with a compilation of short stories that can be enjoyed in 15-20 minutes, Short Form Books offers the perfect escape for readers seeking captivating, quick-to-read stories.",
-    },
-    {
-      icon: "celebrate",
-      title: "Relevant and captivating stories",
-      description:
-        "Dive into stories curated for the modern reader. From inspiring business tales to spine-tingling conspiracies, our diverse range is here to captivate your curiosity.",
-    },
-  ];
-
   const [selectedCard, setSelectedCard] = React.useState(0);
 
   return (
-    <div id="About" className="relative overflow-hidden   pt-10 pb-10 z-20">
-      <div className="md:container  z-20 relative  md:max-w-screen-xl ">
+    <div
+      id="About"
+      className=" overflow-hidden relative top-0  h-fit pb-10    pt-10 z-40"
+    >
+      <div className="md:container relative md:top-20  z-20  flex flex-col md:max-w-screen-xl ">
         <div className="container grid grid-cols-2 items-center justify-between gap-2">
           <h1 className="lg:text-4xl text-2xl font-head text-theme1">
             About Short Form Books
@@ -55,12 +57,23 @@ const About = () => {
           </p>
         </div>
         <div
-          id="scrollBox"
-          className=" max-w-screen-xl no-scrollbar overflow-scroll md:overflow-hidden  px-20 md:px-0 snap-x"
+          id="mobileScrollBox"
+          className="md:hidden max-w-screen-xl h-fit px-20 flex justify-center"
         >
-          <div className="grid grid-flow-col md:grid-cols-4  md:gap-3 mt-32 z-10 relative  w-fit md:w-full">
+          <div className="grid gap-10 mt-10 z-10 relative items-center mx-auto w-fit ">
             {whyCards.map((card, i) => (
-              <Cards
+              <MobileCard key={i} card={card} i={i} />
+            ))}
+          </div>
+        </div>
+
+        <div
+          id="desktopScrollBox"
+          className="md:block hidden max-w-screen-xl no-scrollbar  overflow-hidden  px-0 snap-x"
+        >
+          <div className="grid grid-cols-4  gap-3 mt-32 z-10 relative w-full">
+            {whyCards.map((card, i) => (
+              <DesktopCard
                 key={i}
                 card={card}
                 i={i}
@@ -71,14 +84,14 @@ const About = () => {
           </div>
         </div>
       </div>
-      <div className="absolute w-full  bg-white h-[70%] left-0 top-0" />
+      <div className="absolute w-full  bg-white h-full md:h-[70%] left-0 top-0" />
     </div>
   );
 };
 
 export default About;
 
-const Cards = ({
+const DesktopCard = ({
   card,
   i,
   selected,
@@ -91,72 +104,12 @@ const Cards = ({
 }) => {
   const Icon = Icons[card.icon];
 
-  const [centerPosition, setCenterPosition] = React.useState(i == 0 ? 0 : 1000);
-  const cardRef = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const center = window.innerWidth / 2;
-      const card = cardRef.current;
-      if (card) {
-        const cardPosition = card.getBoundingClientRect().left;
-        const cardCenter = cardPosition + card.offsetWidth / 2;
-        const distance = center - cardCenter;
-        setCenterPosition(distance);
-      }
-    };
-
-    const scrollBox = document.getElementById("scrollBox");
-    if (scrollBox) {
-      scrollBox.addEventListener("scroll", handleScroll);
-      return () => scrollBox.removeEventListener("scroll", handleScroll);
-    }
-  }, [i]);
-
   return (
-    <div className=" h-[348px] relative snap-center px-3 md:px-0 b-b">
-      <div
-        ref={cardRef}
-        className={`snap-centers relative  md:hidden bottom-0 h-[300px] w-[300px] md:w-full rounded-lg shadow-lg bg-white border-t-4 flex flex-col gap-3 p-4 transition-all duration-300
-      ${
-        centerPosition < 150 && centerPosition > -150
-          ? "border-t-theme1 -translate-y-12 "
-          : "translate-y-0"
-      }
-      `}
-      >
-        <Icon
-          className={`
-          ${
-            centerPosition < 150 && centerPosition > -150
-              ? "text-theme1"
-              : "text-black"
-          }
-        }  h-8 w-8 mx-auto mt-5`}
-        />
-        <h1
-          className={` text-2xl font-head text-center
-          ${
-            centerPosition < 150 && centerPosition > -150
-              ? "text-theme1"
-              : "text-black"
-          }
-        }`}
-        >
-          {card.title}
-        </h1>
-        <p className="text-sm font-body text-center text-black mt-6">
-          {card.description}
-        </p>
-      </div>
+    <div className=" h-[348px] relative snap-center px-3 md:px-0 ">
       <div
         onMouseEnter={() => setSelectedCard(i)}
-        className={`md:flex hidden h-fit w-[300px] md:w-full rounded-lg shadow-lg bg-white border-t-4 flex-col gap-3 p-4 transition-all duration-300
-     ${
-       i === selected
-         ? "md:border-t-theme1 md:-translate-y-12"
-         : "md:translate-y-0"
-     }
+        className={`flex h-[300px] w-full  rounded-lg shadow-lg bg-white border-t-4 flex-col gap-3 p-4 transition-all duration-300
+     ${i === selected ? "border-t-theme1 -translate-y-12" : "translate-y-0"}
   
      `}
       >
@@ -177,6 +130,58 @@ const Cards = ({
           {card.description}
         </p>
       </div>
+    </div>
+  );
+};
+
+const MobileCard = ({ card, i }: { card: WhyCard; i: number }) => {
+  const [displayed, setDisplayed] = React.useState(false);
+
+  const [centerPosition, setCenterPosition] = React.useState(i == 0 ? 0 : 1000);
+  const cardRef = React.useRef<HTMLDivElement>(null);
+  const Icon = Icons[card.icon];
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
+
+  const handleScroll = () => {
+    const card = cardRef.current?.getBoundingClientRect().top;
+    if (card) {
+      card < window.innerHeight * 0.75 && setDisplayed(true);
+      card > window.innerHeight * 0.75 && setDisplayed(false);
+    }
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className={`snap-centers relative  md:hidden bottom-0 h-[300px] w-[300px] md:w-full rounded-lg shadow-lg bg-white border-t-4 flex flex-col gap-3 p-4 transition-all duration-300
+      ${
+        displayed
+          ? "border-t-theme1 -translate-x-0 "
+          : i % 2 == 0
+          ? "-translate-x-20 opacity-0"
+          : "translate-x-20 opacity-0"
+      }
+      `}
+    >
+      <Icon
+        className={`
+          ${displayed ? "text-theme1" : "text-black"}
+        }  h-8 w-8 mx-auto mt-5`}
+      />
+      <h1
+        className={` text-2xl font-head text-center
+          ${displayed ? "text-theme1" : "text-black"}
+        }`}
+      >
+        {card.title}
+      </h1>
+      <p className="text-sm font-body text-center text-black mt-6">
+        {card.description}
+      </p>
     </div>
   );
 };
