@@ -45,11 +45,11 @@ const About = () => {
       className=" overflow-hidden relative top-0  h-fit pb-10    pt-10 z-40"
     >
       <div className="md:container relative md:top-20  z-20  flex flex-col md:max-w-screen-xl ">
-        <div className="container grid grid-cols-2 items-center justify-between gap-2">
-          <h1 className="lg:text-4xl text-2xl font-head text-theme1">
+        <div className="container grid md:grid-cols-2 items-center justify-between gap-4 md:gap-2">
+          <h1 className="lg:text-4xl text-center md:text-left text-2xl font-head text-theme1">
             About Short Form Books
           </h1>
-          <p className="text-[12px] lg:text-base font-head text-black">
+          <p className="text-[12px] text-center md:text-left lg:text-base font-head text-black">
             Our mission is simple: we&apos;re bringing short-form content to the
             book publishing industry. We believe in creating books that align
             with modern consumption habits while preserving the charm and depth
@@ -105,10 +105,10 @@ const DesktopCard = ({
   const Icon = Icons[card.icon];
 
   return (
-    <div className=" h-[348px] relative snap-center px-3 md:px-0 ">
+    <div className=" h-[368px] relative snap-center px-3 md:px-0 ">
       <div
         onMouseEnter={() => setSelectedCard(i)}
-        className={`flex h-[300px] w-full  rounded-lg shadow-lg bg-white border-t-4 flex-col gap-3 p-4 transition-all duration-300
+        className={`flex h-[320px] w-full  rounded-lg shadow-lg bg-white border-t-4 flex-col gap-3 p-4 transition-all duration-300
      ${i === selected ? "border-t-theme1 -translate-y-12" : "translate-y-0"}
   
      `}

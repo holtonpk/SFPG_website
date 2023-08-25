@@ -26,35 +26,35 @@ const Display = () => {
     {
       id: 2,
       title: "Heartwarming Chronicles of Love",
-      image: "/image/cover.svg",
+      image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme2",
     },
     {
       id: 3,
       title: "Biggest Mysteries of the World",
-      image: "/image/cover.svg",
+      image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme3",
     },
     {
       id: 4,
       title: "Greatest Conspiracy Theories",
-      image: "/image/cover.svg",
+      image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme4",
     },
     {
       id: 5,
       title: "Business Failures and Notorious Scams",
-      image: "/image/cover.svg",
+      image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme1",
     },
     {
       id: 6,
       title: "Origin Story of Every President",
-      image: "/image/cover.svg",
+      image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme2",
     },
@@ -86,7 +86,7 @@ const Display = () => {
       id="Display"
       className="pt-20 relative pb-10  flex flex-col items-center "
     >
-      <h1 className="text-theme1 font-head  text-2xl lg:text-5xl text-center relative z-20">
+      <h1 className="text-theme1 font-head font-bold  text-4xl lg:text-5xl text-center relative z-20">
         Exciting Reads in Every Genre
       </h1>
 
@@ -116,17 +116,17 @@ const Display = () => {
 
       <div
         id="mobileDisplayScrollBox"
-        className="w-screen overflow-x-scroll no-scrollbar snap-x grid md:hidden grid-flow-col overflow-hidden   mx-auto relative z-10 mt-10 mb-4 justify-between px-20   bg-white rounded-lg h-[432px]  p-4 "
+        className="w-screen overflow-x-scroll no-scrollbar snap-x grid md:hidden grid-flow-col overflow-hidden   mx-auto relative z-10 mt-10 mb-4 justify-between px-20    rounded-lg h-[432px]  p-4 "
       >
         {displayedProducts.map((product, i) => (
           <ProductCardMobile key={i} {...{ product }} />
         ))}
       </div>
-
+      {/* 
       <Button className="border-black">
         View All Books
         <Icons.arrowRight className="h-5 w-5 ml-4" />
-      </Button>
+      </Button> */}
     </div>
   );
 };
@@ -264,7 +264,7 @@ ${
         </div>
         <div className="h-fit mt-4 relative w-full  gap-2 transition-all duration-100 justify-between items-center delay-[100ms] z-30 ">
           <Button
-            className={`w-full text-white  border-white  h-fit items-center delay-[100ms] 
+            className={`w-full text-white  border-white transition-all duration-500   h-fit items-center delay-[100ms] 
 ${centerPosition < 150 && centerPosition > -150 ? " visible" : " invisible"}
 `}
           >

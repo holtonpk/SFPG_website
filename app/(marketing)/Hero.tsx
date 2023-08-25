@@ -43,7 +43,7 @@ const Hero = () => {
           </form>
         </div>
 
-        <div className=" sm:max-w-[60%] lg:max-w-full mx-auto  relative w-full h-full  ">
+        <div className=" sm:max-w-[60%] md:max-w-full mx-auto  relative w-full h-full  ">
           <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme1 top-[114px] lg:left-[0px] left-[0px]" />
           <div className="absolute rounded-full lg:h-1 lg:w-1 h-1 w-1 bg-theme2 top-[140px] lg:left-[26px] left-[16px]" />
           <div className="absolute rounded-full lg:h-3 lg:w-3 h-2 w-2 bg-theme3 top-[157px] lg:left-[90px] left-[70px]" />
@@ -62,8 +62,8 @@ const Hero = () => {
 
           <div className="w-[250px] md:w-[300px] lg:w-[400px] h-[40vh] md:h-[85%] md:top-1/2 md:-translate-y-1/2 md:left-1/2 md:-translate-x-1/2  z-20 relative md:absolute mx-auto">
             <Image
-              src="/image/cover-shadow.svg"
-              alt="logo"
+              src="/image/cover-shadow.png"
+              alt="cover"
               fill
               objectFit="contain"
               className="ml-3"

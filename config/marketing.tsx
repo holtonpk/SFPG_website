@@ -7,12 +7,8 @@ export const marketingConfig: MarketingConfig = {
       href: "/#Display",
     },
     {
-      title: "About",
+      title: "About Us",
       href: "/#About",
-    },
-    {
-      title: "Contact",
-      href: "/#Contact",
     },
   ],
 };
