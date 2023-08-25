@@ -116,7 +116,7 @@ const Display = () => {
 
       <div
         id="mobileDisplayScrollBox"
-        className="w-screen overflow-x-scroll no-scrollbar snap-x grid md:hidden grid-flow-col overflow-hidden   mx-auto relative z-10 mt-10 mb-4 justify-between px-20    rounded-lg h-[432px]  p-4 "
+        className="w-screen overflow-x-scroll no-scrollbar snap-x snap-mandatory grid md:hidden grid-flow-col overflow-hidden   mx-auto relative z-10 mt-10 mb-4 justify-between px-20    rounded-lg h-[432px]  p-4 "
       >
         {displayedProducts.map((product, i) => (
           <ProductCardMobile key={i} {...{ product }} />
@@ -225,7 +225,7 @@ const ProductCardMobile = ({ product }: { product: DisplayedProduct }) => {
   return (
     <div
       ref={cardRef}
-      className="flex w-[300px] px-4  h-fit relative  flex-col items-center group snap-center "
+      className="flex w-[300px]   h-fit relative px-4 flex-col items-center group snap-center "
     >
       <Link
         href={`${product.href}`}
