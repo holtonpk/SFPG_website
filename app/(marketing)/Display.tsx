@@ -86,7 +86,7 @@ const Display = () => {
       id="Display"
       className="pt-20 relative pb-10  flex flex-col items-center "
     >
-      <h1 className="text-theme1 font-head font-bold  text-4xl lg:text-5xl text-center relative z-20">
+      <h1 className="text-theme1 font-head font-bold  text-4xl lg:text-5xl text-center relative z-20 px-10">
         Exciting Reads in Every Genre
       </h1>
 
