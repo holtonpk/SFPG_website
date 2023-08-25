@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import useScroll from "@/lib/hooks/use-scroll";
 import { Input } from "@/components/ui/input";
+import { useStorage } from "@/context/storage";
+import { useToast } from "@/components/ui/use-toast";
+
 const Hero = () => {
   const scrolled = useScroll(50);
 
@@ -23,7 +26,7 @@ const Hero = () => {
           <div className="scroll-arrow" />
         </div>
       )}
-      <div className="gap-6 flex flex-col md:grid md:grid-cols-2  md:py-10 container min-h-[90vh] max-w-screen-xl  ">
+      <div className="gap-6 flex flex-col md:grid md:grid-cols-2  md:py-10 container min-h-[90vh] max-w-screen-xl relative  z-20">
         <div className="flex flex-col md:gap-10 md:mt-10 h-fit md:top-[5%] relative ">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-head text-center md:text-left ">
             The Perfect Book For Business Junkies
@@ -33,14 +36,9 @@ const Hero = () => {
             riveting tales and lessons from history&apos;s most influential
             businessman.
           </h2>
-          <form className="gap-4 hidden md:flex w-3/4 border border-black p-1 rounded-full bg-transparent  ">
-            <Input
-              type="email"
-              placeholder="Want early access? Enter your email"
-              className=" border-none"
-            />
-            <Button className="bg-theme2 text-white">Submit</Button>
-          </form>
+          <div className="md:block hidden ">
+            <EmailForm />
+          </div>
         </div>
 
         <div className=" sm:max-w-[60%] md:max-w-full mx-auto  relative w-full h-full  ">
@@ -70,19 +68,58 @@ const Hero = () => {
             />
           </div>
         </div>
-        <form className="gap-4 flex md:hidden w-full border border-black p-1 rounded-full bg-transparent  ">
-          <Input
-            type="email"
-            placeholder="Want early access? Enter your email"
-            className=" border-none text-[12px] md:text-base"
-          />
-          <Button className="bg-theme2 text-white text-[12px] md:text-base">
-            Submit
-          </Button>
-        </form>
+        <div className="md:hidden ">
+          <EmailForm />
+        </div>
       </div>
     </div>
   );
 };
 
 export default Hero;
+
+const EmailForm = () => {
+  const emailRef = React.useRef<HTMLInputElement>(null);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  const { SignUpForEmailList } = useStorage()!;
+
+  const { toast } = useToast();
+
+  const Promoted_Product = 1;
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    setIsLoading(true);
+    const createMessageResult = await SignUpForEmailList(
+      emailRef.current?.value as string,
+      Promoted_Product
+    );
+    setIsLoading(false);
+    toast({
+      title: "Thanks signing up for early access!",
+      description: "We will notify you when the book is ready.",
+    });
+    emailRef.current!.value = "";
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="gap-4 flex  w-full md:w-3/4 border border-black p-1 rounded-full bg-transparent  relative z-30"
+    >
+      <Input
+        ref={emailRef}
+        type="email"
+        autoComplete="email"
+        placeholder="Want early access? Enter your email"
+        className=" border-none text-[12px] md:text-base rounded-l-full"
+      />
+      <Button className="bg-theme2 text-white text-[12px] md:text-base hover:bg-theme1 z-30">
+        {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+        Submit
+      </Button>
+    </form>
+  );
+};

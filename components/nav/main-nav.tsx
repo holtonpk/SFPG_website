@@ -50,6 +50,8 @@ export default function Nav() {
             <div className="flex flex-row items-center gap-6">
               {marketingConfig.mainNav?.length ? (
                 <nav className="hidden gap-6 md:flex">
+                  <ContactForm />
+
                   {marketingConfig.mainNav?.map((item, index) => (
                     <Link
                       key={index}
@@ -64,7 +66,6 @@ export default function Nav() {
                       {item.title}
                     </Link>
                   ))}
-                  <ContactForm />
                 </nav>
               ) : null}
             </div>
