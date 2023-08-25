@@ -4,11 +4,13 @@ export const siteConfig: SiteConfig = {
   name: "Short Form Books",
   title: "Short Form Books",
   description: "The new era of books",
+  businessName: "Short Form Publishing Group LLC",
   url: process.env.NEXT_PUBLIC_SITE_URL as string,
   logo: "",
   links: {
-    twitter: "",
-    github: "",
+    instagram: "https://www.instagram.com/shortformbooks",
+    youtube: "https://www.youtube.com/@officialsnapshotsofsuccess",
+    tiktok: "https://www.tiktok.com/@Shortformbooks",
   },
   contact: {
     supportEmail: "",

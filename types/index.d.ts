@@ -10,12 +10,14 @@ export interface FilterList {
 export type SiteConfig = {
   name: string;
   title: string;
+  businessName: string;
   description: string;
   url: string;
   logo: string;
   links: {
-    twitter: string;
-    github: string;
+    instagram: string;
+    youtube: string;
+    tiktok: string;
   };
   contact: {
     supportEmail: string;
