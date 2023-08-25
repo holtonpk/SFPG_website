@@ -36,13 +36,13 @@ export default function Nav() {
           <div className="flex   w-fit items-center sticky  md:gap-10 ">
             <Link href="/#" className="pb-1 ">
               <span className="text-2xl p-2 text-primary font-bold  flex items-center ">
-                <div className="h-10 w-10 lg:h-14 lg:w-14 relative  -mr-2">
+                <div className="h-8 w-8 lg:h-9 lg:w-9 relative rounded-lg mr-1 bg-theme1 flex justify-center items-center">
                   <Icons.logo
-                    className="text-white h-full w-full "
-                    color="rgb(77 164 224)"
+                    className="text-white h-10 w-10 absolute"
+                    color="rgb(255 255 255)"
                   />
                 </div>
-                <span className="ml-1 font-head text-theme1 text-base lg:text-xl">
+                <span className="ml-1  text-theme1 font-head lg:text-2xl">
                   {siteConfig.name}
                 </span>
               </span>
@@ -50,8 +50,6 @@ export default function Nav() {
             <div className="flex flex-row items-center gap-6">
               {marketingConfig.mainNav?.length ? (
                 <nav className="hidden gap-6 md:flex">
-                  <ContactForm />
-
                   {marketingConfig.mainNav?.map((item, index) => (
                     <Link
                       key={index}
@@ -79,14 +77,15 @@ export default function Nav() {
               className="border-none pr-6 text-[12px] lg:text-base py-1 h-full"
             ></Input>
           </form> */}
-            <div className="flex gap-4 lg:gap-6">
+            {/* <div className="flex gap-4 lg:gap-6">
               <Button className=" text-theme2 rounded-full aspect-square p-3 h-fit shadow-md">
                 <Icons.cart className="h-4 w-4 lg:h-6 lg:w-6" />
               </Button>
               <Button className=" text-theme3 rounded-full aspect-square p-3 h-fit  shadow-md">
                 <Icons.user className="h-4 w-4 lg:h-6 lg:w-6" />
               </Button>
-            </div>
+            </div> */}
+            <ContactForm />
           </div>
         </div>
       </div>

@@ -59,9 +59,10 @@ const ContactForm = () => {
       <Button
         onClick={() => setShowModal(true)}
         className={
-          "flex items-center text-base font-body transition-colors hover:text-foreground/80 text-white bg-theme1 hover:bg-theme2"
+          "flex items-center text-base font-body transition-colors hover:text-foreground/80 border-theme1 text-theme1 bg-transparent hover:text-white hover:bg-theme1"
         }
       >
+        <Icons.send className="mr-2 h-4 w-4" />
         Contact
       </Button>
       <Dialog open={showModal}>

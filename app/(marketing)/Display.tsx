@@ -19,7 +19,7 @@ const Display = () => {
       id: 1,
       title: "Business Success Stories",
 
-      image: "/image/cover.svg",
+      image: "/image/cover.png",
       href: "/products/1",
       color: "theme1",
     },
