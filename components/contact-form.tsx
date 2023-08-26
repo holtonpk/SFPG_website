@@ -65,7 +65,7 @@ const ContactForm = () => {
         <Icons.send className="mr-2 h-4 w-4" />
         Contact
       </Button>
-      <Dialog open={showModal}>
+      <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent className="bg-theme1 text-white">
           <DialogHeader>
             <DialogTitle>Contact Us</DialogTitle>
