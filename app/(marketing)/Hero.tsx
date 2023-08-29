@@ -58,7 +58,7 @@ const Hero = () => {
           <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme2 bottom-[190px] lg:right-[98px] right-[48px]" />
           <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme3 bottom-[160px] lg:right-[38px] right-[0px]" />
 
-          <div className="w-[250px] md:w-[300px] lg:w-[400px] h-[40vh] md:h-[85%] md:top-1/2 md:-translate-y-1/2 md:left-1/2 md:-translate-x-1/2  z-20 relative md:absolute mx-auto">
+          <div className="w-[250px] md:w-[300px] lg:w-[400px] h-[40vh] md:h-[85%] md:top-[45%] md:-translate-y-1/2 md:left-1/2 md:-translate-x-1/2  z-20 relative md:absolute mx-auto">
             <Image
               src="/image/cover-shadow.png"
               alt="cover"
@@ -86,16 +86,24 @@ const EmailForm = () => {
 
   const { toast } = useToast();
 
-  const Promoted_Product = 1;
+  const SUBSCRIBE_TO = "XhGP4t";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setIsLoading(true);
-    const createMessageResult = await SignUpForEmailList(
-      emailRef.current?.value as string,
-      Promoted_Product
-    );
+    await fetch("/api/email-subscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        LIST: SUBSCRIBE_TO,
+        EMAIL: emailRef.current!.value,
+        SOURCE: "Homepage hero signup form",
+      }),
+    });
+
     setIsLoading(false);
     toast({
       title: "Thanks signing up for early access!",

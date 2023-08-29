@@ -3,7 +3,7 @@ import { SiteConfig } from "@/types";
 export const siteConfig: SiteConfig = {
   name: "Short Form Books",
   title: "Short Form Books",
-  description: "The new era of books",
+  description: "Bite-Sized Stories for the Modern Bookworm",
   businessName: "Short Form Publishing Group LLC",
   url: process.env.NEXT_PUBLIC_SITE_URL as string,
   logo: "",

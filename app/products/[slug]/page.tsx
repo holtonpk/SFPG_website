@@ -126,20 +126,25 @@ const EmailForm = () => {
   const emailRef = React.useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  const { SignUpForEmailList } = useStorage()!;
-
   const { toast } = useToast();
 
-  const Promoted_Product = 1;
+  const SUBSCRIBE_TO = "XhGP4t";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setIsLoading(true);
-    const createMessageResult = await SignUpForEmailList(
-      emailRef.current?.value as string,
-      Promoted_Product
-    );
+    await fetch("/api/email-subscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        LIST: SUBSCRIBE_TO,
+        EMAIL: emailRef.current!.value,
+        SOURCE: "Product page waitlist",
+      }),
+    });
     setIsLoading(false);
     toast({
       title: "Thanks signing up for early access!",

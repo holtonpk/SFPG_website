@@ -9,26 +9,36 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userAuthSchema } from "@/lib/validations/auth";
 import * as z from "zod";
+import { useToast } from "@/components/ui/use-toast";
 
 const Waitlist = () => {
-  type FormData = z.infer<typeof userAuthSchema>;
+  const SUBSCRIBE_TO = "XhGP4t";
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm<FormData>({
-    resolver: zodResolver(userAuthSchema),
-  });
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const emailRef = React.useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
 
-  async function onSubmit() {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
     setIsLoading(true);
-    console.log("subbmiting");
-    // email storage
-    // figure out react form submission
-    // submit verification
+    await fetch("/api/email-subscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        LIST: SUBSCRIBE_TO,
+        EMAIL: emailRef.current!.value,
+        SOURCE: "signup form",
+      }),
+    });
+    setIsLoading(false);
+    toast({
+      title: "Thanks signing up for early access!",
+      description: "We will notify you when the book is ready.",
+    });
+    emailRef.current!.value = "";
   }
 
   return (
@@ -59,14 +69,11 @@ const Waitlist = () => {
           Sign up for our Waitlist here
         </h2>
         <div className="scroll-arrow-theme mx-auto mt-3" />
-        {errors?.email && (
-          <p className="px-1 text-xs text-red-600 whitespace-nowrap">
-            *{errors.email.message}
-          </p>
-        )}
-        <form onSubmit={onSubmit} className="">
+
+        <form onSubmit={handleSubmit} className="">
           <div className="border border-black rounded-full  flex mt-6 overflow-hidden relative z-20 p-1">
             <Input
+              ref={emailRef}
               placeholder="Enter your email"
               className="w-full border-none"
               type="email"
@@ -74,7 +81,6 @@ const Waitlist = () => {
               autoComplete="email"
               autoCorrect="off"
               disabled={isLoading}
-              {...register("email")}
             />
 
             <Button

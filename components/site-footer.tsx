@@ -21,14 +21,14 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             <LinkButton
               target="_blank"
               href={siteConfig.links.youtube}
-              className="border rounded-full p-2"
+              className="border rounded-full p-2 aspect-square"
             >
               <Icons.youtube className="md:h-6 md:w-6 h-4 w-4" />
             </LinkButton>
             <LinkButton
               target="_blank"
-              href={siteConfig.links.youtube}
-              className="border rounded-full p-2"
+              href={siteConfig.links.instagram}
+              className="border rounded-full p-2 aspect-square"
             >
               <Icons.instaGram className="md:h-6 md:w-6 h-4 w-4" />
             </LinkButton>
@@ -36,7 +36,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             <LinkButton
               target="_blank"
               href={siteConfig.links.tiktok}
-              className="border rounded-full p-2"
+              className="border rounded-full p-2 aspect-square"
             >
               <Icons.tiktok className="md:h-6 md:w-6 h-4 w-4" color="white" />
             </LinkButton>

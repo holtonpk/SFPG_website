@@ -11,6 +11,7 @@ import { LinkButton } from "@/components/ui/link";
 import { marketingConfig } from "@/config/marketing";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import ContactForm from "@/components/contact-form";
 const navItems = ["pricing", "changelog"];
 
@@ -36,12 +37,21 @@ export default function Nav() {
           <div className="flex   w-fit items-center sticky  md:gap-10 ">
             <Link href="/#" className="pb-1 ">
               <span className="text-2xl p-2 text-primary font-bold  flex items-center ">
-                <div className="h-8 w-8 lg:h-9 lg:w-9 relative rounded-lg mr-1 bg-theme1 flex justify-center items-center">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ rotate: 360, scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                  }}
+                  className="h-8 w-8 lg:h-9 lg:w-9 relative rounded-lg mr-1 bg-theme1 flex justify-center items-center"
+                >
                   <Icons.logo
                     className="text-white h-10 w-10 absolute"
                     color="rgb(255 255 255)"
                   />
-                </div>
+                </motion.div>
                 <span className="ml-1  text-theme1 font-head lg:text-2xl">
                   {siteConfig.name}
                 </span>
