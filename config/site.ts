@@ -15,4 +15,7 @@ export const siteConfig: SiteConfig = {
   contact: {
     supportEmail: "",
   },
+  emailLists: {
+    book1: "RMBhiE",
+  },
 };

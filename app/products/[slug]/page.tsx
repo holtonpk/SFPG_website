@@ -6,6 +6,7 @@ import { useStorage } from "@/context/storage";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Icons } from "@/components/icons";
+import { siteConfig } from "@/config/site";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const product = {
@@ -128,8 +129,6 @@ const EmailForm = () => {
 
   const { toast } = useToast();
 
-  const SUBSCRIBE_TO = "XhGP4t";
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -140,7 +139,7 @@ const EmailForm = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        LIST: SUBSCRIBE_TO,
+        LIST: siteConfig.emailLists.book1,
         EMAIL: emailRef.current!.value,
         SOURCE: "Product page waitlist",
       }),

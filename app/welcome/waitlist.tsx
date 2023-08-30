@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { userAuthSchema } from "@/lib/validations/auth";
 import * as z from "zod";
 import { useToast } from "@/components/ui/use-toast";
-
+import { siteConfig } from "@/config/site";
 const Waitlist = () => {
   const SUBSCRIBE_TO = "XhGP4t";
 
@@ -28,7 +28,7 @@ const Waitlist = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        LIST: SUBSCRIBE_TO,
+        LIST: siteConfig.emailLists.book1,
         EMAIL: emailRef.current!.value,
         SOURCE: "signup form",
       }),

@@ -22,6 +22,9 @@ export type SiteConfig = {
   contact: {
     supportEmail: string;
   };
+  emailLists: {
+    [key: string]: string;
+  };
 };
 
 export type NavItem = {

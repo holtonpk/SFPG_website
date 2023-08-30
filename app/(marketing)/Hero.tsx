@@ -7,6 +7,7 @@ import useScroll from "@/lib/hooks/use-scroll";
 import { Input } from "@/components/ui/input";
 import { useStorage } from "@/context/storage";
 import { useToast } from "@/components/ui/use-toast";
+import { siteConfig } from "@/config/site";
 
 const Hero = () => {
   const scrolled = useScroll(50);
@@ -86,8 +87,6 @@ const EmailForm = () => {
 
   const { toast } = useToast();
 
-  const SUBSCRIBE_TO = "XhGP4t";
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -98,7 +97,7 @@ const EmailForm = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        LIST: SUBSCRIBE_TO,
+        LIST: siteConfig.emailLists.book1,
         EMAIL: emailRef.current!.value,
         SOURCE: "Homepage hero signup form",
       }),
