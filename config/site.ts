@@ -4,7 +4,7 @@ export const siteConfig: SiteConfig = {
   name: "Short Form Books",
   title: "Short Form Books",
   description: "Bite-Sized Stories for the Modern Bookworm",
-  businessName: "Short Form Publishing Group LLC",
+  businessName: "Short Form Publishing",
   url: process.env.NEXT_PUBLIC_SITE_URL as string,
   logo: "",
   links: {
