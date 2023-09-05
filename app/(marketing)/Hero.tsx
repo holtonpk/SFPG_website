@@ -66,6 +66,7 @@ const Hero = () => {
               fill
               objectFit="contain"
               className="ml-3"
+              loading="eager"
             />
           </div>
         </div>
