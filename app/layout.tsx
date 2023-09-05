@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { StorageProvider } from "@/context/storage";
 import { Toaster } from "@/components/ui/toaster";
 // const inter = Inter({ subsets: ["latin"] });
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,6 +23,7 @@ export default function RootLayout({
         <body>
           <main>{children}</main>
           <Toaster />
+          <Analytics />
         </body>
       </StorageProvider>
     </html>
