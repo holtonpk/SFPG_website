@@ -59,7 +59,7 @@ const Waitlist = () => {
 
         <div className="translate-x-4 h-[40%] w-[70%] z-20 relative mx-auto mt-8">
           <Image
-            src="/image/cover-shadow.svg"
+            src="/image/cover-shadow.png"
             alt="book cover"
             fill
             objectFit="contain"
