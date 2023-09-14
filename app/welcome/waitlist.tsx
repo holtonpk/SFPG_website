@@ -63,6 +63,7 @@ const Waitlist = () => {
             alt="book cover"
             fill
             objectFit="contain"
+            loading="eager"
           />
         </div>
         <h2 className="capitalize text-theme1 mx-auto w-fit text-sm">
