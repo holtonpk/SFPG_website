@@ -30,7 +30,7 @@ const Waitlist = () => {
       body: JSON.stringify({
         LIST: siteConfig.emailLists.book1,
         EMAIL: emailRef.current!.value,
-        SOURCE: "signup form",
+        SOURCE: document.referrer,
       }),
     });
     setIsLoading(false);
