@@ -84,12 +84,11 @@ const EmailForm = () => {
   const emailRef = React.useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  const { SignUpForEmailList } = useStorage()!;
-
   const { toast } = useToast();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    console.log("submit", document.referrer);
 
     setIsLoading(true);
     await fetch("/api/email-subscribe", {
@@ -100,7 +99,8 @@ const EmailForm = () => {
       body: JSON.stringify({
         LIST: siteConfig.emailLists.book1,
         EMAIL: emailRef.current!.value,
-        SOURCE: "Homepage hero signup form",
+        // SOURCE: { source: "Homepage hero signup form", referrer: "test" },
+        SOURCE: document.referrer,
       }),
     });
 

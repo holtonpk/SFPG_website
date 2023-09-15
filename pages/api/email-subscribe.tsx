@@ -33,6 +33,9 @@ export default function handler(
                 email: EMAIL,
                 first_name: NAME ? NAME : "",
               },
+              // properties: {
+              //   Referrer: "test",
+              // },
             },
           },
         },
