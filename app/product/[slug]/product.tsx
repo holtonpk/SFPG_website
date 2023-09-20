@@ -76,7 +76,13 @@ export default function Product({ productData }: { productData: any }) {
     <div className="pt-10 md:pt-20 pb-20 ">
       <div className="grid md:grid-cols-[40%_60%] lg::grid-cols-[50%_50%] md:w-[80%] mx-auto">
         <div className="w-full h-[400px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] z-20 ml-3 md:ml-0 relative mx-auto">
-          <Image src={product.imageSrc} alt="logo" fill objectFit="contain" />
+          <Image
+            loading="eager"
+            src={product.imageSrc}
+            alt="logo"
+            fill
+            objectFit="contain"
+          />
         </div>
         <div className="flex flex-col p-10 gap-4">
           <h1 className="text-2xl md:text-3xl lg:text-5xl font-head uppercase text-center md:text-left ">
