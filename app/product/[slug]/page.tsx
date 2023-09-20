@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { siteConfig } from "@/config/site";
-import Product from "./prodcut";
+import Product from "./product";
 interface Props {
   products: any;
   data: any;
