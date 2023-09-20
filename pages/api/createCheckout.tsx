@@ -2,12 +2,19 @@ import { postToShopify } from "../../lib/validations/shopify";
 
 import { NextApiRequest, NextApiResponse } from "next";
 
+type CheckoutObject = {
+  variantId: string;
+  quantity: number;
+};
+
 export default async function handler(
   _req: NextApiRequest,
   res: NextApiResponse
 ) {
   // Parse lineItems from request headers
-  const lineItemsHeader = _req.headers["x-line-items"];
+  // const lineItemsHeader = _req.headers["x-line-items"] as CheckoutObject[];
+  const lineItemsHeader = _req.headers["x-line-items"] as string | undefined;
+
   let lineItems;
 
   if (lineItemsHeader) {
@@ -44,5 +51,3 @@ export default async function handler(
 
   res.status(200).json(data);
 }
-
-// [{ variantId: "gid://shopify/ProductVariant/7687490601184", quantity: 1 }]
