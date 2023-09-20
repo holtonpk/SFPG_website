@@ -70,7 +70,7 @@ export default function Product({ productData }: { productData: any }) {
     };
 
     redirectToLink();
-  }, [redirectToCheckout, checkoutObject]);
+  }, [redirectToCheckout, checkoutObject, router]);
 
   return (
     <div className="pt-10 md:pt-20 pb-20 ">
