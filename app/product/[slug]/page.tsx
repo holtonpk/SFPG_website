@@ -40,6 +40,7 @@ const getData = async (id: string): Promise<any> => {
     compareAtPrice: node.variants.edges[0].node.compareAtPriceV2,
     variants: node.variants,
   };
+  console.log("product", product);
 
   return {
     product,
