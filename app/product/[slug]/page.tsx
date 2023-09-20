@@ -48,14 +48,13 @@ const getData = async (id: string): Promise<any> => {
 };
 
 export default async function ProductPage({ params }: any) {
-  // const data = await getData(params.id);
+  const data = await getData(params.id);
 
-  // console.log("data ===>", data);
+  console.log("data ===>", data);
 
   return (
     <div className="min-h-screen  flex flex-col justify-between ">
-      {/* <Product productData={data} /> */}
-      test
+      <Product productData={data} />
     </div>
   );
 }
