@@ -5,6 +5,7 @@ import { useCart } from "../context/cart";
 import Link from "next/link";
 import { Icons } from "./icons";
 import { useRouter } from "next/navigation";
+import { siteConfig } from "@/config/site";
 
 import {
   Sheet,
@@ -196,12 +197,8 @@ interface getCheckoutLinkProps {
 
 export const getCheckoutLink = async (checkoutObject: getCheckoutLinkProps) => {
   try {
-    console.log("envurl===>", process.env.NEXT_PUBLIC_URL);
-    const url = new URL(process.env.NEXT_PUBLIC_URL || "http://localhost:3000");
-
-    url.pathname = "/api/createCheckout";
     //dynamofit.vercel.app/
-    const res = await fetch(url.toString(), {
+    const res = await fetch(`${siteConfig.url}/api/createCheckout`, {
       // const res = await fetch("https://dynamofit.vercel.app/api/createCheckout", {
       method: "POST",
       headers: {
