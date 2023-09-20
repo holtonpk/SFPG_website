@@ -6,52 +6,6 @@ interface Props {
   data: any;
 }
 
-export async function getProductData() {
-  const url = new URL("http://localhost:3000");
-  url.pathname = "/api/products";
-
-  const res = await fetch(url.toString());
-
-  if (!res.ok) {
-    console.error(res);
-    return { props: {} };
-  }
-
-  const data = await res.json();
-
-  console.log("data ===>", data);
-
-  const product = data.products.edges.map(({ node }: any) => {
-    if (node.totalInventory <= 0) {
-      return false;
-    }
-
-    return {
-      id: node.id,
-      title: node.title,
-      description: node.descriptionHtml,
-      quantityAvailable: node.totalInventory,
-      images: node.images.edges,
-      imageSrc: node.images.edges[0].node.src,
-      imageAlt: node.title,
-      price: node.variants.edges[0].node.priceV2,
-      compareAtPrice: node.variants.edges[0].node.compareAtPriceV2,
-      variants: node.variants,
-      reviews: {
-        ratingAverage: node.ratingAverage.value || 0,
-        ratingCount: node.ratingCount.value || 0,
-        productReviews: node.productReviews,
-      },
-    };
-  });
-
-  return {
-    props: {
-      products: product,
-    },
-  };
-}
-
 const getData = async (id: string): Promise<any> => {
   const res = await fetch(`${siteConfig.url}/api/products`, {
     cache: "no-cache",
