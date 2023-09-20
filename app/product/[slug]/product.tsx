@@ -11,6 +11,13 @@ import { useCart } from "@/context/cart";
 import { useRouter } from "next/navigation";
 import { getCheckoutLink } from "@/components/cart-preview";
 
+import { constructMetadata } from "@/lib/utils";
+
+export const metadata = constructMetadata({
+  title: `${siteConfig.title} - The new era of books`,
+  description: siteConfig.description,
+});
+
 export default function Product({ productData }: { productData: any }) {
   // const product = {
   //   id: 1,
