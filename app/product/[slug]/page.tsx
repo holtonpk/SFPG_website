@@ -16,7 +16,7 @@ const getData = async (id: string): Promise<any> => {
   const prodDataRes = await fetch(`${siteConfig.url}/api/products`, {
     cache: "no-cache",
   });
-  const productData: any[] = await prodDataRes.json();
+  const productData: ProductsData = await prodDataRes.json();
 
   // const accountPromises = record.accounts.map((account: string) =>
   //   fetch(`${siteConfig.url}/api/view-account/${account}`, {
@@ -39,11 +39,6 @@ const getData = async (id: string): Promise<any> => {
     price: node.variants.edges[0].node.priceV2,
     compareAtPrice: node.variants.edges[0].node.compareAtPriceV2,
     variants: node.variants,
-    reviews: {
-      ratingAverage: node.ratingAverage?.value || 0,
-      ratingCount: node.ratingCount?.value || 0,
-      productReviews: node.productReviews,
-    },
   };
 
   return {
@@ -66,3 +61,59 @@ export default async function ProductPage({ params }: any) {
 interface Props {
   products: any;
 }
+
+type Product = {
+  id: string;
+  handle: string;
+  descriptionHtml: string;
+  title: string;
+  totalInventory: number;
+  ratingAverage: number | null;
+  ratingCount: number | null;
+  productReviews: any[] | null; // You can replace 'any' with the actual type of product reviews if available
+  variants: {
+    edges: {
+      node: {
+        id: string;
+        title: string;
+        quantityAvailable: number;
+        priceV2: {
+          amount: string;
+          currencyCode: string;
+        };
+        compareAtPriceV2: {
+          amount: string;
+          currencyCode: string;
+        };
+      };
+    }[];
+  };
+  priceRange: {
+    maxVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+    minVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+  };
+  images: {
+    edges: {
+      node: {
+        src: string;
+        altText: string | null;
+      };
+    }[];
+  };
+};
+
+type ProductEdge = {
+  node: Product;
+};
+
+type ProductsData = {
+  products: {
+    edges: ProductEdge[];
+  };
+};
