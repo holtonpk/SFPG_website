@@ -3,10 +3,16 @@ import { LinkButton } from "@/components/ui/link";
 import Nav from "@/components/nav/main-nav";
 import { SiteFooter } from "@/components/site-footer";
 import MobileNav from "@/components/nav/mobile-nav";
-
+import { siteConfig } from "@/config/site";
 interface MarketingLayoutProps {
   children: React.ReactNode;
 }
+import { constructMetadata } from "@/lib/utils";
+
+export const metadata = constructMetadata({
+  title: `${siteConfig.title} - The new era of books`,
+  description: siteConfig.description,
+});
 
 export default async function MarketingLayout({
   children,
