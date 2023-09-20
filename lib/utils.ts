@@ -351,12 +351,11 @@ import { Metadata } from "next";
 export function constructMetadata({
   title = siteConfig.title,
   description = siteConfig.description,
-  image = "image/favicon.ico",
 }: {
   title?: string;
   description?: string;
-  image?: string;
 }): Metadata {
+  const image = "image/favicon.ico";
   return {
     title,
     description,
