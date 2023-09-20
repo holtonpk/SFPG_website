@@ -100,11 +100,13 @@ import {
   GraduationCapIcon,
   Trash2,
   BookX,
+  ShoppingBag,
 } from "lucide-react";
 
 //   export type XIcon = LucideIcon;
 
 export const Icons = {
+  shoppingBag: ShoppingBag,
   bookX: BookX,
   trash: Trash2,
   graduationCap: GraduationCapIcon,

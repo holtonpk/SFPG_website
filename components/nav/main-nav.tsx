@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import ContactForm from "@/components/contact-form";
+import { useCart } from "../../context/cart";
 const navItems = ["pricing", "changelog"];
 
 const transparentHeaderSegments = new Set(["metatags", "pricing"]);
@@ -22,6 +23,11 @@ export default function Nav() {
 
   const scrolled = useScroll(20);
   const segment = useSelectedLayoutSegment();
+
+  const { showCartPreview, setShowCartPreview, cartTotalQuantity } = useCart();
+  const toggleCart = () => {
+    setShowCartPreview(!showCartPreview);
+  };
 
   return (
     // <div
@@ -78,7 +84,7 @@ export default function Nav() {
               ) : null}
             </div>
           </div>
-          <div className="flex w-fit items-center relative gap-4 lg:gap-10  h-10">
+          <div className="flex w-fit items-center relative gap-4   h-10">
             {/* <form className="border rounded-full flex items-center bg-transparent border-black px-2 h-full">
             <Icons.search className="h-4 w-4 lg:h-6 lg:w-6" />
             <Input
@@ -96,6 +102,17 @@ export default function Nav() {
               </Button>
             </div> */}
             <ContactForm />
+            <Button
+              onClick={toggleCart}
+              className="rounded-full relative flex items-center justify-center p-2 transition-colors hover:text-foreground/80 border-theme1 text-theme1 bg-transparent hover:text-white hover:bg-theme1 aspect-square"
+            >
+              {cartTotalQuantity > 0 && (
+                <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-4 w-4 font-bold p-1 text-sm flex items-center justify-center text-theme1 bg-[#EDF6FB] rounded-full">
+                  {cartTotalQuantity}
+                </span>
+              )}
+              <Icons.shoppingBag className="h-5 w-5 " />
+            </Button>
           </div>
         </div>
       </div>

@@ -5,6 +5,8 @@ import { StorageProvider } from "@/context/storage";
 import { Toaster } from "@/components/ui/toaster";
 // const inter = Inter({ subsets: ["latin"] });
 import { Analytics } from "@vercel/analytics/react";
+import { CartProvider } from "@/context/cart";
+import CartPreview from "@/components/cart-preview";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,9 +23,12 @@ export default function RootLayout({
       <StorageProvider>
         {/* <body className={inter.className}> */}
         <body>
-          <main>{children}</main>
-          <Toaster />
-          <Analytics />
+          <CartProvider>
+            <main>{children}</main>
+            <Toaster />
+            <Analytics />
+            <CartPreview />
+          </CartProvider>
         </body>
       </StorageProvider>
     </html>
