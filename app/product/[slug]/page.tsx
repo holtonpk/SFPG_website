@@ -5,6 +5,12 @@ interface Props {
   products: any;
   data: any;
 }
+import { constructMetadata } from "@/lib/utils";
+
+export const metadata = constructMetadata({
+  title: `${siteConfig.title} - The new era of books`,
+  description: siteConfig.description,
+});
 
 const getData = async (id: string): Promise<any> => {
   const res = await fetch(`${siteConfig.url}/api/products`, {
