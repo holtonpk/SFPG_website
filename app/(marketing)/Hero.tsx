@@ -61,7 +61,7 @@ const Hero = () => {
 
           <div className="w-[250px] md:w-[300px] lg:w-[400px] h-[40vh] md:h-[85%] md:top-[45%] md:-translate-y-1/2 md:left-1/2 md:-translate-x-1/2  z-20 relative md:absolute mx-auto">
             <Image
-              src="/image/cover-shadow.png"
+              src="/image/cover-shadow2.png"
               alt="cover"
               fill
               objectFit="contain"
