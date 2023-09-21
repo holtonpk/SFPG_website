@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { useStorage } from "@/context/storage";
 import { useToast } from "@/components/ui/use-toast";
 import { siteConfig } from "@/config/site";
-
+import coverImage from "@/public/image/cover-shadow2.png";
 const Hero = () => {
   const scrolled = useScroll(50);
 
@@ -61,10 +61,11 @@ const Hero = () => {
 
           <div className="w-[250px] md:w-[300px] lg:w-[400px] h-[40vh] md:h-[85%] md:top-[45%] md:-translate-y-1/2 md:left-1/2 md:-translate-x-1/2  z-20 relative md:absolute mx-auto">
             <Image
-              src="/image/cover-shadow2.png"
+              src={coverImage}
               alt="cover"
               fill
               objectFit="contain"
+              sizes={"(max-width: 768px) 100vw, 300px"}
               className="ml-3"
               loading="eager"
             />
