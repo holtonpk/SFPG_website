@@ -16,14 +16,14 @@ const page = () => {
         </h1>
 
         <p className="text-lg font-body mt-4 w-1/2 text-center">
-          Our mission is simple: we're bringing short-form content to the book
-          publishing industry. We believe in creating books that align with
+          Our mission is simple: we&apos;re bringing short-form content to the
+          book publishing industry. We believe in creating books that align with
           modern consumption habits while preserving the charm and depth of
           traditional reading. <br /> <br /> Our commitment is to publish
           compelling books filled with a compilation of short stories, each of
-          which can be enjoyed within 15-20 minutes. It's the perfect balance
-          for young readers seeking intriguing, quick-to-read stories without
-          having to commit to a 500-page novel. We aim to make reading
+          which can be enjoyed within 15-20 minutes. It&apos;s the perfect
+          balance for young readers seeking intriguing, quick-to-read stories
+          without having to commit to a 500-page novel. We aim to make reading
           accessible, engaging, and appealing to a new generation of readers who
           live in a digital age characterized by instant gratification.
         </p>
@@ -43,14 +43,14 @@ const page = () => {
           </span>
         </h1>
         <p className="text-lg font-body mt-4">
-          Our mission is simple: we're bringing short-form content to the book
-          publishing industry. We believe in creating books that align with
+          Our mission is simple: we&apos;re bringing short-form content to the
+          book publishing industry. We believe in creating books that align with
           modern consumption habits while preserving the charm and depth of
           traditional reading. <br /> <br /> Our commitment is to publish
           compelling books filled with a compilation of short stories, each of
-          which can be enjoyed within 15-20 minutes. It's the perfect balance
-          for young readers seeking intriguing, quick-to-read stories without
-          having to commit to a 500-page novel. We aim to make reading
+          which can be enjoyed within 15-20 minutes. It&apos;s the perfect
+          balance for young readers seeking intriguing, quick-to-read stories
+          without having to commit to a 500-page novel. We aim to make reading
           accessible, engaging, and appealing to a new generation of readers who
           live in a digital age characterized by instant gratification.
         </p>
