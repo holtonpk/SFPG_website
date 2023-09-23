@@ -11,6 +11,8 @@ import { userAuthSchema } from "@/lib/validations/auth";
 import * as z from "zod";
 import { useToast } from "@/components/ui/use-toast";
 import { siteConfig } from "@/config/site";
+import coverImage from "@/public/image/cover-shadow2.png";
+
 const Waitlist = () => {
   const SUBSCRIBE_TO = "XhGP4t";
 
@@ -42,7 +44,7 @@ const Waitlist = () => {
   }
 
   return (
-    <div className="bg-theme1/10 h-screen max-h-screen w-screen ">
+    <div className="bg-theme-blue/10 h-screen max-h-screen w-screen ">
       <div className="md:max-w-xl mx-auto relative h-screen p-4  w-screen ">
         <div className="absolute  top-0 left-1/2 -translate-x-1/2 z-10 w-screen md:w-[150%] h-screen  ">
           <Image src="/image/brush2.svg" alt="brush" fill objectFit="contain" />
@@ -51,7 +53,9 @@ const Waitlist = () => {
           <div className="h-12 w-12 relative ">
             <Icons.logo className="text-white" color="rgb(238 33 127)" />
           </div>
-          <span className="ml-1 font-head text-theme2">Short Form Books</span>
+          <span className="ml-1 font-head text-theme-pink">
+            Short Form Books
+          </span>
         </span>
         <h1 className="font-head text-3xl font-bold text-center mt-4">
           The Perfect Book For Business Junkies
@@ -59,14 +63,14 @@ const Waitlist = () => {
 
         <div className="translate-x-4 h-[40%] w-[70%] z-20 relative mx-auto mt-8">
           <Image
-            src="/image/cover-shadow.png"
+            src={coverImage}
             alt="book cover"
             fill
             objectFit="contain"
             loading="eager"
           />
         </div>
-        <h2 className="capitalize text-theme1 mx-auto w-fit text-sm">
+        <h2 className="capitalize text-theme-blue mx-auto w-fit text-sm">
           Sign up for our Waitlist here
         </h2>
         <div className="scroll-arrow-theme mx-auto mt-3" />
@@ -85,7 +89,7 @@ const Waitlist = () => {
             />
 
             <Button
-              className="rounded-full bg-theme1 text-white whitespace-nowrap border-none"
+              className="rounded-full bg-theme-blue text-white whitespace-nowrap border-none"
               disabled={isLoading}
             >
               {isLoading && (

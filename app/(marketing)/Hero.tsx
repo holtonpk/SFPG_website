@@ -29,7 +29,7 @@ const Hero = () => {
       )}
       <div className="gap-6 flex flex-col md:grid md:grid-cols-2  md:py-10 container min-h-[90vh] max-w-screen-xl relative  z-20">
         <div className="flex flex-col md:gap-10 md:mt-10 h-fit md:top-[5%] relative ">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-head text-center md:text-left ">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl  font-head text-center md:text-left ">
             The Perfect Book For Business Junkies
           </h1>
           <h2 className="block font-body text-[12px] mt-4 md:mt-0 md:text-base lg:text-xl text-center md:text-left">
@@ -43,21 +43,21 @@ const Hero = () => {
         </div>
 
         <div className=" sm:max-w-[60%] md:max-w-full mx-auto  relative w-full h-full  ">
-          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme1 top-[114px] lg:left-[0px] left-[0px]" />
-          <div className="absolute rounded-full lg:h-1 lg:w-1 h-1 w-1 bg-theme2 top-[140px] lg:left-[26px] left-[16px]" />
-          <div className="absolute rounded-full lg:h-3 lg:w-3 h-2 w-2 bg-theme3 top-[157px] lg:left-[90px] left-[70px]" />
-          <div className="absolute rounded-full lg:h-3 lg:w-3 h-2 w-2 bg-theme3 top-[57px] lg:left-[20px] left-[20px]" />
-          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme4 top-[100px] lg:left-[70px] left-[50px]" />
-          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme2 top-[162px] lg:left-[60px] left-[40px]" />
-          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme1 top-[202px] lg:left-[80px] left-[60px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme-blue top-[114px] lg:left-[0px] left-[0px]" />
+          <div className="absolute rounded-full lg:h-1 lg:w-1 h-1 w-1 bg-theme-pink top-[140px] lg:left-[26px] left-[16px]" />
+          <div className="absolute rounded-full lg:h-3 lg:w-3 h-2 w-2 bg-theme-purple top-[157px] lg:left-[90px] left-[70px]" />
+          <div className="absolute rounded-full lg:h-3 lg:w-3 h-2 w-2 bg-theme-purple top-[57px] lg:left-[20px] left-[20px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme-yellow top-[100px] lg:left-[70px] left-[50px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme-pink top-[162px] lg:left-[60px] left-[40px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme-blue top-[202px] lg:left-[80px] left-[60px]" />
 
-          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme1 bottom-[220px] lg:right-[80px] right-[6px]" />
-          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme4 bottom-[210px] lg:right-[40px] right-[20px]" />
-          <div className="absolute rounded-full lg:h-1 lg:w-1 h-1 w-1 bg-theme2 bottom-[240px] lg:right-[80px] right-[30px]" />
-          <div className="absolute rounded-full lg:h-3 lg:w-3 h-2 w-2 bg-theme3 bottom-[270px] lg:right-[110px] right-[40px]" />
-          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme4 bottom-[250px] lg:right-[120px] right-[50px]" />
-          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme2 bottom-[190px] lg:right-[98px] right-[48px]" />
-          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme3 bottom-[160px] lg:right-[38px] right-[0px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme-blue bottom-[220px] lg:right-[80px] right-[6px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme-yellow bottom-[210px] lg:right-[40px] right-[20px]" />
+          <div className="absolute rounded-full lg:h-1 lg:w-1 h-1 w-1 bg-theme-pink bottom-[240px] lg:right-[80px] right-[30px]" />
+          <div className="absolute rounded-full lg:h-3 lg:w-3 h-2 w-2 bg-theme-purple bottom-[270px] lg:right-[110px] right-[40px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme-yellow bottom-[250px] lg:right-[120px] right-[50px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme-pink bottom-[190px] lg:right-[98px] right-[48px]" />
+          <div className="absolute rounded-full lg:h-2 lg:w-2 h-1 w-1 bg-theme-purple bottom-[160px] lg:right-[38px] right-[0px]" />
 
           <div className="w-[250px] md:w-[300px] lg:w-[400px] h-[40vh] md:h-[85%] md:top-[45%] md:-translate-y-1/2 md:left-1/2 md:-translate-x-1/2  z-20 relative md:absolute mx-auto">
             <Image
@@ -125,7 +125,7 @@ const EmailForm = () => {
         placeholder="Want early access? Enter your email"
         className=" border-none text-[12px] md:text-base rounded-l-full"
       />
-      <Button className="bg-theme2 text-white text-[12px] md:text-base hover:bg-theme1 z-30">
+      <Button variant={"pink"} className=" text-[12px] md:text-base z-30">
         {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
         Submit
       </Button>

@@ -20,14 +20,6 @@ import * as z from "zod";
 import React from "react";
 
 const ContactForm = () => {
-  const createMessageSchema = z.object({
-    email: z.string().email(),
-    name: z.string(),
-    message: z.string(),
-  });
-
-  type FormData = z.infer<typeof createMessageSchema>;
-
   const messageRef = React.useRef<HTMLTextAreaElement>(null);
   const nameRef = React.useRef<HTMLInputElement>(null);
   const emailRef = React.useRef<HTMLInputElement>(null);
@@ -44,7 +36,8 @@ const ContactForm = () => {
     const createMessageResult = await CreateNewMessage(
       nameRef.current?.value as string,
       emailRef.current?.value as string,
-      messageRef.current?.value as string
+      messageRef.current?.value as string,
+      "subject"
     );
     setIsLoading(false);
     setShowModal(false);
@@ -57,16 +50,15 @@ const ContactForm = () => {
   return (
     <>
       <Button
+        variant={"blueOutline"}
         onClick={() => setShowModal(true)}
-        className={
-          "flex items-center text-base font-body transition-colors hover:text-foreground/80 border-theme1 text-theme1 bg-transparent hover:text-white hover:bg-theme1"
-        }
+        className={"flex items-center text-base font-body "}
       >
         <Icons.send className="mr-2 h-4 w-4" />
         Contact
       </Button>
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="bg-theme1 text-white">
+        <DialogContent className="bg-background ">
           <DialogHeader>
             <DialogTitle>Contact Us</DialogTitle>
             <DialogDescription>
@@ -77,32 +69,22 @@ const ContactForm = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
               <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                placeholder="First name"
-                ref={nameRef}
-                className="placeholder:text-white/70"
-              />
+              <Input id="name" placeholder="First name" ref={nameRef} />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                placeholder="Enter your email"
-                ref={emailRef}
-                className="placeholder:text-white/70"
-              />
+              <Input id="email" placeholder="Enter your email" ref={emailRef} />
             </div>
           </div>
           <Label htmlFor="Message">Message</Label>
           <Textarea
             placeholder="enter your message here"
-            className="bg-transparent placeholder:text-white/70"
+            className="bg-transparent "
             id="Message"
             ref={messageRef}
           />
           <DialogFooter>
-            <Button onClick={onSubmit} type="submit">
+            <Button onClick={onSubmit} type="submit" variant="blue">
               {isLoading ? (
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : (

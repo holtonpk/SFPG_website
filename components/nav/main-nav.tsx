@@ -19,8 +19,6 @@ const navItems = ["pricing", "changelog"];
 const transparentHeaderSegments = new Set(["metatags", "pricing"]);
 
 export default function Nav() {
-  const { domain = "dub.sh" } = useParams() as { domain: string };
-
   const scrolled = useScroll(20);
   const segment = useSelectedLayoutSegment();
 
@@ -38,8 +36,8 @@ export default function Nav() {
     //   })}
     // >
     <>
-      <div className="mx-auto w-full z-20  absolute  container hidden md:block">
-        <div className="flex h-20 items-center justify-between w-full  border-b">
+      <div className="mx-auto w-full z-20  absolute   hidden  md:block border-b">
+        <div className="flex h-20 items-center justify-between w-full container    ">
           <div className="flex   w-fit items-center sticky  md:gap-10 ">
             <Link href="/#" className="pb-1 ">
               <span className="text-2xl p-2 text-primary font-bold  flex items-center ">
@@ -51,14 +49,14 @@ export default function Nav() {
                     stiffness: 260,
                     damping: 20,
                   }}
-                  className="h-8 w-8 lg:h-9 lg:w-9 relative rounded-lg mr-1 bg-theme1 flex justify-center items-center"
+                  className="h-8 w-8 lg:h-9 lg:w-9 relative rounded-lg mr-1 bg-theme-blue flex justify-center items-center"
                 >
                   <Icons.logo
                     className="text-white h-10 w-10 absolute"
                     color="rgb(255 255 255)"
                   />
                 </motion.div>
-                <span className="ml-1  text-theme1 font-head lg:text-2xl">
+                <span className="ml-1  text-theme-blue font-head lg:text-2xl">
                   {siteConfig.name}
                 </span>
               </span>
@@ -72,7 +70,7 @@ export default function Nav() {
                       href={item.disabled ? "#" : item.href}
                       className={cn(
                         "flex items-center text-base font-body transition-colors hover:text-foreground/80 ",
-                        item?.cta ? "text-theme1" : "text-black",
+                        item?.cta ? "text-theme-blue" : "text-black",
 
                         item.disabled && "cursor-not-allowed opacity-80"
                       )}
@@ -85,29 +83,21 @@ export default function Nav() {
             </div>
           </div>
           <div className="flex w-fit items-center relative gap-4   h-10">
-            {/* <form className="border rounded-full flex items-center bg-transparent border-black px-2 h-full">
-            <Icons.search className="h-4 w-4 lg:h-6 lg:w-6" />
-            <Input
-              type="text"
-              placeholder="Search for a title"
-              className="border-none pr-6 text-[12px] lg:text-base py-1 h-full"
-            ></Input>
-          </form> */}
-            {/* <div className="flex gap-4 lg:gap-6">
-              <Button className=" text-theme2 rounded-full aspect-square p-3 h-fit shadow-md">
-                <Icons.cart className="h-4 w-4 lg:h-6 lg:w-6" />
-              </Button>
-              <Button className=" text-theme3 rounded-full aspect-square p-3 h-fit  shadow-md">
-                <Icons.user className="h-4 w-4 lg:h-6 lg:w-6" />
-              </Button>
-            </div> */}
-            <ContactForm />
+            <LinkButton
+              variant={"blueOutline"}
+              href={"/contact"}
+              className={"flex items-center text-base font-body "}
+            >
+              <Icons.send className="mr-2 h-4 w-4" />
+              Contact
+            </LinkButton>
             <Button
+              variant={"blueOutline"}
               onClick={toggleCart}
-              className="rounded-full relative flex items-center justify-center p-2 transition-colors hover:text-foreground/80 border-theme1 text-theme1 bg-transparent hover:text-white hover:bg-theme1 aspect-square"
+              className="rounded-full relative flex items-center justify-center p-2  aspect-square"
             >
               {cartTotalQuantity > 0 && (
-                <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-4 w-4 font-bold p-1 text-sm flex items-center justify-center text-theme1 bg-[#EDF6FB] rounded-full">
+                <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-4 w-4 font-bold p-1 text-sm flex items-center justify-center text-theme-blue bg-[#EDF6FB] rounded-full">
                   {cartTotalQuantity}
                 </span>
               )}

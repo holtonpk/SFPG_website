@@ -14,8 +14,12 @@ import {
 } from "firebase/firestore";
 
 interface StorageContextType {
-  CreateNewMessage: (name: string, email: string, message: string) => void;
-  SignUpForEmailList: (email: string, product: number) => void;
+  CreateNewMessage: (
+    name: string,
+    email: string,
+    subject: string,
+    message: string
+  ) => void;
 }
 
 const StorageContext = createContext<StorageContextType | null>(null);
@@ -32,26 +36,19 @@ export function StorageProvider({ children }: { children: React.ReactNode }) {
   const CreateNewMessage = async (
     name: string,
     email: string,
+    subject: string,
     message: string
   ) => {
     const d = await addDoc(collection(db, "messages"), {
       name: name,
       email: email,
+      subject: subject,
       message: message,
     });
     console.log("Document written with ID: ", d);
   };
 
-  const SignUpForEmailList = async (email: string, product: number) => {
-    const d = await setDoc(doc(db, `emails/${product}/emails`, email), {
-      email: email,
-    });
-    // const d = await addDoc(collection(db, "emails"), {
-    //   email: email,
-    // });
-  };
-
-  const value = { CreateNewMessage, SignUpForEmailList };
+  const value = { CreateNewMessage };
 
   return (
     <StorageContext.Provider value={value}>{children}</StorageContext.Provider>

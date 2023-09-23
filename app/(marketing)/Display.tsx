@@ -21,42 +21,42 @@ const Display = () => {
 
       image: "/image/cover.png",
       href: "/products/1",
-      color: "theme1",
+      color: "theme-blue",
     },
     {
       id: 2,
       title: "Heartwarming Chronicles of Love",
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
-      color: "theme2",
+      color: "theme-pink",
     },
     {
       id: 3,
       title: "Biggest Mysteries of the World",
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
-      color: "theme3",
+      color: "theme-purple",
     },
     {
       id: 4,
       title: "Greatest Conspiracy Theories",
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
-      color: "theme4",
+      color: "theme-yellow",
     },
     {
       id: 5,
       title: "Business Failures and Notorious Scams",
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
-      color: "theme1",
+      color: "theme-blue",
     },
     {
       id: 6,
       title: "Origin Story of Every President",
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
-      color: "theme2",
+      color: "theme-pink",
     },
   ];
 
@@ -86,7 +86,7 @@ const Display = () => {
       id="Display"
       className="pt-20 relative pb-10  flex flex-col items-center "
     >
-      <h1 className="text-theme1 font-head font-bold  text-4xl lg:text-5xl text-center relative z-20 px-10">
+      <h1 className="text-theme-blue font-head font-bold  text-4xl lg:text-5xl text-center relative z-20 px-10">
         Exciting Reads in Every Genre
       </h1>
 
@@ -95,12 +95,14 @@ const Display = () => {
         className="hidden md:grid md:grid-cols-4 grid-flow-col  gap-8  mx-auto relative z-10 mt-10 mb-4 justify-between w-[80%]   bg-white rounded-lg h-[432px]  p-4"
       >
         <Button
+          variant={"blue"}
           onClick={() => moveCarousel("right")}
           className="absolute top-1/2 -right-20 z-20 w-fit"
         >
           <Icons.arrowRight className="h-5 w-5 " />
         </Button>
         <Button
+          variant={"blue"}
           onClick={() => moveCarousel("left")}
           className="absolute top-1/2 -left-20 z-20 w-fit"
         >
@@ -175,7 +177,7 @@ const ProductCardDesktop = ({
     ${
       product.id === selectedCard
         ? "h-[350px] bg-white/10"
-        : "bg-theme1/10 h-[350px] "
+        : "bg-theme-blue/10 h-[350px] "
     }
     `}
         >
@@ -185,7 +187,8 @@ const ProductCardDesktop = ({
         </div>
         <div className="h-fit mt-4 relative w-full  gap-2 transition-all duration-100 justify-between items-center delay-[100ms] z-30 ">
           <Button
-            className={`w-full text-white  border-white  h-fit items-center delay-[100ms] 
+            variant={"secondaryOutline"}
+            className={`w-full   h-fit items-center delay-[100ms] 
       ${product.id === selectedCard ? " visible" : " invisible"}
       `}
           >
@@ -254,7 +257,7 @@ ${centerPosition < 150 && centerPosition > -150 ? "text-white" : `black`}
 ${
   centerPosition < 150 && centerPosition > -150
     ? "flex-grow bg-white/10"
-    : "bg-theme1/10 flex-grow "
+    : "bg-theme-blue/10 flex-grow "
 }
 `}
         >

@@ -94,7 +94,7 @@ export default function MobileNav() {
                 color="rgb(77 164 224)"
               />
             </div>
-            <span className="ml-1 font-head text-theme1 text-sm">
+            <span className="ml-1 font-head text-theme-blue text-sm">
               {siteConfig.name}
             </span>
           </span>

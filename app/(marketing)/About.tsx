@@ -46,7 +46,7 @@ const About = () => {
     >
       <div className="md:container relative md:top-20  z-20  flex flex-col md:max-w-screen-xl ">
         <div className="container grid md:grid-cols-2 items-center justify-between gap-4 md:gap-2">
-          <h1 className="lg:text-4xl text-center md:text-left text-2xl font-head text-theme1">
+          <h1 className="lg:text-4xl text-center md:text-left text-2xl font-head text-theme-blue">
             About Short Form Books
           </h1>
           <p className="text-[12px] text-center md:text-left lg:text-base font-head text-black">
@@ -84,7 +84,7 @@ const About = () => {
           </div>
         </div>
       </div>
-      <div className="absolute w-full  bg-white h-full md:h-[70%] left-0 top-0" />
+      <div className="absolute w-full bg-white h-full md:h-[70%] left-0 top-0" />
     </div>
   );
 };
@@ -109,18 +109,18 @@ const DesktopCard = ({
       <div
         onMouseEnter={() => setSelectedCard(i)}
         className={`flex h-[320px] w-full  rounded-lg shadow-lg bg-white border-t-4 flex-col gap-3 p-4 transition-all duration-300
-     ${i === selected ? "border-t-theme1 -translate-y-12" : "translate-y-0"}
+     ${i === selected ? "border-t-theme-blue -translate-y-12" : "translate-y-0"}
   
      `}
       >
         <Icon
-          className={`${i === selected ? "text-theme1" : "text-black"}
+          className={`${i === selected ? "text-theme-blue" : "text-black"}
 
        }  h-8 w-8 mx-auto mt-5`}
         />
         <h1
           className={`text-base lg:text-2xl font-head text-center ${
-            i === selected ? "text-theme1" : "text-black"
+            i === selected ? "text-theme-blue" : "text-black"
           }
        }`}
         >
@@ -160,7 +160,7 @@ const MobileCard = ({ card, i }: { card: WhyCard; i: number }) => {
       className={`snap-centers relative  md:hidden bottom-0 h-[300px] w-[300px] md:w-full rounded-lg shadow-lg bg-white border-t-4 flex flex-col gap-3 p-4 transition-all duration-300
       ${
         displayed
-          ? "border-t-theme1 -translate-x-0 "
+          ? "border-t-theme-blue -translate-x-0 "
           : i % 2 == 0
           ? "-translate-x-20 opacity-0"
           : "translate-x-20 opacity-0"
@@ -169,12 +169,12 @@ const MobileCard = ({ card, i }: { card: WhyCard; i: number }) => {
     >
       <Icon
         className={`
-          ${displayed ? "text-theme1" : "text-black"}
+          ${displayed ? "text-theme-blue" : "text-black"}
         }  h-8 w-8 mx-auto mt-5`}
       />
       <h1
         className={` text-2xl font-head text-center
-          ${displayed ? "text-theme1" : "text-black"}
+          ${displayed ? "text-theme-blue" : "text-black"}
         }`}
       >
         {card.title}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState, useEffect } from "react";
 
 const CartContext = createContext<any | null>(null);
 
@@ -16,19 +16,36 @@ export const CartProvider = ({ children }: Props) => {
   const [showCartPreview, setShowCartPreview] = useState(false);
   const [cart, setCart] = useState<any>([]);
 
-  const addToCart = (product: any) => {
+  const addToCart = (product: any, quantity: number) => {
     const productIndex = cart.findIndex(
       (item: any) => item.title === product.title
     );
     const newCart = [...cart];
     if (newCart[productIndex]) {
-      newCart[productIndex].quantity = newCart[productIndex].quantity + 1;
+      newCart[productIndex].quantity =
+        newCart[productIndex].quantity + quantity;
     } else {
-      newCart.push({ ...product, quantity: 1 });
+      newCart.push({ ...product, quantity: quantity });
     }
-    console.log("newCart", newCart, product);
     setCart(newCart);
   };
+
+  useEffect(() => {
+    const cartFromLocalStorage = localStorage.getItem("cart");
+    if (cartFromLocalStorage) {
+      setCart(JSON.parse(cartFromLocalStorage));
+    } else {
+      saveCartToLocalStorage();
+    }
+  }, []);
+
+  useEffect(() => {
+    saveCartToLocalStorage();
+  }, [cart]);
+
+  function saveCartToLocalStorage() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
 
   const updateQuantity = (e: any, productTitle: any) => {
     const productIndex = cart.findIndex(
@@ -57,9 +74,6 @@ export const CartProvider = ({ children }: Props) => {
       };
     }),
   ];
-  console.log("cart!!!!!!!", cart);
-
-  console.log("checkoutObject!!!!!!!", checkoutObject);
 
   const cartTotalPrice =
     cart.length > 0 &&

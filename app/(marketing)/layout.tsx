@@ -12,7 +12,7 @@ export default async function MarketingLayout({
   children,
 }: MarketingLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-theme1/10 ">
+    <div className="flex min-h-screen flex-col bg-background ">
       <Nav />
       <MobileNav />
       <main className="flex-1 z-10">{children}</main>
