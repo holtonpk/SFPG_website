@@ -7,6 +7,18 @@ import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/react";
 import { CartProvider } from "@/context/cart";
 import CartPreview from "@/components/cart-preview";
+const express = require("express");
+const cors = require("cors");
+
+const app = express();
+
+// Allow requests from http://localhost:3000
+const corsOptions = {
+  origin: "http://localhost:3000",
+};
+
+// Enable CORS with the specified options
+app.use(cors(corsOptions));
 
 export const metadata: Metadata = {
   title: "Create Next App",
