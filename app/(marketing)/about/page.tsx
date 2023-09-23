@@ -5,9 +5,11 @@ const page = () => {
     <div className="pt-20 pb-20   ">
       <div className="bg-theme-blue/5 w-full  p-20 flex flex-col items-center relative">
         <h1 className="text-xl font-body font-semibold text-center">
+          <span className="text-red-500 text-[12px]">a1</span>
           Short Form Books
         </h1>
         <h1 className="text-3xl font-body font-bold text-center">
+          <span className="text-red-500 text-[12px]">a2</span>
           The
           <span className="decoration-theme-blue  underline ml-1 font-body">
             Origin
@@ -16,6 +18,7 @@ const page = () => {
         </h1>
 
         <p className="text-lg font-body mt-4 w-1/2 text-center">
+          <span className="text-red-500 text-[12px]">a3</span>
           Our mission is simple: we&apos;re bringing short-form content to the
           book publishing industry. We believe in creating books that align with
           modern consumption habits while preserving the charm and depth of
@@ -29,6 +32,7 @@ const page = () => {
         </p>
       </div>
       <h1 className="text-3xl text-center font-medium mt-20">
+        <span className="text-red-500 text-[12px]">a4</span>
         The{" "}
         <span className="text-theme-blue underline ml-1 font-body">
           Mission
@@ -37,12 +41,14 @@ const page = () => {
       </h1>
       <div className="bg-background border shadow-xl container mt-4 rounded-md p-8 w-1/2">
         <h1 className="text-2xl font-body font-semibold">
+          <span className="text-red-500 text-[12px]">a5</span>
           Our mission is{" "}
           <span className="decoration-theme-blue  underline ml-1 font-body">
             to bring short-form content to the book publishing industry.
           </span>
         </h1>
         <p className="text-lg font-body mt-4">
+          <span className="text-red-500 text-[12px]">a6</span>
           Our mission is simple: we&apos;re bringing short-form content to the
           book publishing industry. We believe in creating books that align with
           modern consumption habits while preserving the charm and depth of
@@ -54,7 +60,9 @@ const page = () => {
           accessible, engaging, and appealing to a new generation of readers who
           live in a digital age characterized by instant gratification.
         </p>
-        <h1 className="text-2xl font-head font-semibold mt-10">- SFPG Team</h1>
+        <h1 className="text-2xl font-head font-semibold mt-10">
+          <span className="text-red-500 text-[12px]">a7</span>- SFPG Team
+        </h1>
       </div>
     </div>
   );
