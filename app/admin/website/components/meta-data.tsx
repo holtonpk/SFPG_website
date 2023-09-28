@@ -117,7 +117,10 @@ const MetaData = ({
     setEditMetaData(false);
   }
   console.log("liveMetaData", liveMetaData);
-  console.log("image:" + siteConfig.url + "/" + liveMetaData?.favicons[0].href);
+  console.log(
+    "image:" + liveMetaData &&
+      siteConfig.url + "/" + liveMetaData?.favicons[0].href
+  );
 
   return (
     <div className="w-full">
