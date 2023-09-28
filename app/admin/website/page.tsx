@@ -39,18 +39,18 @@ const Page = () => {
   // sync with db
   const [updateRequests, setUpdateRequests] = React.useState<UpdateRequest[]>([
     {
-      title: "Update the title",
+      title: "Update this text",
       status: "pending",
       priority: "routine",
       type: "edit",
-      locationsDescription: "top of the page",
+      locationDescription: "top of the page",
       locations: [
         {
           viewPort: "laptop",
-          element: "Div",
+          element: "p",
           text: "Craving a little motivation? Open this book to dive into a world of riveting tales and lessons from history's most influential businessman.",
           location: {
-            id: "hero-title",
+            id: "about-description",
           },
         },
       ],

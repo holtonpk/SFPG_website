@@ -29,6 +29,7 @@ import {
   ScreenSize,
   Author,
 } from "@/app/admin/types";
+import { useAdminStorage } from "@/app/admin/context/storage";
 
 export function CreateRequest({
   selectedLocation,
@@ -49,6 +50,8 @@ export function CreateRequest({
   showLive: boolean;
   setShowLive: (showLive: boolean) => void;
 }) {
+  const { CreateUpdateRequest } = useAdminStorage()!;
+
   const removeLocation = (loc: Location) => {
     Array.isArray(selectedLocation) &&
       setSelectedLocation(selectedLocation?.filter((l) => l !== loc));
@@ -60,20 +63,21 @@ export function CreateRequest({
 
   const [priority, setPriority] = React.useState<string>();
   const [type, setType] = React.useState<string>();
-  const locationInput = React.useRef<HTMLInputElement>(null);
+
   const descriptionInput = React.useRef<HTMLTextAreaElement>(null);
   const locationDescriptionInput = React.useRef<HTMLInputElement>(null);
   const titleInputRef = React.useRef<HTMLInputElement>(null);
   const createRequestRef = React.useRef<HTMLDivElement>(null);
-  const submitRequest = () => {
+
+  async function submitRequest() {
     const newRequest: UpdateRequest = {
       title: titleInputRef.current?.value || "",
       status: "pending",
       type: type,
       priority: priority,
       description: "",
-      locationsDescription: locationInput.current?.value,
-      locations: selectedLocation,
+      locationDescription: locationDescriptionInput.current?.value || "",
+      locations: selectedLocation || [],
       date: new Date().getTime(),
       author: {
         name: "John Doe",
@@ -81,18 +85,20 @@ export function CreateRequest({
         initials: "JD",
       },
     };
+    CreateUpdateRequest(newRequest);
     setUpdateRequests([...updateRequests, newRequest]);
     setSelectedLocation([]);
     setCreateRequest(false);
     cancelRequest();
-  };
+  }
 
   const cancelRequest = () => {
     setSelectedLocation([]);
     setCreateRequest(false);
     setPriority("");
     setType("");
-    if (locationInput.current) locationInput.current.value = "";
+    if (locationDescriptionInput.current)
+      locationDescriptionInput.current.value = "";
     if (descriptionInput.current) descriptionInput.current.value = "";
     if (locationDescriptionInput.current)
       locationDescriptionInput.current.value = "";
@@ -172,7 +178,6 @@ export function CreateRequest({
             ref={locationDescriptionInput}
             id="location"
             placeholder="Describe where it's located on the site?"
-            className=""
           />
           <span className=" text-center">or</span>
           {selectedLocation.length === 0 ? (

@@ -130,7 +130,7 @@ const MetaData = ({
               {liveMetaData?.favicons[0]?.href ? (
                 <Image
                   alt="fav"
-                  src={liveMetaData?.favicons[0].href}
+                  src={"/" + liveMetaData?.favicons[0].href}
                   fill
                   objectFit="contain"
                 />

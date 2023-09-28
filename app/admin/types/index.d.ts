@@ -24,7 +24,7 @@ export type UpdateRequest = {
   status: "pending" | "in progress" | "completed" | "rejected";
   priority: "routine" | "important" | "critical" | any;
   type: "add" | "edit" | "remove" | "fix" | "move" | "other" | any;
-  locationsDescription?: string;
+  locationDescription?: string;
   locations: Location[];
   description: string;
   author: Author;
