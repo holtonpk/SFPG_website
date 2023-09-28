@@ -19,13 +19,19 @@ import {
   DropdownMenuTrigger,
 } from "@/app/admin/components/ui/dropdown-menu";
 import { siteConfig } from "@/config/site";
-import { ScreenSize } from "@/app/admin/website/page";
+
 import { set } from "react-hook-form";
-import { Location } from "@/app/admin/website/page";
+
 import { Edit } from "lucide-react";
-import { UpdateRequest } from "@/app/admin/website/page";
-import { Note, Author } from "@/app/admin/website/page";
-import { DisplayPage } from "@/app/admin/website/page";
+
+import {
+  Location,
+  Note,
+  UpdateRequest,
+  ScreenSize,
+  Author,
+  DisplayPage,
+} from "@/app/admin/types";
 
 const Iframe = ({
   displayPage,

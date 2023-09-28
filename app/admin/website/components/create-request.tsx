@@ -20,9 +20,15 @@ import {
   SelectValue,
 } from "@/app/admin/components/ui/select";
 import { Textarea } from "@/app/admin/components/ui/textarea";
-import { Location } from "@/app/admin/website/page";
+
 import { set } from "react-hook-form";
-import { UpdateRequest } from "@/app/admin/website/page";
+import {
+  Location,
+  Note,
+  UpdateRequest,
+  ScreenSize,
+  Author,
+} from "@/app/admin/types";
 
 export function CreateRequest({
   selectedLocation,

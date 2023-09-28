@@ -21,7 +21,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/app/admin/components/ui/alert-dialog";
-import { DisplayPage } from "@/app/admin/website/page";
+import { DisplayPage } from "@/app/admin/types";
+
 // import { editJsonFile } from "@/app/admin/lib/utils";
 import pagesConfig from "@/config/pagesConfig.json";
 import { Textarea } from "@/app/(client)/components/ui/textarea";

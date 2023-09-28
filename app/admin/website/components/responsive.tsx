@@ -9,7 +9,8 @@ import {
 import { Icons } from "@/app/(client)/components/icons";
 import { Switch } from "@/app/admin/components/ui/switch";
 import { Label } from "@/app/admin/components/ui/label";
-import { ScreenSize, screenSizes } from "@/app/admin/website/page";
+import { screenSizes } from "@/app/admin/lib/config";
+import { ScreenSize } from "@/app/admin/types";
 const Responsive = ({
   screenSize,
   setScreenSize,

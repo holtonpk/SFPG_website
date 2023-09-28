@@ -9,8 +9,9 @@ import {
   SelectValue,
 } from "@/app/admin/components/ui/select";
 import { siteConfig } from "@/config/site";
-import { DisplayPage } from "@/app/admin/website/page";
 import pagesConfig from "@/config/pagesConfig.json";
+import { DisplayPage } from "@/app/admin/types";
+
 const PageSelector = ({
   displayPage,
   setDisplayPage,

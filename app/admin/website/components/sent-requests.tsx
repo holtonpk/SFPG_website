@@ -21,7 +21,7 @@ import {
 } from "@/app/admin/components/ui/avatar";
 import { Icons } from "@/app/admin/components/icons";
 import { Button } from "@/app/admin/components/ui/button";
-import { UpdateRequest } from "@/app/admin/website/page";
+import { UpdateRequest } from "@/app/admin/types";
 import { CardFooter } from "@/app/(client)/components/ui/card";
 import { timeSince } from "@/app/admin/lib/utils";
 import { ScrollArea } from "@/app/admin/components/ui/scroll-area";
