@@ -116,6 +116,7 @@ const MetaData = ({
     setLoading(false);
     setEditMetaData(false);
   }
+  console.log("liveMetaData", liveMetaData);
 
   return (
     <div className="w-full">
