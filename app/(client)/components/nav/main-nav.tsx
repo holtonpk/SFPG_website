@@ -110,7 +110,6 @@ export default function Nav() {
               variant={"blueOutline"}
               href={"/contact"}
               className={"flex items-center text-base font-body "}
-              id="header-contact-button"
             >
               <Icons.send className="mr-2 h-4 w-4" />
               Contact
