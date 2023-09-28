@@ -1,0 +1,33 @@
+{
+  "home": {
+    "id": "home",
+    "title": "Short Form Books | Bite-Sized Stories for the Modern Bookworm ",
+    "url": "/",
+    "description": "Dive into stories curated for the modern reader. From inspiring business tales to spine-tingling conspiracies, our diverse range is here to captivate your curiosity."
+  },
+  "about": {
+    "id": "about",
+    "title": "About Us | Short Form Books",
+
+    "url": "/about",
+    "description": "We are a team of writers, editors, and designers who are passionate about the power of storytelling. We believe that great stories can change the world, and we want to make them accessible to everyone."
+  },
+  "books": {
+    "id": "books",
+    "title": "Books | Short Form Books",
+    "url": "/books",
+    "description": "Dive into stories curated for the modern reader. From inspiring business tales to spine-tingling conspiracies, our diverse range is here to captivate your curiosity."
+  },
+  "welcome": {
+    "id": "welcome",
+    "title": "Welcome | Short Form Books",
+    "url": "/welcome",
+    "description": "Dive into stories curated for the modern reader. From inspiring business tales to spine-tingling conspiracies, our diverse range is here to captivate your curiosity."
+  },
+  "contact": {
+    "id": "contact",
+    "title": "Contact Us | Short Form Books",
+    "url": "/contact",
+    "description": "Dive into stories curated for the modern reader. From inspiring business tales to spine-tingling conspiracies, our diverse range is here to captivate your curiosity."
+  }
+}

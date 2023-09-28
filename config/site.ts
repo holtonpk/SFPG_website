@@ -1,4 +1,5 @@
 import { SiteConfig } from "@/types";
+import pagesConfig from "@/config/pagesConfig.json";
 
 export const siteConfig: SiteConfig = {
   name: "Short Form Books",
@@ -18,4 +19,5 @@ export const siteConfig: SiteConfig = {
   emailLists: {
     book1: "RMBhiE",
   },
+  pages: pagesConfig,
 };

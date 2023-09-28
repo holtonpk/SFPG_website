@@ -7,6 +7,16 @@ export interface FilterList {
   label: string;
 }
 
+export type Page = {
+  id: string;
+  title: string;
+  url: string;
+  description: string;
+};
+type Pages = {
+  [pageName: string]: Page;
+};
+
 export type SiteConfig = {
   name: string;
   title: string;
@@ -25,6 +35,7 @@ export type SiteConfig = {
   emailLists: {
     [key: string]: string;
   };
+  pages: Pages;
 };
 
 export type NavItem = {

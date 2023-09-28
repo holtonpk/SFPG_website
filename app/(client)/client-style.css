@@ -1,0 +1,350 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap"); */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@config "./tailwind.client.config.ts";
+
+@layer base {
+  :root .client {
+    --globe-style: 0;
+
+    --blue: 204, 70%, 59%;
+    --purple: 268, 34%, 57%;
+    --pink: 332, 86%, 53%;
+    --yellow: 36, 100%, 67%;
+
+    --background: #eef5fb;
+    --foreground: 0 0% 0%;
+
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 40%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    --border: 0 0% 92%;
+    --input: 0 0% 92%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --primary: 0 0% 0%;
+    --primary-foreground: 210 40% 98%;
+    --primary-h: 0;
+    --primary-s: 0%;
+    --primary-l: 0%;
+
+    --secondary: 0 0% 90%;
+    --secondary-foreground: 0 0% 0%;
+    --secondary-h: 0;
+    --secondary-s: 0%;
+    --secondary-l: 90%;
+
+    --accent: 0 0% 80%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+}
+
+.adminMessage {
+  position: absolute;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+.update-request {
+  outline: 3px solid hsl(142, 71%, 45%);
+  position: relative;
+}
+
+.update-request:after {
+  z-index: 9999;
+  content: "Request - " attr(update-title);
+  white-space: nowrap;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: fit-content;
+  width: fit-content;
+  padding: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 4px 4px 0 0;
+  transform: translateY(-100%);
+  background: hsl(142, 71%, 45%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+
+  font-size: 16px;
+}
+
+.hover-section {
+  outline: 3px solid hsl(221.2 83.2% 53.3%);
+  position: relative;
+}
+
+.hover-section:after {
+  z-index: 9999;
+  content: attr(name);
+  white-space: nowrap;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: fit-content;
+  width: fit-content;
+  padding: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 4px 4px 0 0;
+  transform: translateY(-100%);
+  background: hsl(221.2 83.2% 53.3%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+
+  font-size: 16px;
+}
+
+@keyframes applyHoverEffect2 {
+  0% {
+    outline: none;
+  }
+  100% {
+    outline: 3px solid hsl(221.2 83.2% 53.3%);
+  }
+}
+
+/* Apply the animation to the .hover-section class with a 200ms delay */
+.hover-locate {
+  animation-name: applyHoverEffect2;
+  animation-duration: 300ms;
+  animation-fill-mode: both;
+}
+
+.selected-element {
+  border: 3px solid hsl(221.2 83.2% 53.3%);
+  position: relative;
+  border-radius: 10px;
+}
+
+.selected-element::before {
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+  content: "";
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: hsl(221.2 83.2% 53.3% / 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.b-b {
+  border: 1px solid blue !important;
+}
+
+.b-r {
+  border: 1px dashed #ff0000 !important;
+}
+
+.scroll-arrow {
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  animation: arrow-wave 1s infinite;
+  animation-direction: alternate;
+}
+
+.scroll-arrow-theme {
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  border-right: 2px solid rgb(77 164 224);
+  border-bottom: 2px solid rgb(77 164 224);
+  animation: arrow-wave 1s infinite;
+  animation-direction: alternate;
+}
+.scroll-arrow:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.scroll-arrow:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.scroll-arrow:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes arrow-wave {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.cardDescription {
+  width: 100%;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.flip-container {
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -o-perspective: 1000;
+  perspective: 1000;
+
+  border: 1px solid #ccc;
+}
+
+.flip-container:hover .flipper,
+.flip-container.hover .flipper {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.flip-container,
+.front,
+.back {
+  width: 320px;
+  height: 427px;
+}
+
+.flipper {
+  -webkit-transition: 0.6s;
+  -webkit-transform-style: preserve-3d;
+
+  -moz-transition: 0.6s;
+  -moz-transform-style: preserve-3d;
+
+  -o-transition: 0.6s;
+  -o-transform-style: preserve-3d;
+
+  transition: 0.6s;
+  transform-style: preserve-3d;
+
+  position: relative;
+}
+
+.front,
+.back {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.front {
+  background: url(http://davidwalsh.name/demo/dwflip.jpg) 0 0 no-repeat;
+  z-index: 2;
+}
+
+.back {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+
+  background: #f8f8f8;
+}
+
+.front .name {
+  font-size: 2em;
+  display: inline-block;
+  background: rgba(33, 33, 33, 0.9);
+  color: #f8f8f8;
+  font-family: Courier;
+  padding: 5px 10px;
+  border-radius: 5px;
+  bottom: 60px;
+  left: 25%;
+  position: absolute;
+  text-shadow: 0.1em 0.1em 0.05em #333;
+
+  -webkit-transform: rotate(-20deg);
+  -moz-transform: rotate(-20deg);
+  -o-transform: rotate(-20deg);
+  transform: rotate(-20deg);
+}
+
+.back-logo {
+  position: absolute;
+  top: 40px;
+  left: 90px;
+  width: 160px;
+  height: 117px;
+  background: url(http://davidwalsh.name/demo/logo.png) 0 0 no-repeat;
+}
+
+.back-title {
+  font-weight: bold;
+  color: #00304a;
+  position: absolute;
+  top: 180px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  text-shadow: 0.1em 0.1em 0.05em #acd7e5;
+  font-family: Courier;
+  font-size: 2em;
+}
+
+.back p {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0 20px;
+  font-family: arial;
+  line-height: 2em;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
