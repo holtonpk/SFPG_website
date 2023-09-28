@@ -118,8 +118,7 @@ const MetaData = ({
   }
   console.log("liveMetaData", liveMetaData);
   console.log(
-    "image:" + liveMetaData &&
-      siteConfig.url + "/" + liveMetaData?.favicons[0].href
+    "image:" + liveMetaData && siteConfig.url + liveMetaData?.favicons[0].href
   );
 
   return (
@@ -131,7 +130,7 @@ const MetaData = ({
               {liveMetaData?.favicons[0]?.href ? (
                 <Image
                   alt="fav"
-                  src={siteConfig.url + "/" + liveMetaData?.favicons[0].href}
+                  src={siteConfig.url + liveMetaData?.favicons[0].href}
                   fill
                   objectFit="contain"
                 />
