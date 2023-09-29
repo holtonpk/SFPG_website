@@ -20,7 +20,7 @@ import {
   ScreenSize,
   DisplayPage,
 } from "@/app/admin/types";
-import { screenSizes, Note1 } from "@/app/admin/lib/config";
+import { screenSizes } from "@/app/admin/lib/config";
 import { set } from "date-fns";
 
 const Page = () => {
@@ -47,7 +47,7 @@ const Page = () => {
     []
   );
 
-  const [notes, setNotes] = React.useState<Note[]>([Note1]);
+  const [notes, setNotes] = React.useState<Note[]>([]);
 
   useEffect(() => {
     const getUpdateRequests = async () => {
