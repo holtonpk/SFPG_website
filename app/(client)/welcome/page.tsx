@@ -9,11 +9,11 @@ const Page = () => {
     initGA();
   }, []);
 
-  React.useEffect(() => {
-    if (window) {
-      ReactGA.pageview(window.location.pathname + window.location.search);
-    }
-  }, [window]);
+  // React.useEffect(() => {
+  //   if (window) {
+  //     ReactGA.pageview(window.location.pathname + window.location.search);
+  //   }
+  // }, [window]);
 
   return <Waitlist />;
 };
