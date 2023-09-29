@@ -10,8 +10,10 @@ const Page = () => {
   }, []);
 
   React.useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  }, []);
+    if (window) {
+      ReactGA.pageview(window.location.pathname + window.location.search);
+    }
+  }, [window]);
 
   return <Waitlist />;
 };
