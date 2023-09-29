@@ -17,9 +17,12 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/app/admin/components/ui/dropdown-menu";
+import { useAuth } from "@/app/admin/context/user-auth";
 
 export function UserNav() {
   const { setTheme } = useTheme();
+
+  const { currentUser, logOut } = useAuth()!;
 
   return (
     <div className=" flex gap-4 items-center">
@@ -30,7 +33,7 @@ export function UserNav() {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-12 w-12 rounded-full ">
             <Avatar className="h-10 w-10">
-              <AvatarImage src="/avatars/02.png" alt="@shadcn" />
+              <AvatarImage src={currentUser?.avatar} alt="@shadcn" />
               <AvatarFallback>PH</AvatarFallback>
             </Avatar>
           </Button>
@@ -38,9 +41,11 @@ export function UserNav() {
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">Patrick Holton</p>
+              <p className="text-sm font-medium leading-none">
+                {currentUser?.firstName + " " + currentUser?.lastName}
+              </p>
               <p className="text-xs leading-none text-muted-foreground">
-                holtonpk@gmail.com
+                {currentUser?.email}
               </p>
             </div>
           </DropdownMenuLabel>
@@ -61,7 +66,7 @@ export function UserNav() {
             <DropdownMenuItem>New Team</DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={logOut}>
             Log out
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>

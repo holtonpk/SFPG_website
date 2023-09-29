@@ -1,9 +1,11 @@
 import React from "react";
 import "./style.css";
 import { ThemeProvider } from "@/app/admin/components/theme-provider";
-import AdminNav from "./website/components/admin-nav";
+import AdminNav from "./components/admin-nav";
 import { Toaster } from "@/app/admin/components/ui/toaster";
 import { AdminStorageProvider } from "@/app/admin/context/storage";
+import { AuthProvider } from "@/app/admin/context/user-auth";
+import UserSignedIn from "@/app/admin/components/user-signed-in";
 
 export default async function AdminLayout({
   children,
@@ -11,17 +13,8 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AdminStorageProvider>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <Toaster />
-        <div
-          id="admin"
-          className="bg-background min-h-screen flex  justify-center  pb-4 flex-col"
-        >
-          <AdminNav />
-          {children}
-        </div>
-      </ThemeProvider>
-    </AdminStorageProvider>
+    <AuthProvider>
+      <UserSignedIn>{children}</UserSignedIn>
+    </AuthProvider>
   );
 }

@@ -1,15 +1,18 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import { siteConfig } from "@/config/site";
-import SentRequests from "@/app/admin/website/components/sent-requests";
-import MetaData from "@/app/admin/website/components/meta-data";
-import Iframe from "@/app/admin/website/components/iframe";
-import Responsive from "@/app/admin/website/components/responsive";
-import PageSelector from "@/app/admin/website/components/page-selector";
-import { CreateRequest } from "@/app/admin/website/components/create-request";
+import SentRequests from "@/app/admin/(protected)/website/components/sent-requests";
+import MetaData from "@/app/admin/(protected)/website/components/meta-data";
+import Iframe from "@/app/admin/(protected)/website/components/iframe";
+import Responsive from "@/app/admin/(protected)/website/components/responsive";
+import PageSelector from "@/app/admin/(protected)/website/components/page-selector";
+
+import { CreateRequest } from "@/app/admin/(protected)/website/components/create-request";
 import { Card } from "@/app/admin/components/ui/card";
-import AdminNav from "@/app/admin/website/components/admin-nav";
+import AdminNav from "@/app/admin/components/admin-nav";
 import pagesConfig from "@/config/pagesConfig.json";
+import { useAdminStorage } from "@/app/admin/context/storage";
+
 import {
   Location,
   Note,
@@ -18,8 +21,11 @@ import {
   DisplayPage,
 } from "@/app/admin/types";
 import { screenSizes, Note1 } from "@/app/admin/lib/config";
+import { set } from "date-fns";
 
 const Page = () => {
+  const { FetchUpdateRequests, FetchNotes } = useAdminStorage()!;
+
   const [displayPage, setDisplayPage] = React.useState<DisplayPage>({
     id: "home",
     url: "/",
@@ -37,34 +43,25 @@ const Page = () => {
   );
 
   // sync with db
-  const [updateRequests, setUpdateRequests] = React.useState<UpdateRequest[]>([
-    {
-      title: "Update this text",
-      status: "pending",
-      priority: "routine",
-      type: "edit",
-      locationDescription: "top of the page",
-      locations: [
-        {
-          viewPort: "laptop",
-          element: "p",
-          text: "Craving a little motivation? Open this book to dive into a world of riveting tales and lessons from history's most influential businessman.",
-          location: {
-            id: "about-description",
-          },
-        },
-      ],
-      description: "The title is outdated please fix it ",
-      author: {
-        name: "Patrick Holton",
-        initials: "PH",
-        avatar: "/avatars/02.png",
-      },
-      date: 1695853683,
-    },
-  ]);
+  const [updateRequests, setUpdateRequests] = React.useState<UpdateRequest[]>(
+    []
+  );
 
   const [notes, setNotes] = React.useState<Note[]>([Note1]);
+
+  useEffect(() => {
+    const getUpdateRequests = async () => {
+      const updateRequestsRed = await FetchUpdateRequests();
+      setUpdateRequests(updateRequestsRed);
+    };
+
+    const getNotes = async () => {
+      const notesRed = await FetchNotes();
+      setNotes(notesRed);
+    };
+    getNotes();
+    getUpdateRequests();
+  }, [FetchUpdateRequests, FetchNotes]);
 
   return (
     <>

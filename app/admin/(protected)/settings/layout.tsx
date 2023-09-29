@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 import { Separator } from "@/app/admin/components/ui/separator";
-import { SidebarNav } from "@/app/admin/settings/components/sidebar-nav";
+import { SidebarNav } from "@/app/admin/(protected)/settings/components/sidebar-nav";
 
 export const metadata: Metadata = {
   title: "Forms",

@@ -1,5 +1,5 @@
 import { Separator } from "@/app/admin/components/ui/separator";
-import { AccountForm } from "@/app/admin/settings/account/account-form";
+import { AccountForm } from "@/app/admin/(protected)/settings/account/account-form";
 
 export default function SettingsAccountPage() {
   return (

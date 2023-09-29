@@ -1,3 +1,18 @@
+import { User as FirebaseUser } from "firebase/auth";
+
+export interface UserData extends FirebaseUser {
+  firstName: string;
+  lastName: string;
+  avatar: string;
+}
+
+export interface Author {
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  email: string;
+}
+
 export type ScreenSize = {
   title: string;
   height: number;
@@ -13,13 +28,8 @@ export type Location = {
   };
 };
 
-export type Author = {
-  name: string;
-  avatar: string;
-  initials: string;
-};
-
 export type UpdateRequest = {
+  id: string;
   title: string;
   status: "pending" | "in progress" | "completed" | "rejected";
   priority: "routine" | "important" | "critical" | any;
@@ -39,10 +49,11 @@ export type NoteLocation = {
 };
 
 export type Note = {
+  id: string;
   author: Author;
   text: string;
   color: string;
-  date: string;
+  date: number;
   location: NoteLocation;
 };
 

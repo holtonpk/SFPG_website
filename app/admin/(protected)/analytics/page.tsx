@@ -10,8 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/admin/components/ui/card";
-import { Icons } from "../components/icons";
-import { CalendarDateRangePicker } from "@/app/admin/analytics/components/date-range-picker";
+import { Icons } from "../../components/icons";
+import { CalendarDateRangePicker } from "@/app/admin/(protected)/analytics/components/date-range-picker";
 
 const page = () => {
   const tags = Array.from({ length: 10 }).map(

@@ -25,6 +25,8 @@ import { UpdateRequest } from "@/app/admin/types";
 import { CardFooter } from "@/app/(client)/components/ui/card";
 import { timeSince } from "@/app/admin/lib/utils";
 import { ScrollArea } from "@/app/admin/components/ui/scroll-area";
+import { useAdminStorage } from "@/app/admin/context/storage";
+import { toast } from "@/app/admin/components/ui/use-toast";
 
 const SentRequests = ({
   updateRequests,
@@ -35,7 +37,26 @@ const SentRequests = ({
   setUpdateRequests: (requests: UpdateRequest[]) => void;
   setCreateRequest: (createRequest: boolean) => void;
 }) => {
-  console.log("updateRequests", updateRequests.length);
+  const { DeleteUpdateRequest } = useAdminStorage()!;
+
+  async function deleteUpdateRequest(request: UpdateRequest) {
+    const res = await DeleteUpdateRequest(request.id);
+
+    if (res == "success") {
+      setUpdateRequests(updateRequests.filter((r) => r.title != request.title));
+      toast({
+        title: "Request deleted",
+        description: "The request has been deleted. ",
+      });
+    } else {
+      toast({
+        title: "Error deleting request ",
+        description: "Please contact support. ",
+        variant: "destructive",
+      });
+    }
+  }
+
   return (
     <>
       {updateRequests.length <= 0 ? (
@@ -71,11 +92,16 @@ const SentRequests = ({
                   <div className="flex ga-2">
                     <Avatar className="h-9 w-9">
                       <AvatarImage src={request.author.avatar} alt="Avatar" />
-                      <AvatarFallback>{request.author.initials}</AvatarFallback>
+                      <AvatarFallback>
+                        {request.author.firstName[0] +
+                          request.author.lastName[0]}
+                      </AvatarFallback>
                     </Avatar>
                     <div className="ml-4 space-y-1">
                       <p className="text-sm font-medium leading-none ">
-                        {request.author.name}
+                        {request.author.firstName +
+                          " " +
+                          request.author.lastName}
                       </p>
                       <div className="flex gap-2 items-center">
                         <div className="flex items-center gap-1">
@@ -96,19 +122,13 @@ const SentRequests = ({
                   </p>
 
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                    <DropdownMenuTrigger className="hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center rounded-md p-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
                       <Icons.ellipsis className="h-4 w-4" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                       <DropdownMenuItem
                         className="text-red-600"
-                        onClick={() => {
-                          setUpdateRequests(
-                            updateRequests.filter(
-                              (r) => r.title != request.title
-                            )
-                          );
-                        }}
+                        onClick={() => deleteUpdateRequest(request)}
                       >
                         Delete
                       </DropdownMenuItem>

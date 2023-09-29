@@ -19,10 +19,8 @@ import {
   DropdownMenuTrigger,
 } from "@/app/admin/components/ui/dropdown-menu";
 import { siteConfig } from "@/config/site";
-
-import { set } from "react-hook-form";
-
-import { Edit } from "lucide-react";
+import { timeSince } from "@/app/admin/lib/utils";
+import { generateRandomId } from "@/app/admin/lib/utils";
 
 import {
   Location,
@@ -32,6 +30,9 @@ import {
   Author,
   DisplayPage,
 } from "@/app/admin/types";
+import { useAuth } from "@/app/admin/context/user-auth";
+import { auth } from "@/config/firebase";
+import { useAdminStorage } from "@/app/admin/context/storage";
 
 const Iframe = ({
   displayPage,
@@ -92,7 +93,7 @@ const Iframe = ({
   const selectedLocationRef = React.useRef<Location[]>();
   let previouslyHoveredElement = React.useRef<HTMLElement | null>(null);
   const createRequestRef = React.useRef<boolean>(false);
-  const hoverMessageRef = React.useRef<HTMLDivElement | null>(null);
+  const hoverNoteRef = React.useRef<HTMLDivElement | null>(null);
 
   // states  ==================================>
   const [scale, setScale] = React.useState<number | undefined>(undefined);
@@ -106,6 +107,9 @@ const Iframe = ({
     y: number;
     scrollHeight: number;
   } | null>(null);
+
+  const { DeleteNote, CreateNote } = useAdminStorage()!;
+  const { author } = useAuth()!;
 
   // sync selectedLocationRef.current with selectedLocation ==================================>
   useEffect(() => {
@@ -152,7 +156,7 @@ const Iframe = ({
               event.clientX,
               event.clientY
             ) as HTMLElement;
-            if (!hasClassInParents(targetElement, "adminMessage")) {
+            if (!hasClassInParents(targetElement, "adminNote")) {
               setClickCoordinates({
                 x: xRelativeToContainer,
                 y: yRelativeToContainer,
@@ -168,7 +172,7 @@ const Iframe = ({
     // Function to add an item to the selectedLocation ==================================>
     const LocateClick = (event: MouseEvent) => {
       // Get the iframe container element
-      if (createRequestRef.current) return;
+      if (!createRequestRef.current) return;
       const iframeContainer = document.getElementById("iframeContainer");
       if (iframeContainer) {
         // Ensure iframeRef.current is not null
@@ -181,7 +185,9 @@ const Iframe = ({
               event.clientX,
               event.clientY
             ) as HTMLElement;
-            if (!hasClassInParents(targetElement, "adminMessage")) {
+
+            console.log("targetElement", targetElement);
+            if (!hasClassInParents(targetElement, "adminNote")) {
               const location = {
                 element: targetElement.tagName,
                 text:
@@ -236,7 +242,7 @@ const Iframe = ({
           event.clientY
         ) as HTMLElement;
 
-        if (!hasClassInParents(targetElement, "adminMessage")) {
+        if (!hasClassInParents(targetElement, "adminNote")) {
           if (targetElement) {
             if (previouslyHoveredElement.current) {
               if (
@@ -371,23 +377,28 @@ const Iframe = ({
       } else {
         client.appendChild(container);
       }
-      container.classList.add("adminMessage");
+      container.classList.add("adminNote");
       container.style.top = `${note.location.top}px`;
       container.style.left = `${note.location.left}px`;
       container.style.cursor = "none";
+      container.style.position = "absolute";
+      container.style.zIndex = "9999";
       const root = createRoot(container);
       root.render(
-        <Message
-          complete={false}
-          savedAuthor={note.author}
-          savedColor={note.color}
-          savedDate={note.date}
-          savedMessage={note.text}
+        <Note
           key={Math.random()}
+          complete={false}
+          Author={note.author}
+          color={note.color}
+          date={note.date}
+          text={note.text}
+          id={note.id}
+          DeleteNote={DeleteNote}
+          CreateNote={CreateNote}
         />
       );
     });
-  }, [iframeElement, screenSize, displayPage, notes]);
+  }, [iframeElement, screenSize, displayPage, notes, DeleteNote, CreateNote]);
 
   // run when iframeElement loads
   useEffect(() => {
@@ -409,7 +420,7 @@ const Iframe = ({
     const iframeContentWindow = iframeElement?.contentWindow;
     if (!iframeContentWindow) return;
     iframeContentWindow?.document
-      .querySelectorAll(".adminMessage")
+      .querySelectorAll(".adminNote")
       .forEach((el) => {
         console.log("el", el);
         el.remove();
@@ -455,7 +466,7 @@ const Iframe = ({
   }, [selectedLocation, iframeElement, showLive]);
 
   // add a note to the selected location  ==================================>
-  const addMessage = () => {
+  const addNote = () => {
     if (!iframeElement) return;
     const iframeContentWindow = iframeElement.contentWindow;
     if (iframeContentWindow && clickCoordinates) {
@@ -469,15 +480,30 @@ const Iframe = ({
       } else {
         client.appendChild(container);
       }
-      container.classList.add("adminMessage");
+      container.classList.add("adminNote");
       container.style.top = `${
         clickCoordinates?.y + clickCoordinates?.scrollHeight || 0
       }px`;
       container.style.left = `${clickCoordinates.x}px`;
       container.style.cursor = "none";
+      container.style.position = "absolute";
       const root = createRoot(container);
 
-      root.render(<Message complete={true} key={Math.random()} />);
+      console.log("clickCoordinates", clickCoordinates);
+
+      root.render(
+        <Note
+          complete={true}
+          key={Math.random()}
+          top={clickCoordinates?.y + clickCoordinates?.scrollHeight}
+          left={clickCoordinates.x}
+          screenSize={screenSize}
+          displayPage={displayPage}
+          DeleteNote={DeleteNote}
+          CreateNote={CreateNote}
+          Author={author}
+        />
+      );
     }
   };
 
@@ -496,7 +522,7 @@ const Iframe = ({
     setScale(Scale);
   }, [screenSize]);
 
-  // add and remove event listeners for hover message ==================================>
+  // add and remove event listeners for hover Note ==================================>
   useEffect(() => {
     if (!iframeElement) return;
     if (!iframeElement.contentWindow) return;
@@ -626,9 +652,7 @@ const Iframe = ({
                   Request Edit
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={addMessage}>
-                  Add Note
-                </DropdownMenuItem>
+                <DropdownMenuItem onClick={addNote}>Add Note</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             {showLive && (
@@ -674,53 +698,80 @@ const Iframe = ({
 
 export default Iframe;
 
-const Message = ({
+const Note = ({
   complete,
-  savedMessage,
-  savedAuthor,
-  savedDate,
-  savedColor,
+  text,
+  Author,
+  date,
+  color,
+  id,
+  displayPage,
+  screenSize,
+  top,
+  left,
+  DeleteNote,
+  CreateNote,
 }: {
   complete: boolean;
-  savedMessage?: string;
-  savedAuthor?: Author;
-  savedDate?: string;
-  savedColor?: string;
+  text?: string;
+  Author: Author;
+  date?: number;
+  color?: string;
+  id?: string;
+  displayPage?: DisplayPage;
+  screenSize?: ScreenSize;
+  top?: number;
+  left?: number;
+  CreateNote: (note: Note) => void;
+  DeleteNote: (id: string) => void;
 }) => {
-  const [showMessage, setShowMessage] = React.useState(complete);
-  const messageRef = React.useRef<HTMLDivElement | null>(null);
-  const [message, setMessage] = React.useState<string | null>(
-    savedMessage || null
-  );
-  const [editMessage, setEditMessage] = React.useState(complete);
-  const messageInput = React.useRef<HTMLTextAreaElement | null>(null);
+  const [showNote, setShowNote] = React.useState(complete);
+  const NoteRef = React.useRef<HTMLDivElement | null>(null);
+  const [Note, setNote] = React.useState<string | null>(text || null);
+  const [noteId, setNoteId] = React.useState<string>(id || generateRandomId());
+  const [editNote, setEditNote] = React.useState(complete);
+  const NoteInput = React.useRef<HTMLTextAreaElement | null>(null);
   const [showOptions, setShowOptions] = React.useState(false);
 
-  async function deleteMessage() {
+  async function deleteNote() {
     setTimeout(() => {
       setShowOptions(false);
     }, 200);
     setTimeout(() => {
-      setShowMessage(false);
+      setShowNote(false);
     }, 400);
     setTimeout(() => {
-      const parentElem = messageRef.current?.parentElement;
+      const parentElem = NoteRef.current?.parentElement;
       if (parentElem) {
         parentElem.innerHTML = "";
         parentElem.remove();
       }
     }, 600);
+    DeleteNote(noteId);
   }
 
-  const saveMessage = () => {
+  const saveNote = () => {
     //  save to db
-    if (!messageInput.current) return;
-    setMessage(messageInput.current?.value);
-    setShowMessage(false);
-    setEditMessage(false);
+    if (!NoteInput.current) return;
+    setNote(NoteInput.current?.value);
+    CreateNote({
+      id: noteId,
+      text: NoteInput.current?.value,
+      author: Author,
+      date: new Date().getTime(),
+      color: selectedColor,
+      location: {
+        page: displayPage?.url || "none",
+        viewPort: screenSize?.title || "none",
+        top: top || 0,
+        left: left || 0,
+      },
+    });
+    setShowNote(false);
+    setEditNote(false);
   };
 
-  const colors = [
+  const colorOptions = [
     "#f43f5e",
     "#d946ef",
     "#8b5cf6",
@@ -730,18 +781,12 @@ const Message = ({
   ];
 
   const [selectedColor, setSelectedColor] = React.useState(
-    savedColor || colors[0]
+    color || colorOptions[0]
   );
 
-  const User: Author = {
-    name: "John Doe",
-    avatar: "",
-    initials: "JD",
-  };
-
   return (
-    <div ref={messageRef} className="cursor-none">
-      <DropdownMenu open={showMessage} onOpenChange={setShowMessage}>
+    <div ref={NoteRef} className="cursor-none">
+      <DropdownMenu open={showNote} onOpenChange={setShowNote}>
         <DropdownMenuTrigger className="cursor-none ">
           <div
             className="text-white h-fit w-fit p-4 gap-4 flex justify-center items-center rounded-full  group shadow-xl hover:z-[999999] cursor-none"
@@ -753,14 +798,14 @@ const Message = ({
         <DropdownMenuContent
           side={"top"}
           className={`h-fit  w-[350px] py-2 relative group  ${
-            editMessage ? "px-2" : "px-6"
+            editNote ? "px-2" : "px-6"
           }`}
         >
-          {editMessage ? (
+          {editNote ? (
             <div className="relative">
               <div className="relative">
                 <div className="flex gap-1 absolute bottom-0 p-2 w-fit">
-                  {colors.map((color, i) => (
+                  {colorOptions.map((color, i) => (
                     <span
                       key={i}
                       onClick={() => setSelectedColor(color)}
@@ -773,16 +818,16 @@ const Message = ({
                 </div>
                 <Textarea
                   placeholder="write your note here..."
-                  ref={messageInput}
+                  ref={NoteInput}
                   className="w-full pb-6 h-[125px]"
                   autoFocus
                 />
               </div>
               <div className="w-full justify-between flex pt-2 pb-0">
-                <Button onClick={deleteMessage} variant={"ghost"}>
+                <Button onClick={deleteNote} variant={"ghost"}>
                   Cancel
                 </Button>
-                <Button size="sm" onClick={saveMessage}>
+                <Button size="sm" onClick={saveNote}>
                   Add Note
                 </Button>
               </div>
@@ -791,17 +836,18 @@ const Message = ({
             <>
               <div className="flex gap-2 items-center ">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage
-                    alt="Avatar"
-                    src={savedAuthor?.avatar || User.avatar}
-                  />
+                  <AvatarImage alt="Avatar" src={Author?.avatar} />
                   <AvatarFallback>
-                    {savedAuthor?.initials || User.initials}
+                    {Author?.firstName[0] + Author?.lastName[0]}
                   </AvatarFallback>
                 </Avatar>
-                <h1 className="text-sm">{savedAuthor?.name || User.name}</h1>
+                <h1 className="text-sm">
+                  {Author.firstName + " " + Author.lastName}
+                </h1>
                 <h1 className="text-muted-foreground text-[12px]">
-                  {savedDate || "Just now"}
+                  {Author
+                    ? timeSince(date as number)
+                    : timeSince(new Date().getTime())}
                 </h1>
                 <DropdownMenu open={showOptions} onOpenChange={setShowOptions}>
                   <DropdownMenuTrigger className="ml-auto">
@@ -810,14 +856,14 @@ const Message = ({
                   <DropdownMenuContent>
                     <DropdownMenuItem
                       className="text-red-600"
-                      onClick={deleteMessage}
+                      onClick={deleteNote}
                     >
                       Delete
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-              <div className="w-full h-fit p-2 pl-10">{message}</div>
+              <div className="w-full h-fit p-2 pl-10">{Note}</div>
             </>
           )}
         </DropdownMenuContent>

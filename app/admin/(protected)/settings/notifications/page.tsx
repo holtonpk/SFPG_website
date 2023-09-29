@@ -1,5 +1,5 @@
 import { Separator } from "@/app/admin/components/ui/separator";
-import { NotificationsForm } from "@/app/admin/settings/notifications/notifications-form";
+import { NotificationsForm } from "@/app/admin/(protected)/settings/notifications/notifications-form";
 
 export default function SettingsNotificationsPage() {
   return (
