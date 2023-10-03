@@ -1,6 +1,6 @@
 import UserSignedIn from "@/app/admin/components/user-signed-in";
 import React from "react";
-import "./style.css";
+import "../style.css";
 import { ThemeProvider } from "@/app/admin/components/theme-provider";
 
 import { Toaster } from "@/app/admin/components/ui/toaster";
