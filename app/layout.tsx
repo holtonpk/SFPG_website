@@ -7,8 +7,8 @@ import { CartProvider } from "@/context/cart";
 import CartPreview from "@/app/(client)/components/cart-preview";
 
 export const metadata: Metadata = {
-  title: "Admin Portal",
-  description: "This is for use by admin only ",
+  title: "Short Form books",
+  description: "this is a short form book site",
 };
 
 export default function RootLayout({

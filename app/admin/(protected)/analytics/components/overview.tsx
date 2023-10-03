@@ -9,37 +9,7 @@ import {
   Tooltip,
   CartesianGrid,
 } from "recharts";
-
-const data = [
-  {
-    name: "9/21",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "9/22",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "9/23",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "9/24",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "9/25",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "9/26",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "9/27",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-];
+import { formatDateShort } from "@/app/admin/lib/utils";
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
@@ -56,7 +26,23 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-export function Overview() {
+export function Overview({
+  siteTrafficByDateData,
+}: {
+  siteTrafficByDateData: { date: string; value: string }[];
+}) {
+  const sortedData = siteTrafficByDateData.sort((a, b) => {
+    if (a.date < b.date) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+
+  const data = sortedData.map((item) => ({
+    name: formatDate(item.date),
+    total: item.value,
+  }));
   return (
     <ResponsiveContainer width="100%" height={350}>
       <AreaChart
@@ -104,4 +90,72 @@ export function Overview() {
       </AreaChart>
     </ResponsiveContainer>
   );
+}
+
+function formatDateYYYYMMDD(inputDate: string): string {
+  if (inputDate.length !== 8) {
+    throw new Error(
+      "Invalid input date format. It should be in YYYYMMDD format."
+    );
+  }
+
+  const year = inputDate.slice(0, 4);
+  const month = inputDate.slice(4, 6);
+  const day = inputDate.slice(6, 8);
+
+  return `${day}/${month}`;
+}
+
+function dateYYYYMMDDToTimestamp(inputDate: string): number {
+  if (inputDate.length !== 8) {
+    throw new Error(
+      "Invalid input date format. It should be in YYYYMMDD format."
+    );
+  }
+
+  const year = parseInt(inputDate.slice(0, 4), 10);
+  const month = parseInt(inputDate.slice(4, 6), 10) - 1; // Months are 0-indexed
+  const day = parseInt(inputDate.slice(6, 8), 10);
+
+  const date = new Date(year, month, day);
+  const timestamp = date.getTime() / 1000; // Convert to Unix timestamp (seconds since epoch)
+
+  return timestamp;
+}
+
+function timestampToMMDD(timestamp: number): string {
+  const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds
+  const day = date.getDate().toString().padStart(2, "0"); // Get day and pad with leading zero if necessary
+  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Get month (months are 0-indexed) and pad with leading zero if necessary
+
+  return `${month}/${day}`;
+}
+
+function convertToTime(dateTime: string): string {
+  if (dateTime.length !== 10) {
+    throw new Error("Invalid date format. Expected 'YYYYMMDDHH'.");
+  }
+
+  const year = dateTime.slice(0, 4);
+  const month = dateTime.slice(4, 6);
+  const day = dateTime.slice(6, 8);
+  const hour = dateTime.slice(8, 10);
+
+  const date = new Date(`${year}-${month}-${day}T${hour}:00:00Z`);
+  const timeOptions = {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  };
+
+  return date.toLocaleTimeString("en-US", timeOptions as any);
+}
+
+function formatDate(unformattedDate: string): string {
+  try {
+    const date = timestampToMMDD(dateYYYYMMDDToTimestamp(unformattedDate));
+    return date;
+  } catch {
+    return convertToTime(unformattedDate);
+  }
 }

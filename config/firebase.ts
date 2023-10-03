@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
+import { useRouter } from "next/router"; // Import the useRouter hook from Next.js
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -16,6 +17,19 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const analytics =
-  app.name && typeof window !== "undefined" ? getAnalytics(app) : null;
 export const db = getFirestore(app);
+
+// Export a function to get analytics conditionally
+export function getAnalyticsIfNotLocalhost() {
+  const router = useRouter(); // Get the router instance
+
+  // Check if the current route starts with "/admin"
+  if (!router.pathname.startsWith("/admin")) {
+    var host = window.location.hostname;
+    if (host !== "localhost") {
+      return getAnalytics(app);
+    }
+  }
+
+  return null; // Disable analytics for /admin route or localhost
+}

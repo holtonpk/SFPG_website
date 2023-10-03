@@ -6,11 +6,22 @@ interface Props {
   data: any;
 }
 import { constructMetadata } from "@/lib/utils";
+import { Metadata } from "next";
 
-export const metadata = constructMetadata({
-  title: `${siteConfig.title} - The new era of books`,
-  description: siteConfig.description,
-});
+type Params = {
+  params: {
+    handle: string;
+  };
+};
+
+export async function generateMetadata({
+  params: { handle },
+}: Params): Promise<Metadata> {
+  return constructMetadata({
+    title: siteConfig.pages[handle].title,
+    description: siteConfig.pages[handle].description,
+  });
+}
 
 const getData = async (handle: string): Promise<any> => {
   const prodDataRes = await fetch(
@@ -41,7 +52,7 @@ const getData = async (handle: string): Promise<any> => {
   };
 };
 
-export default async function ProductPage({ params }: any) {
+export default async function ProductPage({ params }: Params) {
   const data = await getData(params.handle);
 
   return (

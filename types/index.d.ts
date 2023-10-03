@@ -12,6 +12,7 @@ export type Page = {
   title: string;
   url: string;
   description: string;
+  subPages?: Page[];
 };
 type Pages = {
   [pageName: string]: Page;

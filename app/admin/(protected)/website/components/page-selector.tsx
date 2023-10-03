@@ -1,5 +1,5 @@
 "use client";
-
+import { Icons } from "@/app/admin/components/icons";
 import React, { use } from "react";
 import {
   Select,
@@ -31,7 +31,7 @@ const PageSelector = ({
 
   return (
     <Select onValueChange={setChangePage}>
-      <SelectTrigger className="flex-grow">
+      <SelectTrigger className="flex-grow ">
         <SelectValue
           placeholder={
             siteConfig.url + (displayPage.url === "/" ? "" : displayPage.url)
@@ -43,6 +43,7 @@ const PageSelector = ({
           const pageData = pagesConfig[page as keyof typeof pagesConfig];
           return (
             <SelectItem
+              className="flex items-center justify-between overflow-hidden text-ellipsis whitespace-nowrap"
               key={i}
               value={page}
               onClick={() => {

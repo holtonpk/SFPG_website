@@ -117,16 +117,13 @@ const MetaData = ({
     setEditMetaData(false);
   }
   console.log("liveMetaData", liveMetaData);
-  console.log(
-    "image:" + liveMetaData && siteConfig.url + liveMetaData?.favicons[0].href
-  );
 
   return (
     <div className="w-full">
       {liveMetaData && !loadingData ? (
         <Card className="p-4 rounded-md  w-full overflow-hidden">
           <div className="flex gap-2 ">
-            <div className="h-10 w-10 rounded-full relative bg-gray-500 ">
+            <div className="h-10 w-10 rounded-full relative bg-gray-500 aspect-square ">
               {liveMetaData?.favicons[0]?.href ? (
                 <Image
                   alt="fav"
@@ -138,11 +135,11 @@ const MetaData = ({
                 <Icons.globe className="h-full w-full text-white" />
               )}
             </div>
-            <div className="flex flex-col">
-              <h1 className="text-[14px] dark:text-[#dadce0] text-[#202124]">
+            <div className="flex flex-col flex-grow overflow-hidden">
+              <h1 className="text-[14px] dark:text-[#dadce0] text-[#202124] max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
                 {liveMetaData.url}
               </h1>
-              <h1 className=" dark:text-[#bdc1c6]  text-[#4D5156] text-sm text-[12px]">
+              <h1 className=" dark:text-[#bdc1c6]  text-[#4D5156] text-sm text-[12px] max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
                 {liveMetaData.url}
               </h1>
             </div>

@@ -4,8 +4,7 @@ import { ThemeProvider } from "@/app/admin/components/theme-provider";
 import AdminNav from "@/app/admin/components/admin-nav";
 import { Toaster } from "@/app/admin/components/ui/toaster";
 import { AdminStorageProvider } from "@/app/admin/context/storage";
-
-import ProtectedRoutes from "./protect-routes";
+import ProtectedRoutes from "@/app/admin/(protected)/protect-routes";
 
 export default async function ProtectedLayout({
   children,

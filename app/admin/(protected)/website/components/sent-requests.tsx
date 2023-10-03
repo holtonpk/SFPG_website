@@ -112,7 +112,7 @@ const SentRequests = ({
                         </div>
                         <div className="h-[12px] w-[1px] bg-border"></div>
                         <p className="text-sm text-muted-foreground ">
-                          {timeSince(request.date)}
+                          {timeSince(Number(request.date))}
                         </p>
                       </div>
                     </div>

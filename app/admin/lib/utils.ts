@@ -1,9 +1,13 @@
 export function timeSince(timestamp: number): string {
   const now: Date = new Date();
-  const inputDate: Date = new Date(timestamp * 1000);
+  const inputDate: Date = new Date(timestamp);
   const seconds: number = Math.floor(
     (now.getTime() - inputDate.getTime()) / 1000
   );
+
+  if (seconds < 5) {
+    return "just now";
+  }
 
   const intervals: Array<[string, number]> = [
     ["y", 31536000],
@@ -20,7 +24,8 @@ export function timeSince(timestamp: number): string {
       return `${interval}${name} ago`;
     }
   }
-  return "just now";
+
+  return "error";
 }
 
 export function generateRandomId(): string {
@@ -34,4 +39,16 @@ export function generateRandomId(): string {
   }
 
   return randomId;
+}
+
+export function formatDateShort(timestamp: number): string {
+  const date = new Date(timestamp);
+
+  const day = date.getDate();
+  const month = new Intl.DateTimeFormat("en-US", { month: "numeric" }).format(
+    date
+  );
+  const year = date.getFullYear().toString().slice(-2);
+
+  return `${month}-${day}`;
 }

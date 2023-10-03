@@ -61,3 +61,13 @@ export type DisplayPage = {
   id: string;
   url: string;
 };
+
+export interface AnalyticsResponseData {
+  siteTrafficData: { users: string; pageViews: string };
+  siteTrafficByDateData: { date: string; value: string }[];
+  countryData: { name: string; code: string; value: string }[];
+  pageReferrerData: { title: string; value: string }[];
+  operatingSystemData: { title: string; value: string }[];
+  browserData: { title: string; value: string }[];
+  topPagesData: { title: string; value: string }[];
+}
