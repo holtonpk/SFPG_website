@@ -37,32 +37,32 @@ const getData = async () => {
   const data = await res.json();
   console.log("a");
 
-  const res2 = await fetch(
-    `${siteConfig.url}/api/admin/klaviyo/klaviyo-metrics`,
-    {
-      cache: "no-store",
-    }
-  );
-  console.log("b");
+  // const res2 = await fetch(
+  //   `${siteConfig.url}/api/admin/klaviyo/klaviyo-metrics`,
+  //   {
+  //     cache: "no-store",
+  //   }
+  // );
+  // console.log("b");
 
-  const data2 = await res2.json();
+  // const data2 = await res2.json();
 
-  const res3 = await fetch(
-    `${siteConfig.url}/api/admin/klaviyo/klaviyo-lists-recent`,
-    {
-      cache: "no-store",
-    }
-  );
+  // const res3 = await fetch(
+  //   `${siteConfig.url}/api/admin/klaviyo/klaviyo-lists-recent`,
+  //   {
+  //     cache: "no-store",
+  //   }
+  // );
 
   console.log("c");
 
-  const data3 = await res3.json();
+  // const data3 = await res3.json();
 
   return {
     listData: data,
-    listMetrics: data2,
-    percentChange: calculatePercentDifferenceString(data2),
-    recent: data3,
+    // listMetrics: data2,
+    // percentChange: calculatePercentDifferenceString(data2),
+    // recent: data3,
   };
 };
 
@@ -106,7 +106,7 @@ export default async function DashboardPage() {
                   {Data.listData.profile_count || "--"}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {Data.percentChange || "--"}
+                  {/* {Data.percentChange || "--"} */}
                 </p>
               </CardContent>
             </Card>
@@ -191,10 +191,10 @@ export default async function DashboardPage() {
                 <CardTitle>Sales</CardTitle>
               </CardHeader>
               <CardContent className="pl-2">
-                <Overview rawData={Data.listMetrics} />
+                {/* <Overview rawData={Data.listMetrics} /> */}
               </CardContent>
             </Card>
-            {Data.recent && <AnalyticsFeed data={Data.recent.profiles} />}
+            {/* {Data.recent && <AnalyticsFeed data={Data.recent.profiles} />} */}
           </div>
           {/* </TabsContent>
           </Tabs> */}
