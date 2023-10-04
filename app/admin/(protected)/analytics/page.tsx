@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+"use client";
 import Image from "next/image";
 
 import { Button } from "@/app/admin/components/ui/button";
@@ -23,11 +23,7 @@ import { Search } from "@/app/admin/(protected)/analytics/components/search";
 import TeamSwitcher from "@/app/admin/(protected)/analytics/components/team-switcher";
 import { UserNav } from "@/app/admin/(protected)/analytics/components/user-nav";
 import { siteConfig } from "@/config/site";
-
-export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Example dashboard app built using the components.",
-};
+import React from "react";
 
 const getData = async () => {
   // fetch data from '/api/admin/klaviyo'
@@ -35,39 +31,78 @@ const getData = async () => {
     cache: "no-store",
   });
   const data = await res.json();
-  console.log("a");
 
-  // const res2 = await fetch(
-  //   `${siteConfig.url}/api/admin/klaviyo/klaviyo-metrics`,
-  //   {
-  //     cache: "no-store",
-  //   }
-  // );
-  // console.log("b");
+  const res2 = await fetch(
+    `${siteConfig.url}/api/admin/klaviyo/klaviyo-metrics`,
+    {
+      cache: "no-store",
+    }
+  );
 
-  // const data2 = await res2.json();
+  const data2 = await res2.json();
 
-  // const res3 = await fetch(
-  //   `${siteConfig.url}/api/admin/klaviyo/klaviyo-lists-recent`,
-  //   {
-  //     cache: "no-store",
-  //   }
-  // );
+  const res3 = await fetch(
+    `${siteConfig.url}/api/admin/klaviyo/klaviyo-lists-recent`,
+    {
+      cache: "no-store",
+    }
+  );
 
-  console.log("c");
-
-  // const data3 = await res3.json();
+  const data3 = await res3.json();
 
   return {
     listData: data,
-    // listMetrics: data2,
-    // percentChange: calculatePercentDifferenceString(data2),
-    // recent: data3,
+    listMetrics: data2,
+    percentChange: calculatePercentDifferenceString(data2),
+    recent: data3,
   };
 };
 
-export default async function DashboardPage() {
-  const Data = await getData();
+export default function DashboardPage() {
+  const [Data, setData] = React.useState<any>();
+
+  React.useEffect(() => {
+    async function getData() {
+      // fetch data from '/api/admin/klaviyo'
+      const res = await fetch(
+        `${siteConfig.url}/api/admin/klaviyo/klaviyo-lists`,
+        {
+          cache: "no-store",
+        }
+      );
+      const data = await res.json();
+      console.log("a");
+
+      const res2 = await fetch(
+        `${siteConfig.url}/api/admin/klaviyo/klaviyo-metrics`,
+        {
+          cache: "no-store",
+        }
+      );
+      console.log("b");
+
+      const data2 = await res2.json();
+
+      const res3 = await fetch(
+        `${siteConfig.url}/api/admin/klaviyo/klaviyo-lists-recent`,
+        {
+          cache: "no-store",
+        }
+      );
+
+      console.log("c");
+
+      const data3 = await res3.json();
+
+      setData({
+        listData: data,
+        listMetrics: data2,
+        percentChange: calculatePercentDifferenceString(data2),
+        recent: data3,
+      });
+    }
+    getData();
+  }, []);
 
   return (
     <>
@@ -84,7 +119,7 @@ export default async function DashboardPage() {
             <Card className="border-primary">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  {Data.listData.name || "--"}
+                  {Data ? Data.listData.name : "--"}
                 </CardTitle>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -103,10 +138,10 @@ export default async function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {Data.listData.profile_count || "--"}
+                  {Data ? Data.listData.profile_count : "--"}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {/* {Data.percentChange || "--"} */}
+                  {Data ? Data.percentChange : "--"}
                 </p>
               </CardContent>
             </Card>
@@ -188,13 +223,13 @@ export default async function DashboardPage() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
             <Card className="col-span-4">
               <CardHeader>
-                <CardTitle>Sales</CardTitle>
+                <CardTitle>{Data ? Data.listData.name : "--"}</CardTitle>
               </CardHeader>
-              <CardContent className="pl-2">
-                {/* <Overview rawData={Data.listMetrics} /> */}
+              <CardContent className="pl-2 h-[400px]">
+                {Data && <Overview rawData={Data.listMetrics} />}
               </CardContent>
             </Card>
-            {/* {Data.recent && <AnalyticsFeed data={Data.recent.profiles} />} */}
+            {Data && <AnalyticsFeed data={Data.recent.profiles} />}
           </div>
           {/* </TabsContent>
           </Tabs> */}
