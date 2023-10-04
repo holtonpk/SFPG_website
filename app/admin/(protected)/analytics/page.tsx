@@ -9,12 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/admin/components/ui/card";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/app/admin/components/ui/tabs";
+
+import { Icons } from "../../components/icons";
+
 import { CalendarDateRangePicker } from "@/app/admin/(protected)/analytics/components/date-range-picker";
 import { MainNav } from "@/app/admin/(protected)/analytics/components/main-nav";
 import { Overview } from "@/app/admin/(protected)/analytics/components/overview";
@@ -60,9 +57,11 @@ const getData = async () => {
 
 export default function DashboardPage() {
   const [Data, setData] = React.useState<any>();
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     async function getData() {
+      setLoading(true);
       // fetch data from '/api/admin/klaviyo'
       const res = await fetch(
         `${siteConfig.url}/api/admin/klaviyo/klaviyo-lists`,
@@ -100,6 +99,7 @@ export default function DashboardPage() {
         percentChange: calculatePercentDifferenceString(data2),
         recent: data3,
       });
+      setLoading(false);
     }
     getData();
   }, []);
@@ -225,11 +225,31 @@ export default function DashboardPage() {
               <CardHeader>
                 <CardTitle>{Data ? Data.listData.name : "--"}</CardTitle>
               </CardHeader>
-              <CardContent className="pl-2 h-[400px]">
+              <CardContent className="pl-2 h-[400px] relative">
                 {Data && <Overview rawData={Data.listMetrics} />}
+                {loading && (
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
+                  </div>
+                )}
               </CardContent>
             </Card>
-            {Data && <AnalyticsFeed data={Data.recent.profiles} />}
+            <Card className="col-span-3 h-full">
+              <CardHeader>
+                <CardTitle>Recent SignUps</CardTitle>
+                <CardDescription>
+                  View the most recent email sign ups
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative flex-grow  h-[350px]">
+                {Data && <AnalyticsFeed data={Data.recent.profiles} />}
+                {loading && (
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
           {/* </TabsContent>
           </Tabs> */}
