@@ -131,7 +131,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   function signIn(email: string, password: string) {
-    console.log("signIn", email, password);
     const login = signInWithEmailAndPassword(auth, email, password)
       .then((value) => {
         return { success: value };
@@ -152,14 +151,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const result = await signInWithPopup(auth, new GoogleAuthProvider());
       if (result.user) {
-        createUserStorage(
+        await createUserStorage(
           result.user.uid,
           {
             first: result.user?.displayName?.split(" ")[0] || "",
             last: result.user?.displayName?.split(" ")[1] || "",
           },
-          result.user.email || ""
+          result.user.email || "",
+          result.user.photoURL || ""
         );
+        setCurrentUser({
+          ...result.user,
+          firstName: result.user?.displayName?.split(" ")[0] || "",
+          lastName: result.user?.displayName?.split(" ")[1] || "",
+          avatar: result.user.photoURL || "",
+        });
         return { success: result };
       } else {
         return { error: result };
@@ -188,7 +194,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const createUserStorage = async (
     uid: string,
     name: { first: string; last: string },
-    email: string
+    email: string,
+    avatar?: string
   ) => {
     console.log("createUserStorage", uid);
     const userRef = doc(db, "users", uid);
@@ -200,9 +207,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         firstName: name.first,
         lastName: name.last,
         email: email,
-        avatar: getRandomImageUrl() as string,
+        avatar: avatar || (getRandomImageUrl() as string),
         uid: uid,
-        welcome_intro: false,
       });
     }
 
@@ -354,6 +360,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
         const userData = userSnap.data();
+        if (!userData) return;
         await auth.currentUser?.getIdToken(true);
         const decodedToken = await auth.currentUser?.getIdTokenResult();
         console.log("decodedToken", decodedToken?.claims?.stripeRole);
@@ -363,8 +370,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           firstName: userData?.firstName,
           lastName: userData?.lastName,
           avatar: userData?.avatar,
-          stripeId: userData?.stripeId,
-          welcome_intro: userData?.welcome_intro,
         });
       }
       setLoading(false);

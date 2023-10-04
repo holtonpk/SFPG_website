@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userAuthSchema } from "@/lib/validations/auth";
 import { Button } from "@/app/admin/components/ui/button";
 import { useForm } from "react-hook-form";
 import { toast } from "@/app/admin/components/ui/use-toast";
@@ -19,6 +18,11 @@ const LoginForm = () => {
   const Router = useRouter();
 
   const { signIn, logInWithGoogle } = useAuth()!;
+
+  const userAuthSchema = z.object({
+    password: z.string(),
+  });
+
   type FormData = z.infer<typeof userAuthSchema>;
   const {
     register,
@@ -31,45 +35,18 @@ const LoginForm = () => {
 
   async function onSubmit(data: FormData) {
     setIsLoading(true);
-    const signInResult = await signIn(data.email, data.password);
-    setIsLoading(false);
-    Router.push("/admin/website");
-    if (signInResult?.success) {
-      return;
-    }
-    if (signInResult?.error === "auth/user-not-found") {
-      setError("email", {
-        type: "manual",
-        message: "An account with this email does not exist.",
-      });
-      toast({
-        title: "An account with this email does not exist.",
-        description: "Please please check your email and try again.",
-        variant: "destructive",
-      });
-    } else if (signInResult?.error === "auth/wrong-password") {
+    const signInResult =
+      data.password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+    if (signInResult) {
+      setAdminPass(true);
+    } else {
       setError("password", {
         type: "manual",
         message: "Incorrect password.",
       });
-      toast({
-        title: "Incorrect password.",
-        description: "Please please check your password and try again.",
-        variant: "destructive",
-      });
-    } else if (signInResult?.error === "auth/too-many-requests") {
-      toast({
-        title: "Too many requests.",
-        description: "Please try again later.",
-        variant: "destructive",
-      });
-    } else if (signInResult?.error === "auth/user-disabled") {
-      toast({
-        title: "User disabled.",
-        description: "Please contact support.",
-        variant: "destructive",
-      });
+      setAdminPass(false);
     }
+    setIsLoading(false);
   }
 
   function handleLoginError(error: any): void {
@@ -81,45 +58,78 @@ const LoginForm = () => {
     });
   }
 
+  async function googleSingIn(): Promise<void> {
+    try {
+      setIsGoogleLoading(true);
+      const createAccountResult = await logInWithGoogle();
+
+      if (createAccountResult.error) {
+        handleLoginError(createAccountResult.error);
+      }
+    } catch (error: any) {
+      handleLoginError(error);
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  }
+
+  const [adminPass, setAdminPass] = React.useState<boolean>(false);
+
   return (
-    <div className="grid gap-6">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid gap-2">
-          <Input
-            id="email"
-            placeholder="name@example.com"
-            type="email"
-            autoCapitalize="none"
-            autoComplete="email"
-            autoCorrect="off"
-            disabled={isLoading || isGoogleLoading}
-            {...register("email")}
-          />
-          {errors?.email && (
-            <p className="px-1 text-xs text-red-600">{errors.email.message}</p>
-          )}
-          <PasswordInput
-            id="password"
-            placeholder="password"
-            type="password"
-            autoCapitalize="none"
-            disabled={isLoading || isGoogleLoading}
-            {...register("password")}
-          />
-          {errors?.password && (
-            <p className="px-1 text-xs text-red-600">
-              {errors.password.message}
-            </p>
-          )}
-          <Button className="w-full" disabled={isLoading || isGoogleLoading}>
-            {isLoading && (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            Sign In
-          </Button>
+    <>
+      {!adminPass ? (
+        <div className="grid gap-6">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="grid gap-2">
+              <h1 className="text-center">Admin Portal</h1>
+
+              <PasswordInput
+                id="password"
+                placeholder="password"
+                type="password"
+                autoCapitalize="none"
+                disabled={isLoading || isGoogleLoading}
+                {...register("password")}
+              />
+              {errors?.password && (
+                <p className="px-1 text-xs text-red-600">
+                  {errors.password.message}
+                </p>
+              )}
+              <Button
+                className="w-full"
+                disabled={isLoading || isGoogleLoading}
+              >
+                {isLoading && (
+                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Enter
+              </Button>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      ) : (
+        <div className="grid gap-6">
+          <div className="grid gap-2">
+            <h1 className="text-center">Welcome to the admin portal</h1>
+
+            <Button
+              onClick={googleSingIn}
+              type="button"
+              className="w-full"
+              variant="outline"
+            >
+              {isGoogleLoading ? (
+                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Icons.google className=" h-6 w-6 mr-2" />
+              )}
+              Signing in with Google
+            </Button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
