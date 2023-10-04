@@ -15,8 +15,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return (
       <div className="custom-tooltip bg-popover border border-border rounded-md p-3">
         <span className="h-4 w-4 rounded-full bg-primary"></span>
-        <p className="label">{`Visitors : ${payload[0].value}`}</p>
-
+        <p className="label">{`Sign ups: ${payload[0].value}`}</p>
         <p className="desc">{`${label}`}</p>
       </div>
     );

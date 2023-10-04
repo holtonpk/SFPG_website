@@ -34,6 +34,7 @@ const getData = async () => {
   const res = await fetch(`${siteConfig.url}/api/admin/klaviyo/klaviyo-lists`, {
     cache: "no-cache",
   });
+  const data = await res.json();
 
   const res2 = await fetch(
     `${siteConfig.url}/api/admin/klaviyo/klaviyo-metrics`,
@@ -42,13 +43,22 @@ const getData = async () => {
     }
   );
 
-  const data = await res.json();
   const data2 = await res2.json();
+
+  const res3 = await fetch(
+    `${siteConfig.url}/api/admin/klaviyo/klaviyo-lists-recent`,
+    {
+      cache: "no-cache",
+    }
+  );
+
+  const data3 = await res3.json();
 
   return {
     listData: data,
     listMetrics: data2,
     percentChange: calculatePercentDifferenceString(data2),
+    recent: data3,
   };
 };
 
@@ -180,9 +190,7 @@ export default async function DashboardPage() {
                 <Overview rawData={Data.listMetrics} />
               </CardContent>
             </Card>
-            {Data.listData.recent && (
-              <AnalyticsFeed data={Data.listData.recent} />
-            )}
+            {Data.recent && <AnalyticsFeed data={Data.recent.profiles} />}
           </div>
           {/* </TabsContent>
           </Tabs> */}
