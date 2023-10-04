@@ -52,3 +52,14 @@ export function formatDateShort(timestamp: number): string {
 
   return `${month}-${day}`;
 }
+
+export function formatDateMonthDay(timestamp: string): string {
+  const date = new Date(timestamp);
+
+  const day = date.getDate();
+  const month = new Intl.DateTimeFormat("en-US", { month: "short" }).format(
+    date
+  );
+
+  return `${month}-${day}`;
+}

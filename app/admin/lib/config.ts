@@ -5,7 +5,7 @@ export const screenSizes = [
   {
     title: "laptop",
     height: 768,
-    width: 1024,
+    width: 1200,
   },
   {
     title: "desktop",
