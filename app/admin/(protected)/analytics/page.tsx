@@ -35,6 +35,7 @@ const getData = async () => {
     cache: "no-cache",
   });
   const data = await res.json();
+  console.log("a");
 
   const res2 = await fetch(
     `${siteConfig.url}/api/admin/klaviyo/klaviyo-metrics`,
@@ -42,6 +43,7 @@ const getData = async () => {
       cache: "no-cache",
     }
   );
+  console.log("b");
 
   const data2 = await res2.json();
 
@@ -51,6 +53,8 @@ const getData = async () => {
       cache: "no-cache",
     }
   );
+
+  console.log("c");
 
   const data3 = await res3.json();
 
