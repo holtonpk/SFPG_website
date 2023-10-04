@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 const getData = async () => {
   // fetch data from '/api/admin/klaviyo'
   const res = await fetch(`${siteConfig.url}/api/admin/klaviyo/klaviyo-lists`, {
-    cache: "no-cache",
+    cache: "no-store",
   });
   const data = await res.json();
   console.log("a");
@@ -40,7 +40,7 @@ const getData = async () => {
   const res2 = await fetch(
     `${siteConfig.url}/api/admin/klaviyo/klaviyo-metrics`,
     {
-      cache: "no-cache",
+      cache: "no-store",
     }
   );
   console.log("b");
@@ -50,7 +50,7 @@ const getData = async () => {
   const res3 = await fetch(
     `${siteConfig.url}/api/admin/klaviyo/klaviyo-lists-recent`,
     {
-      cache: "no-cache",
+      cache: "no-store",
     }
   );
 
