@@ -133,8 +133,9 @@ const SaleBox = ({ product }: { product: any }) => {
         </div>
       </div>
       <div className="flex gap-4">
-        {product.variants.map((variant: any, i: number) => (
+        {product.variants.map((variant: any) => (
           <ProductVariants
+            key={variant.id}
             product={variant}
             selectedVariant={selectedVariant}
             setSelectedVariant={setSelectedVariant}
