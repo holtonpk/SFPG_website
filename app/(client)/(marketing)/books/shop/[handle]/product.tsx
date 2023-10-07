@@ -221,7 +221,7 @@ const QuantitySelector2 = ({
       </label>
 
       <select
-        onChange={() => setQuantityLocal(event.target.value)}
+        onChange={(event) => setQuantityLocal(parseInt(event.target.value))}
         className="bg-transparent text-transparent w-16  cursor-pointer"
         name="qtySelect"
       >
