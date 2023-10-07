@@ -18,7 +18,7 @@ export const CartProvider = ({ children }: Props) => {
 
   const addToCart = (product: any, quantity: number) => {
     const productIndex = cart.findIndex(
-      (item: any) => item.title === product.title
+      (item: any) => item.selectedVariant.id === product.selectedVariant.id
     );
     const newCart = [...cart];
     if (newCart[productIndex]) {
@@ -68,8 +68,7 @@ export const CartProvider = ({ children }: Props) => {
   const checkoutObject = [
     ...cart.map((product: any) => {
       return {
-        // variantId: product.variantId,
-        variantId: product.variants.edges[0].node.id,
+        variantId: product.selectedVariant.id,
         quantity: product.quantity,
       };
     }),
@@ -79,7 +78,10 @@ export const CartProvider = ({ children }: Props) => {
     cart.length > 0 &&
     cart
       .reduce((total: any, product: any) => {
-        return total + parseInt(product.price.amount) * product.quantity;
+        return (
+          total +
+          parseInt(product.selectedVariant.priceV2.amount) * product.quantity
+        );
       }, 0)
       .toFixed(2);
 

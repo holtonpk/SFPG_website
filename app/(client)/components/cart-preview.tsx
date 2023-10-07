@@ -116,12 +116,16 @@ const CartPreview = () => {
                               product.title.slice(0, 25).replaceAll(" ", "_")
                             }
                           >
-                            <h2 className="text-lg text-c1 font-f1">
+                            <h2 className="text-base font-f1">
                               {product.title}
+                            </h2>
+                            <h2 className="text-base text-black/60 font-f1">
+                              {product.selectedVariant.title}
                             </h2>
                             <h2 className="text-lg text-theme-blue font-bold">
                               {formatPrice(
-                                product.price.amount * product.quantity
+                                product.selectedVariant.priceV2.amount *
+                                  product.quantity
                               ) + " USD"}
                             </h2>
                           </Link>

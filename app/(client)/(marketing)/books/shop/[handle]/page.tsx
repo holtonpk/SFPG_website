@@ -44,7 +44,9 @@ const getData = async (handle: string): Promise<any> => {
     imageAlt: productData.title,
     price: productData.variants.edges[0].node.priceV2,
     compareAtPrice: productData.variants.edges[0].node.compareAtPriceV2,
-    variants: productData.variants,
+    variants: productData.variants.edges.map((variant: any) => {
+      return variant.node;
+    }),
   };
 
   return {

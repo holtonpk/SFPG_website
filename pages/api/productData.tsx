@@ -38,6 +38,7 @@ export default async function handler(
                 id
                 title
                 quantityAvailable
+
                 priceV2 {
                   amount
                   currencyCode

@@ -17,26 +17,29 @@ import Iphone from "@/public/image/iphone.png";
 export default function Product({ productData }: { productData: any }) {
   const product = productData.product;
 
+  console.log(product);
+
   return (
-    <div className="pt-10 md:pt-20 pb-20 container ">
-      <div className="grid md:grid-cols-[40%_60%] lg::grid-cols-[50%_50%] md:w-[80%] mx-auto">
-        <div className="w-full h-[400px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] z-20 ml-3 md:ml-0 relative mx-auto">
+    <div className=" md:pt-20 pb-20 md:container bg-white md:bg-background ">
+      <div className="grid md:grid-cols-[40%_60%] lg::grid-cols-[50%_50%] md:w-[80%] mx-auto ">
+        <div className="w-full h-[400px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] z-20  md:pl-0 relative mx-auto bg-background pt-10 rounded-b-[20px]  ">
           <Image
             loading="eager"
             src={product.imageSrc}
             alt="logo"
             fill
             objectFit="contain"
+            className=" ml-3 mt-4 md:m-0"
           />
         </div>
-        <div className="flex flex-col p-10 gap-4 relative">
-          <span className="text-xl md:text-xl lg:text-3xl font-head uppercase text-left ">
+        <div className="flex flex-col  p-6 md:p-10 gap-2 md:gap-4  relative">
+          <span className="text-xl md:text-xl lg:text-3xl font-head uppercase  ">
             <h1 className="text-theme-blue text-2xl md:text-3xl lg:text-5xl font-head font-bold mb-3">
               {product.title}
             </h1>
             {product.collection}
           </span>
-          <h1 className="capitalize text-[12px] md:text-xl text-left">
+          <h1 className="capitalize text-[12px] md:text-xl">
             by Short Form Publishing Group
           </h1>
           <div className="flex items-center gap-2   w-fit ">
@@ -75,11 +78,14 @@ const SaleBox = ({ product }: { product: any }) => {
   const [quantityLocal, setQuantityLocal] = React.useState<number>(1);
   const router = useRouter();
 
+  const [selectedVariant, setSelectedVariant] = React.useState(
+    product.variants[0]
+  );
+
   React.useEffect(() => {
     const redirectToLink = async () => {
       if (redirectToCheckout) {
         const checkoutLink = await getCheckoutLink(checkoutObject);
-        console.log("c", checkoutLink, checkoutObject);
         router.push(checkoutLink);
       }
     };
@@ -88,38 +94,62 @@ const SaleBox = ({ product }: { product: any }) => {
   }, [redirectToCheckout, checkoutObject, router]);
 
   const addItemToCart = () => {
-    addToCart(product, quantityLocal);
+    addToCart({ ...product, selectedVariant: selectedVariant }, quantityLocal);
     setShowCartPreview(true);
   };
+
   const buyNow = async () => {
-    await addToCart(product, quantityLocal);
+    await addToCart(
+      { ...product, selectedVariant: selectedVariant },
+      quantityLocal
+    );
     setRedirectToCheckout(true);
   };
 
   return (
     <>
-      {product.compareAtPrice ? (
-        <h1 className="text-xl md:text-3xl text-center md:text-left gap-4 flex items-center ">
-          <span className="text-theme-blue font-bold">
-            ${product.price.amount}
-          </span>
-          <span className="line-through text-md md:text-2xl mt-1 text-theme-blue/40 decoration-theme-blue/80">
-            ${product.compareAtPrice.amount}
-          </span>{" "}
-        </h1>
-      ) : (
-        <h1 className="text-3xl font-bold text-theme-blue hidden md:block">
-          ${product.price.amount}
-        </h1>
-      )}
+      <div className="  gap-4 flex items-center ">
+        {selectedVariant.compareAtPriceV2 ? (
+          <>
+            <span className="text-theme-blue font-bold text-2xl md:text-3xl  text-center md:text-left">
+              ${selectedVariant.priceV2.amount}
+            </span>
+            <span className="line-through text-xl md:text-2xl mt-1 text-theme-blue/40 decoration-theme-blue/80 text-center md:text-left">
+              ${selectedVariant.compareAtPriceV2.amount}
+            </span>{" "}
+          </>
+        ) : (
+          <h1 className=" font-bold text-theme-blue hidden md:block text-xl md:text-3xl text-center md:text-left">
+            ${selectedVariant.priceV2.amount}
+          </h1>
+        )}
 
-      <QuantitySelector
-        product={product}
-        quantityLocal={quantityLocal}
-        setQuantityLocal={setQuantityLocal}
-      />
+        <div className="md:block hidden">
+          <QuantitySelector2
+            product={selectedVariant}
+            quantityLocal={quantityLocal}
+            setQuantityLocal={setQuantityLocal}
+          />
+        </div>
+      </div>
+      <div className="flex gap-4">
+        {product.variants.map((variant: any, i: number) => (
+          <ProductVariants
+            product={variant}
+            selectedVariant={selectedVariant}
+            setSelectedVariant={setSelectedVariant}
+          />
+        ))}
+      </div>
 
-      <div className="grid grid-cols-2 gap-4 w-full">
+      <div className="md:hidden block">
+        <QuantitySelector2
+          product={selectedVariant}
+          quantityLocal={quantityLocal}
+          setQuantityLocal={setQuantityLocal}
+        />
+      </div>
+      <div className="grid   md:grid-cols-2 gap-4 w-full">
         <Button
           onClick={buyNow}
           variant={"blue"}
@@ -127,7 +157,7 @@ const SaleBox = ({ product }: { product: any }) => {
           size={"lg"}
         >
           {redirectToCheckout ? (
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            <Icons.spinner className="mr-2 h-6 w-6 animate-spin" />
           ) : (
             "Buy Now"
           )}
@@ -142,19 +172,65 @@ const SaleBox = ({ product }: { product: any }) => {
           Add to Bag
         </Button>
       </div>
-
-      <LinkButton
-        href="https://www.amazon.com/"
-        target="blank"
-        className="h-fit bg-background  w-full hover:bg-[#FF9900]/10 "
-      >
-        <span className="flex  items-center uppercase font-body text-black">
-          Order now on
-        </span>
-        <Icons.AmazonLogo className="h-5 w-20 mt-2" />
-        <Icons.chevronRight className="h-6 w-6 text-[#FF9900]" />
-      </LinkButton>
     </>
+  );
+};
+
+const ProductVariants = ({
+  product,
+  selectedVariant,
+  setSelectedVariant,
+}: {
+  product: any;
+  selectedVariant: any;
+  setSelectedVariant: any;
+}) => {
+  return (
+    <button
+      onClick={() => setSelectedVariant(product)}
+      className={`text-theme-blue flex flex-col items-center py-2 px-6 text-[12px] md:text-sm border  border-theme-blue rounded-lg  transition-colors ease-in 
+    ${
+      product.id == selectedVariant.id
+        ? "bg-theme-blue/20 "
+        : " hover:bg-theme-blue/20 "
+    }`}
+    >
+      {product.title}
+      <span className="font-bold text-base  md:text-xl">
+        ${product.priceV2.amount}
+      </span>
+    </button>
+  );
+};
+
+const QuantitySelector2 = ({
+  product,
+  quantityLocal,
+  setQuantityLocal,
+}: {
+  product: any;
+  quantityLocal: number;
+  setQuantityLocal: React.Dispatch<React.SetStateAction<number>>;
+}) => {
+  return (
+    <div className="font-bold group hover:bg-theme-blue/10 cursor-pointer text-base  relative border w-fit rounded-full border-theme-blue text-theme-blue px-2 py-1">
+      <label className="flex items-center gap-1 absolute  pointer-events-none ">
+        Qty: {quantityLocal}
+        <Icons.chevronDown className="h-4 w-4 fill-theme-blue text-theme-blue" />
+      </label>
+
+      <select
+        onChange={() => setQuantityLocal(event.target.value)}
+        className="bg-transparent text-transparent w-16  cursor-pointer"
+        name="qtySelect"
+      >
+        {[...Array(product.quantityAvailable)].map((_: any, index: number) => (
+          <option key={index + 1} value={index + 1}>
+            {index + 1}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 
@@ -258,5 +334,21 @@ const EmailForm = () => {
         Submit
       </Button>
     </form>
+  );
+};
+
+const AmazonButton = () => {
+  return (
+    <LinkButton
+      href="https://www.amazon.com/"
+      target="blank"
+      className="h-fit bg-background  w-full hover:bg-[#FF9900]/10 "
+    >
+      <span className="flex  items-center uppercase font-body text-black">
+        Order now on
+      </span>
+      <Icons.AmazonLogo className="h-5 w-20 mt-2" />
+      <Icons.chevronRight className="h-6 w-6 text-[#FF9900]" />
+    </LinkButton>
   );
 };
