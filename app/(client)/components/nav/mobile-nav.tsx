@@ -97,7 +97,7 @@ export default function MobileNav() {
           >
             {cartTotalQuantity > 0 && (
               <span
-                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-4 w-4 font-bold p-1 text-sm flex items-center justify-center text-theme-blue bg-[#EDF6FB] rounded-full"
+                className="absolute pointer-events-none top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-4 w-4 font-bold p-1 text-sm flex items-center justify-center text-theme-blue bg-[#EDF6FB] rounded-full"
                 id="mobile-header-cart-quantity"
               >
                 {cartTotalQuantity}
