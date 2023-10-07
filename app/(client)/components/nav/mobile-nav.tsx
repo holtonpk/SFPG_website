@@ -7,7 +7,8 @@ import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { Icons } from "@/app/(client)/components/icons";
 import { marketingConfig } from "@/config/marketing";
 import { siteConfig } from "@/config/site";
-
+import { useCart } from "@/context/cart";
+import { Button } from "@/app/(client)/components/ui/button";
 const sidebar = {
   open: (height = 1000) => ({
     clipPath: `circle(${height * 2 + 200}px at 100% 0)`,
@@ -30,11 +31,14 @@ const sidebar = {
 const navItems = ["pricing", "changelog"];
 
 export default function MobileNav() {
-  const { domain = "dub.sh" } = useParams() as { domain: string };
-
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
+  const { showCartPreview, setShowCartPreview, cartTotalQuantity } = useCart();
+
+  const toggleCart = () => {
+    setShowCartPreview(!showCartPreview);
+  };
 
   return (
     <motion.nav
@@ -47,7 +51,7 @@ export default function MobileNav() {
       ref={containerRef}
     >
       <motion.div
-        className="absolute inset-0 right-0 w-full bg-white"
+        className="absolute inset-0 left-0 w-full bg-white"
         variants={sidebar}
       />
       <motion.ul
@@ -68,27 +72,12 @@ export default function MobileNav() {
             <MenuItem className="my-3 h-px w-full bg-gray-300" />
           </div>
         ))}
-
-        {/* <MenuItem key="Login">
-          <Link href="/login" className="flex w-full font-semibold capitalize">
-            Log in
-          </Link>
-        </MenuItem>
-        <MenuItem className="my-3 h-px w-full bg-gray-300" />
-
-        <MenuItem key="Signup">
-          <Link
-            href="/onboarding/register"
-            className="flex w-full font-semibold capitalize"
-          >
-            Sign Up
-          </Link>
-        </MenuItem> */}
       </motion.ul>
-      <div className="flex items-center justify-between px-4 relative z-20">
-        <Link href="/#" className="pb-1 ">
-          <span className="text-2xl p-2 text-primary font-bold  flex items-center ">
-            <div className="h-8 w-8 relative  -mr-2">
+
+      <div className="flex items-center justify-between px-4 relative z-20 pt-2">
+        <Link href="/#" className="">
+          <span className="text-2xl text-primary font-bold  flex items-center ">
+            <div className="h-10 w-10 relative  -mr-2">
               <Icons.logo
                 className="text-white h-full w-full "
                 color="rgb(77 164 224)"
@@ -99,20 +88,42 @@ export default function MobileNav() {
             </span>
           </span>
         </Link>
-        <MenuToggle toggle={toggleOpen} isOpen={isOpen} />
+        <div className="flex gap-4">
+          <Button
+            variant={"blueOutline"}
+            onClick={toggleCart}
+            className="rounded-full  relative z-20 flex items-center justify-center p-2 aspect-square"
+            id="mobile-header-cart-button"
+          >
+            {cartTotalQuantity > 0 && (
+              <span
+                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-4 w-4 font-bold p-1 text-sm flex items-center justify-center text-theme-blue bg-[#EDF6FB] rounded-full"
+                id="mobile-header-cart-quantity"
+              >
+                {cartTotalQuantity}
+              </span>
+            )}
+            <Icons.shoppingBag className="h-5 w-5 " id="header-cart-icon" />
+          </Button>
+          <MenuToggle toggle={toggleOpen} isOpen={isOpen} />
+        </div>
       </div>
     </motion.nav>
   );
 }
 
 const MenuToggle = ({ toggle, isOpen }: { toggle: any; isOpen: boolean }) => (
-  <button onClick={toggle} className="pointer-events-auto z-20 text-primary">
+  <Button
+    variant={"blueOutline"}
+    onClick={toggle}
+    className="pointer-events-auto z-20 aspect-square p-2"
+  >
     {isOpen ? (
-      <Icons.close className="w-6 h-6" />
+      <Icons.close className="w-5 h-5" />
     ) : (
-      <Icons.menu className="w-6 h-6" />
+      <Icons.menu className="w-5 h-5" />
     )}
-  </button>
+  </Button>
 );
 
 const Path = (props: any) => (

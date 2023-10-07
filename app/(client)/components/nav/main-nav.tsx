@@ -10,10 +10,10 @@ import { siteConfig } from "@/config/site";
 import { LinkButton } from "@/app/(client)/components/ui/link";
 import { marketingConfig } from "@/config/marketing";
 import { cn } from "@/lib/utils";
-import { Button } from "@/app/(client)/components/ui/button";
 import { motion } from "framer-motion";
 import ContactForm from "@/app/(client)/components/contact-form";
-import { useCart } from "../../../../context/cart";
+import { useCart } from "@/context/cart";
+import { Button } from "@/app/(client)/components/ui/button";
 const navItems = ["pricing", "changelog"];
 
 const transparentHeaderSegments = new Set(["metatags", "pricing"]);

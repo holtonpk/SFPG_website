@@ -42,9 +42,13 @@ const CartPreview = () => {
 
   const router = useRouter();
   const goToCheckout = async () => {
+    setLoading(true);
     const checkoutLink = await getCheckoutLink(checkoutObject);
     router.push(checkoutLink);
+    setLoading(false);
   };
+
+  const [loading, setLoading] = useState(false);
 
   const screenWidth = typeof window !== "undefined" && window.screen.width;
 
@@ -190,7 +194,11 @@ const CartPreview = () => {
                 variant="blue"
                 className="text-lg w-full"
               >
-                Go To Checkout
+                {loading ? (
+                  <Icons.spinner className="animate-spin h-5 w-5 " />
+                ) : (
+                  "Go To Checkout"
+                )}
               </Button>
             </div>
           </div>
