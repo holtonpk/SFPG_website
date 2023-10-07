@@ -45,9 +45,7 @@ export default function MobileNav() {
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
-      className={` top-0 inset-0 z-50 w-full md:hidden ${
-        isOpen ? "" : "pointer-events-none"
-      }`}
+      className={` top-0 inset-0 z-[50] w-full md:hidden`}
       ref={containerRef}
     >
       <motion.div
@@ -92,7 +90,7 @@ export default function MobileNav() {
           <Button
             variant={"blueOutline"}
             onClick={toggleCart}
-            className="rounded-full  relative z-20 flex items-center justify-center p-2 aspect-square"
+            className="rounded-full relative  z-[60] flex items-center justify-center p-2 aspect-square"
             id="mobile-header-cart-button"
           >
             {cartTotalQuantity > 0 && (
