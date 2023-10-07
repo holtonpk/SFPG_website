@@ -20,7 +20,7 @@ export default function Product({ productData }: { productData: any }) {
   console.log(product);
 
   return (
-    <div className=" md:pt-20 pb-20 md:container bg-white md:bg-background ">
+    <div className=" md:pt-20 pb-20 md:container bg-white md:bg-background">
       <div className="grid md:grid-cols-[40%_60%] lg::grid-cols-[50%_50%] md:w-[80%] mx-auto ">
         <div className="w-full h-[400px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] z-20  md:pl-0 relative mx-auto bg-background pt-10 rounded-b-[20px]  ">
           <Image
@@ -29,7 +29,7 @@ export default function Product({ productData }: { productData: any }) {
             alt="logo"
             fill
             objectFit="contain"
-            className=" ml-3 mt-4 md:m-0"
+            className="pl-4 pt-4 md:p-0"
           />
         </div>
         <div className="flex flex-col  p-6 md:p-10 gap-2 md:gap-4  relative">
