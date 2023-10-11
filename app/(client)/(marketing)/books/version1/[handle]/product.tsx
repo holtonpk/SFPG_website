@@ -34,9 +34,9 @@ export default function Product({ productData }: { productData: any }) {
         </div>
         <div className="flex flex-col  p-6 md:p-10 gap-2 md:gap-4  relative">
           <span className="text-base md:text-xl lg:text-3xl font-head uppercase  ">
-            <h1 className="text-theme-blue text-xl md:text-3xl lg:text-5xl font-head font-bold mb-3">
+            {/* <h1 className="text-theme-blue text-xl md:text-3xl lg:text-5xl font-head font-bold mb-3">
               {product.title}
-            </h1>
+            </h1> */}
             {product.collection}
           </span>
           <h1 className="capitalize text-[12px] md:text-xl">
@@ -132,6 +132,17 @@ const SaleBox = ({ product }: { product: any }) => {
           />
         </div>
       </div>
+
+      <div className="flex gap-4">
+        {product.variants.map((variant: any) => (
+          <ProductVariants
+            key={variant.id}
+            product={variant}
+            selectedVariant={selectedVariant}
+            setSelectedVariant={setSelectedVariant}
+          />
+        ))}
+      </div>
       <div className="md:hidden block">
         <QuantitySelector2
           product={selectedVariant}
@@ -161,16 +172,6 @@ const SaleBox = ({ product }: { product: any }) => {
           <Icons.add className="h-4 w-4 mr-2" />
           Add to Bag
         </Button>
-      </div>
-      <div className="flex gap-4">
-        {product.variants.map((variant: any) => (
-          <ProductVariants
-            key={variant.id}
-            product={variant}
-            selectedVariant={selectedVariant}
-            setSelectedVariant={setSelectedVariant}
-          />
-        ))}
       </div>
     </>
   );
