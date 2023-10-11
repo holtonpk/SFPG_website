@@ -15,6 +15,7 @@ type DisplayedProduct = {
 
 const Display = () => {
   const displayedProducts: DisplayedProduct[] = [
+    // update these
     {
       id: 1,
       title: "Business Success Stories",

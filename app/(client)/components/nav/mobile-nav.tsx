@@ -45,7 +45,7 @@ export default function MobileNav() {
       initial={false}
       animate={isOpen ? "open" : "closed"}
       custom={height}
-      className={` top-0 inset-0 z-[50] w-full md:hidden`}
+      className={` top-0 inset-0 z-[50] md:hidden w-full`}
       ref={containerRef}
     >
       <motion.div

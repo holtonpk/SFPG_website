@@ -24,7 +24,6 @@ export default async function MarketingLayout({
           <Analytics />
           <CartPreview />
           <Toaster />
-
           <main className="client">{children}</main>
         </CartProvider>
       </StorageProvider>

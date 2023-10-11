@@ -20,9 +20,9 @@ export default function Product({ productData }: { productData: any }) {
   console.log(product);
 
   return (
-    <div className=" md:pt-20 pb-20 md:container bg-white md:bg-background">
+    <div className="w-screen  overflow-hidden md:pt-20 pb-20 md:container bg-white md:bg-background">
       <div className="grid md:grid-cols-[40%_60%] lg::grid-cols-[50%_50%] md:w-[80%] mx-auto ">
-        <div className="w-full h-[400px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] z-20  md:pl-0 relative mx-auto bg-background pt-10 rounded-b-[20px]  ">
+        <div className="w-full max-w-screen h-[400px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] z-20  md:pl-0 relative mx-auto bg-background pt-10 rounded-b-[20px]  ">
           <Image
             loading="eager"
             src={product.imageSrc}
@@ -33,8 +33,8 @@ export default function Product({ productData }: { productData: any }) {
           />
         </div>
         <div className="flex flex-col  p-6 md:p-10 gap-2 md:gap-4  relative">
-          <span className="text-xl md:text-xl lg:text-3xl font-head uppercase  ">
-            <h1 className="text-theme-blue text-2xl md:text-3xl lg:text-5xl font-head font-bold mb-3">
+          <span className="text-base md:text-xl lg:text-3xl font-head uppercase  ">
+            <h1 className="text-theme-blue text-xl md:text-3xl lg:text-5xl font-head font-bold mb-3">
               {product.title}
             </h1>
             {product.collection}
@@ -108,7 +108,7 @@ const SaleBox = ({ product }: { product: any }) => {
 
   return (
     <>
-      <div className="  gap-4 flex items-center ">
+      <div className="  gap-4 flex items-center">
         {selectedVariant.compareAtPriceV2 ? (
           <>
             <span className="text-theme-blue font-bold text-2xl md:text-3xl  text-center md:text-left">
@@ -150,7 +150,7 @@ const SaleBox = ({ product }: { product: any }) => {
           setQuantityLocal={setQuantityLocal}
         />
       </div>
-      <div className="grid   md:grid-cols-2 gap-4 w-full">
+      <div className="fixed bottom-3  left-1/2 -translate-x-1/2  z-[50]  md:relative md:grid-cols-2 gap-4 w-[90%] md:w-full  grid">
         <Button
           onClick={buyNow}
           variant={"blue"}
@@ -166,7 +166,7 @@ const SaleBox = ({ product }: { product: any }) => {
         <Button
           onClick={addItemToCart}
           size={"lg"}
-          className="text-base whitespace-nowrap md:text-xl hover:bg-theme-blue/10 hover:text-theme-blue "
+          className="text-base whitespace-nowrap md:text-xl hover:bg-theme-blue/10 hover:text-theme-blue bg-white "
           variant={"blueOutline"}
         >
           <Icons.add className="h-4 w-4 mr-2" />

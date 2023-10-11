@@ -9,7 +9,10 @@ import { LinkButton } from "./ui/link";
 export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
   return (
     <footer
-      className={cn(className, "footer bg-theme-blue text-white z-40 border-t")}
+      className={cn(
+        className,
+        "footer bg-theme-blue text-white z-[40] border-t"
+      )}
       id="footer"
     >
       <div
@@ -17,7 +20,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
         id="footer-content"
       >
         <span
-          className="footer__logo text-2xl p-2 text-primary font-bold  flex items-center "
+          className="footer__logo text-2xl p-2 text-primary font-bold  flex  items-center "
           id="footer-logo"
         >
           <div
@@ -33,7 +36,7 @@ export function SiteFooter({ className }: React.HTMLAttributes<HTMLElement>) {
             {siteConfig.name}
           </span>
           <div
-            className="footer__social-links flex gap-4 ml-10"
+            className="footer__social-links flex gap-4 ml-4 md:ml-10"
             id="footer-social-links"
           >
             <LinkButton
