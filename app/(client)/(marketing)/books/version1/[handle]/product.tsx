@@ -132,17 +132,6 @@ const SaleBox = ({ product }: { product: any }) => {
           />
         </div>
       </div>
-      <div className="flex gap-4">
-        {product.variants.map((variant: any) => (
-          <ProductVariants
-            key={variant.id}
-            product={variant}
-            selectedVariant={selectedVariant}
-            setSelectedVariant={setSelectedVariant}
-          />
-        ))}
-      </div>
-
       <div className="md:hidden block">
         <QuantitySelector2
           product={selectedVariant}
@@ -150,7 +139,7 @@ const SaleBox = ({ product }: { product: any }) => {
           setQuantityLocal={setQuantityLocal}
         />
       </div>
-      <div className="fixed bottom-3  left-1/2 -translate-x-1/2  z-[50]  md:relative md:grid-cols-2 gap-4 w-[90%] md:w-full  grid transition-all duration-75">
+      <div className="  z-[50]  relative md:grid-cols-2 gap-4 w-full  grid ">
         <Button
           onClick={buyNow}
           variant={"blue"}
@@ -172,6 +161,16 @@ const SaleBox = ({ product }: { product: any }) => {
           <Icons.add className="h-4 w-4 mr-2" />
           Add to Bag
         </Button>
+      </div>
+      <div className="flex gap-4">
+        {product.variants.map((variant: any) => (
+          <ProductVariants
+            key={variant.id}
+            product={variant}
+            selectedVariant={selectedVariant}
+            setSelectedVariant={setSelectedVariant}
+          />
+        ))}
       </div>
     </>
   );

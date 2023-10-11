@@ -26,38 +26,31 @@ const Display = () => {
     },
     {
       id: 2,
-      title: "Heartwarming Chronicles of Love",
+      title: "The 50 Most Iconic Marketing Campaigns of All Time",
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme-pink",
     },
     {
       id: 3,
-      title: "Biggest Mysteries of the World",
+      title: "The 50 Most Intense Business Rivalries",
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme-purple",
     },
     {
       id: 4,
-      title: "Greatest Conspiracy Theories",
+      title: "The 50 Most Genius Business Deals",
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme-yellow",
     },
     {
       id: 5,
-      title: "Business Failures and Notorious Scams",
+      title: "The 50 Most Notorious Business Scams and Failures",
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme-blue",
-    },
-    {
-      id: 6,
-      title: "Origin Story of Every President",
-      image: "/image/coming_soon-cover.svg",
-      href: "/products/1",
-      color: "theme-pink",
     },
   ];
 

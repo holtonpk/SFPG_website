@@ -150,7 +150,7 @@ const SaleBox = ({ product }: { product: any }) => {
           setQuantityLocal={setQuantityLocal}
         />
       </div>
-      <div className="fixed bottom-3  left-1/2 -translate-x-1/2  z-[50]  md:relative md:grid-cols-2 gap-4 w-[90%] md:w-full  grid transition-all duration-75">
+      <div className=" z-[50]  relative md:grid-cols-2 gap-4 w-full  grid ">
         <Button
           onClick={buyNow}
           variant={"blue"}
