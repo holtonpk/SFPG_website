@@ -21,7 +21,7 @@ export default function Product({ productData }: { productData: any }) {
 
   return (
     <div className="w-screen  overflow-hidden md:pt-20 pb-20 md:container bg-white md:bg-background">
-      <div className="grid md:grid-cols-[40%_60%] lg::grid-cols-[50%_50%] md:w-[80%] mx-auto ">
+      <div className="grid md:grid-cols-[40%_60%] lg::grid-cols-[50%_50%] md:w-[80%] mx-auto  ">
         <div className="w-full max-w-screen h-[400px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] z-20  md:pl-0 relative mx-auto bg-background pt-10 rounded-b-[20px]  ">
           <Image
             loading="eager"
@@ -32,9 +32,9 @@ export default function Product({ productData }: { productData: any }) {
             className="pl-4 pt-4 md:p-0"
           />
         </div>
-        <div className="flex flex-col  p-6 md:p-10 gap-2 md:gap-4  relative">
+        <div className="flex flex-col  p-6 md:p-10 gap-2 md:gap-4 relative">
           <span className="text-base md:text-xl lg:text-3xl font-head uppercase  ">
-            <h1 className="text-theme-blue text-xl md:text-3xl lg:text-5xl font-head font-bold mb-3">
+            <h1 className="text-theme-blue text-xl md:text-3xl lg:text-5xl font-head font-bold mb-3 hidden md:block">
               {product.title}
             </h1>
             {product.collection}
@@ -81,6 +81,41 @@ const SaleBox = ({ product }: { product: any }) => {
   const [selectedVariant, setSelectedVariant] = React.useState(
     product.variants[0]
   );
+
+  const [isBuyButtonFixed, setIsBuyButtonFixed] = React.useState(true);
+  const buyNowButtonRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    // Function to handle scroll event
+    const handleScroll = () => {
+      const buttonContainer = document.getElementById("buy-button-container");
+      if (buttonContainer) {
+        const buttonContainerTop =
+          window.innerHeight - buttonContainer.getBoundingClientRect().top;
+        console.log(
+          "container top",
+          buttonContainer.getBoundingClientRect().top
+        );
+
+        console.log(buttonContainerTop);
+        if (buttonContainerTop < 16 + buyNowButtonRef.current!.offsetHeight) {
+          // The button container is above the viewport, set the button position to fixed
+          setIsBuyButtonFixed(true);
+        } else {
+          // The button container is in or below the viewport, set the button position to relative
+          setIsBuyButtonFixed(false);
+        }
+      }
+    };
+
+    // Add the scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   React.useEffect(() => {
     const redirectToLink = async () => {
@@ -132,6 +167,7 @@ const SaleBox = ({ product }: { product: any }) => {
           />
         </div>
       </div>
+
       <div className="flex gap-4">
         {product.variants.map((variant: any) => (
           <ProductVariants
@@ -142,7 +178,6 @@ const SaleBox = ({ product }: { product: any }) => {
           />
         ))}
       </div>
-
       <div className="md:hidden block">
         <QuantitySelector2
           product={selectedVariant}
@@ -150,11 +185,38 @@ const SaleBox = ({ product }: { product: any }) => {
           setQuantityLocal={setQuantityLocal}
         />
       </div>
-      <div className="fixed bottom-3  left-1/2 -translate-x-1/2  z-[50]  md:relative md:grid-cols-2 gap-4 w-[90%] md:w-full  grid transition-all duration-75">
+      <div
+        id="buy-button-container"
+        className={`z-[50] relative md:grid-cols-2 gap-4 w-full grid `}
+      >
+        <div
+          id="fixed-button-container"
+          className={`w-full px-6 left-0 md:hidden ${
+            isBuyButtonFixed ? "fixed bottom-4 " : "hidden "
+          }`}
+        >
+          <Button
+            id="buy-now-button-fixed"
+            onClick={buyNow}
+            variant={"blue"}
+            className={`text-base md:text-xl hover:bg-theme-blue/80  hover:text-white w-full border-theme-blue`}
+            size={"lg"}
+          >
+            {redirectToCheckout ? (
+              <Icons.spinner className="mr-2 h-6 w-6 animate-spin" />
+            ) : (
+              "Buy Now"
+            )}
+          </Button>
+        </div>
         <Button
+          id="buy-now-button-relative"
           onClick={buyNow}
+          ref={buyNowButtonRef}
           variant={"blue"}
-          className="text-base md:text-xl hover:bg-theme-blue/80 hover:text-white"
+          className={`text-base md:text-xl hover:bg-theme-blue/80  hover:text-white border-theme-blue ${
+            isBuyButtonFixed ? "invisible md:relative " : "relative"
+          }}`}
           size={"lg"}
         >
           {redirectToCheckout ? (
@@ -164,9 +226,10 @@ const SaleBox = ({ product }: { product: any }) => {
           )}
         </Button>
         <Button
+          id="add-to-cart-button"
           onClick={addItemToCart}
           size={"lg"}
-          className="text-base whitespace-nowrap md:text-xl hover:bg-theme-blue/10 hover:text-theme-blue bg-white "
+          className="text-base whitespace-nowrap md:text-xl hover:bg-theme-blue/10 hover:text-theme-blue "
           variant={"blueOutline"}
         >
           <Icons.add className="h-4 w-4 mr-2" />

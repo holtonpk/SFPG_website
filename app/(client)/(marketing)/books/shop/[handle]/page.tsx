@@ -54,7 +54,7 @@ const getData = async (handle: string): Promise<any> => {
   };
 };
 
-export default async function ProductPage({ params }: Params) {
+export default async function ProductPage2({ params }: Params) {
   const data = await getData(params.handle);
 
   return (

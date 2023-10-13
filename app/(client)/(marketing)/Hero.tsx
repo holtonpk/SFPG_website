@@ -2,6 +2,7 @@
 import React from "react";
 import { Icons } from "@/app/(client)/components/icons";
 import { Button } from "@/app/(client)/components/ui/button";
+import { LinkButton } from "@/app/(client)/components/ui/link";
 import Image from "next/image";
 import useScroll from "@/lib/hooks/use-scroll";
 import { Input } from "@/app/(client)/components/ui/input";
@@ -11,6 +12,8 @@ import { siteConfig } from "@/config/site";
 import coverImage from "@/public/image/cover-shadow2.png";
 const Hero = () => {
   const scrolled = useScroll(50);
+
+  const bookIsAvailable = true;
 
   return (
     <div className="hero relative pt-8 lg:pt-20" id="hero">
@@ -54,9 +57,24 @@ const Hero = () => {
             riveting tales and lessons from history&apos;s most influential
             businessman.
           </h2>
-          <div className="md:block hidden" id="email-form">
-            <EmailForm />
-          </div>
+          {bookIsAvailable ? (
+            <div className="md:flex gap-4 hidden" id="buy-now-button">
+              <LinkButton
+                href={
+                  "/books/shop/snapshots-of-success-the-50-greatest-business-success-stories"
+                }
+                variant="blue"
+                className=" text-xl p-6"
+              >
+                Order Book
+                {/* <Icons.arrowRight className="ml-2 h-6 w-6" /> */}
+              </LinkButton>
+            </div>
+          ) : (
+            <div className="md:block hidden" id="email-form">
+              <EmailForm />
+            </div>
+          )}
         </div>
 
         <div
@@ -137,9 +155,23 @@ const Hero = () => {
             />
           </div>
         </div>
-        <div className="md:hidden" id="email-form-mobile">
-          <EmailForm />
-        </div>
+        {bookIsAvailable ? (
+          <div className="flex gap-4 md:hidden" id="buy-now-button">
+            <LinkButton
+              href={
+                "/books/shop/snapshots-of-success-the-50-greatest-business-success-stories"
+              }
+              variant="blue"
+              className=" text-xl p-6 w-full"
+            >
+              Buy Now
+            </LinkButton>
+          </div>
+        ) : (
+          <div className="md:hidden" id="email-form-mobile">
+            <EmailForm />
+          </div>
+        )}
       </div>
     </div>
   );

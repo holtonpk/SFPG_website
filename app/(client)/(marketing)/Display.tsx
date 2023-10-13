@@ -21,7 +21,7 @@ const Display = () => {
       title: "Business Success Stories",
 
       image: "/image/cover.png",
-      href: "/products/1",
+      href: "/books/shop/snapshots-of-success-the-50-greatest-business-success-stories",
       color: "theme-blue",
     },
     {
