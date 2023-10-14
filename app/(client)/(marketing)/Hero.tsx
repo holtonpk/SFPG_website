@@ -31,7 +31,7 @@ const Hero = () => {
       </div>
       {!scrolled && (
         <div
-          className="hero-arrow absolute bottom-10 left-1/2 -translate-x-1/2 border rounded-md w-fit px-4 pt-2 pb-3 h-fit flex flex-col gap-2"
+          className="hero-arrow absolute bottom-10 left-1/2 -translate-x-1/2 border rounded-md w-fit px-4 pt-2 pb-3 h-fit flex-col gap-2 hidden md:flex"
           id="hero-arrow"
         >
           <div className="scroll-arrow" id="scroll-arrow-1" />
