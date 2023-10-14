@@ -92,12 +92,6 @@ const SaleBox = ({ product }: { product: any }) => {
       if (buttonContainer) {
         const buttonContainerTop =
           window.innerHeight - buttonContainer.getBoundingClientRect().top;
-        console.log(
-          "container top",
-          buttonContainer.getBoundingClientRect().top
-        );
-
-        console.log(buttonContainerTop);
         if (buttonContainerTop < 16 + buyNowButtonRef.current!.offsetHeight) {
           // The button container is above the viewport, set the button position to fixed
           setIsBuyButtonFixed(true);
