@@ -34,7 +34,7 @@ export default function Product({ productData }: { productData: any }) {
         </div>
         <div className="flex flex-col  p-6 md:p-10 gap-2 md:gap-4 relative">
           <span className="text-base md:text-xl lg:text-3xl font-head uppercase  ">
-            <h1 className="text-theme-blue text-xl md:text-3xl lg:text-5xl font-head font-bold mb-3 hidden md:block">
+            <h1 className="text-theme-blue text-xl md:text-3xl lg:text-5xl font-head font-bold mb-3 ">
               {product.title}
             </h1>
             {product.collection}
