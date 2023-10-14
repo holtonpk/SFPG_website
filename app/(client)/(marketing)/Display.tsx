@@ -7,6 +7,7 @@ import Image from "next/image";
 
 type DisplayedProduct = {
   title: string;
+  available: boolean;
   id: number;
   image: string;
   href: string;
@@ -19,7 +20,7 @@ const Display = () => {
     {
       id: 1,
       title: "Business Success Stories",
-
+      available: true,
       image: "/image/cover.png",
       href: "/books/shop/snapshots-of-success-the-50-greatest-business-success-stories",
       color: "theme-blue",
@@ -27,6 +28,8 @@ const Display = () => {
     {
       id: 2,
       title: "The 50 Most Iconic Marketing Campaigns of All Time",
+      available: false,
+
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme-pink",
@@ -34,6 +37,8 @@ const Display = () => {
     {
       id: 3,
       title: "The 50 Most Intense Business Rivalries",
+      available: false,
+
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme-purple",
@@ -41,6 +46,8 @@ const Display = () => {
     {
       id: 4,
       title: "The 50 Most Genius Business Deals",
+      available: false,
+
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme-yellow",
@@ -48,6 +55,8 @@ const Display = () => {
     {
       id: 5,
       title: "The 50 Most Notorious Business Scams and Failures",
+      available: false,
+
       image: "/image/coming_soon-cover.svg",
       href: "/products/1",
       color: "theme-blue",
@@ -190,12 +199,12 @@ const ProductCardDesktop = ({
         <div className="h-fit mt-4 relative w-full  gap-2 transition-all duration-100 justify-between items-center delay-[100ms] z-30 ">
           <Button
             id={`product-card-image-desktop-button-${product.id}`} // Element ID
-            variant={"secondaryOutline"}
-            className={`w-full   h-fit items-center delay-[100ms] 
+            variant={"outline"}
+            className={`w-full text-white border-white hover:bg-white hover:text-black   h-fit items-center delay-[100ms]  
               ${product.id === selectedCard ? " visible" : " invisible"}
             `}
           >
-            Jump the line
+            {product.available ? "Buy Now" : "Jump the line"}
           </Button>
         </div>
       </div>
@@ -282,7 +291,8 @@ const ProductCardMobile = ({ product }: { product: DisplayedProduct }) => {
         <div className="h-fit mt-4 relative w-full  gap-2 transition-all duration-100 justify-between items-center delay-[100ms] z-30 ">
           <Button
             id={`product-card-content-mobile-button-${product.id}`} // Element ID
-            className={`product-button w-full text-white  border-white transition-all duration-500   h-fit items-center delay-[100ms] 
+            variant={"outline"}
+            className={`product-button text-white border-white   hover:bg-white hover:text-black w-full transition-all duration-500   h-fit items-center delay-[100ms] 
             ${
               centerPosition < 150 && centerPosition > -150
                 ? " visible"
@@ -290,7 +300,7 @@ const ProductCardMobile = ({ product }: { product: DisplayedProduct }) => {
             }
           `}
           >
-            Jump the line
+            {product.available ? "Buy Now" : "Jump the line"}
           </Button>
         </div>
       </div>
