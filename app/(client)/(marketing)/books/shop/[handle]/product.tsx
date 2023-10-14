@@ -64,7 +64,7 @@ export default function Product({ productData }: { productData: any }) {
         </div>
       </div>
 
-      <div className="w-[80%] mx-auto">
+      <div id="product-overview" className="w-[80%] mx-auto">
         <h1 className="text-4xl text-theme-blue font-bold mb-4">Overview</h1>
         <div dangerouslySetInnerHTML={{ __html: product.description }} />
       </div>

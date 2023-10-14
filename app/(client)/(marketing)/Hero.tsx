@@ -64,9 +64,19 @@ const Hero = () => {
                   "/books/shop/snapshots-of-success-the-50-greatest-business-success-stories"
                 }
                 variant="blue"
-                className=" text-xl p-6"
+                className=" p-6"
               >
                 Order Book
+                {/* <Icons.arrowRight className="ml-2 h-6 w-6" /> */}
+              </LinkButton>
+              <LinkButton
+                href={
+                  "/books/shop/snapshots-of-success-the-50-greatest-business-success-stories/#product-overview"
+                }
+                variant="blueOutline"
+                className=" p-6"
+              >
+                Learn More
                 {/* <Icons.arrowRight className="ml-2 h-6 w-6" /> */}
               </LinkButton>
             </div>
@@ -156,15 +166,26 @@ const Hero = () => {
           </div>
         </div>
         {bookIsAvailable ? (
-          <div className="flex gap-4 md:hidden" id="buy-now-button">
+          <div className="flex flex-col gap-4 md:hidden" id="buy-now-button">
             <LinkButton
               href={
                 "/books/shop/snapshots-of-success-the-50-greatest-business-success-stories"
               }
               variant="blue"
-              className=" text-xl p-6 w-full"
+              className=" p-6"
             >
-              Buy Now
+              Order Book
+              {/* <Icons.arrowRight className="ml-2 h-6 w-6" /> */}
+            </LinkButton>
+            <LinkButton
+              href={
+                "/books/shop/snapshots-of-success-the-50-greatest-business-success-stories/#product-overview"
+              }
+              variant="blueOutline"
+              className=" p-6"
+            >
+              Learn More
+              {/* <Icons.arrowRight className="ml-2 h-6 w-6" /> */}
             </LinkButton>
           </div>
         ) : (
