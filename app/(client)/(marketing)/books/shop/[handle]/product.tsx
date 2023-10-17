@@ -16,6 +16,8 @@ import { Progress } from "@/app/(client)/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { Label } from "@/app/(client)/components/ui/label";
 import { Textarea } from "@/app/(client)/components/ui/textarea";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "@/config/firebase";
 import {
   Accordion,
   AccordionContent,
@@ -212,6 +214,11 @@ const SaleBox = ({ product }: { product: any }) => {
   }, [redirectToCheckout, checkoutObject, router]);
 
   const addItemToCart = () => {
+    if (analytics) {
+      logEvent(analytics, "added to cart", {
+        product: product.id,
+      });
+    }
     addToCart({ ...product, selectedVariant: selectedVariant }, quantityLocal);
     setShowCartPreview(true);
   };
@@ -362,7 +369,7 @@ const SaleBox = ({ product }: { product: any }) => {
           </Button>
           <div
             id="buy-now-button-fixed-priceRow"
-            className="mt-2  gap-4 flex items-center b-b"
+            className="mt-2  gap-4 flex items-center "
           >
             {selectedVariant.compareAtPriceV2 ? (
               <div
@@ -434,7 +441,7 @@ const SaleBox = ({ product }: { product: any }) => {
             id="add-to-cart-button"
             onClick={addItemToCart}
             size={"lg"}
-            className="text-base whitespace-nowrap md:text-xl hover:bg-theme-blue/10 hover:text-theme-blue rounded-none w-full "
+            className="text-base whitespace-nowrap md:text-xl hover:bg-theme-blue/10 hover:text-theme-blue rounded-md w-full "
             variant={"blueOutline"}
           >
             <Icons.shoppingBag className="h-4 w-4 mr-2" />
@@ -446,7 +453,7 @@ const SaleBox = ({ product }: { product: any }) => {
           onClick={buyNow}
           ref={buyNowButtonRef}
           variant={"blue"}
-          className={`text-base md:text-xl hover:bg-theme-blue/80  hover:text-white border-theme-blue rounded-none ${
+          className={`text-base md:text-xl hover:bg-theme-blue/80  hover:text-white border-theme-blue rounded-md ${
             isBuyButtonFixed ? "invisible md:visible  " : "relative  "
           }}`}
           size={"lg"}
@@ -820,7 +827,7 @@ const QuantitySelector2 = ({
       <h1 id="product-saleBox-quantity-label">Quantity</h1>
       <div
         id="product-saleBox-quantity-selector"
-        className="flex-grow border-theme-blue/30 px-2 flex border md:w-full  justify-between items-center"
+        className="flex-grow border-theme-blue/30 px-2 flex border md:w-full  justify-between items-center rounded-md"
       >
         <Button
           id="product-saleBox-quantity-sub"
