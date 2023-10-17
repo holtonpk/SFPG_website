@@ -32,7 +32,7 @@ const getData = async (handle: string): Promise<any> => {
   );
 
   const productDataRes: ProductInfo = await prodDataRes.json();
-  const productData = productDataRes.productByHandle;
+  const productData = productDataRes.data.productByHandle;
   const product = {
     id: productData.id,
     title: productData.title,
@@ -47,6 +47,7 @@ const getData = async (handle: string): Promise<any> => {
     variants: productData.variants.edges.map((variant: any) => {
       return variant.node;
     }),
+    reviews: productDataRes.reviews,
   };
 
   return {
@@ -65,56 +66,68 @@ export default async function ProductPage2({ params }: Params) {
 }
 
 type ProductInfo = {
-  productByHandle: {
-    title: string;
+  reviews: {
     id: string;
-    handle: string;
-    descriptionHtml: string;
-    collections: {
-      edges: {
-        node: {
-          title: string;
-        };
-      }[];
-    };
-    totalInventory: number;
-    ratingAverage: number | null;
-    ratingCount: number | null;
-    productReviews: any | null; // You can replace 'any' with a more specific type
-    variants: {
-      edges: {
-        node: {
-          id: string;
-          title: string;
-          quantityAvailable: number;
-          priceV2: {
-            amount: string;
-            currencyCode: string;
+    name: string;
+    email: string;
+    productId: string;
+    rating: number;
+    date: number;
+    title: string;
+    body: string;
+  }[];
+  data: {
+    productByHandle: {
+      title: string;
+      id: string;
+      handle: string;
+      descriptionHtml: string;
+      collections: {
+        edges: {
+          node: {
+            title: string;
           };
-          compareAtPriceV2: {
-            amount: string;
-            currencyCode: string;
+        }[];
+      };
+      totalInventory: number;
+      ratingAverage: number | null;
+      ratingCount: number | null;
+      productReviews: any | null; // You can replace 'any' with a more specific type
+      variants: {
+        edges: {
+          node: {
+            id: string;
+            title: string;
+            quantityAvailable: number;
+            priceV2: {
+              amount: string;
+              currencyCode: string;
+            };
+            compareAtPriceV2: {
+              amount: string;
+              currencyCode: string;
+            };
           };
-        };
-      }[];
-    };
-    priceRange: {
-      maxVariantPrice: {
-        amount: string;
-        currencyCode: string;
+        }[];
       };
-      minVariantPrice: {
-        amount: string;
-        currencyCode: string;
-      };
-    };
-    images: {
-      edges: {
-        node: {
-          src: string;
-          altText: string | null;
+      priceRange: {
+        maxVariantPrice: {
+          amount: string;
+          currencyCode: string;
         };
-      }[];
+        minVariantPrice: {
+          amount: string;
+          currencyCode: string;
+        };
+      };
+      images: {
+        edges: {
+          node: {
+            src: string;
+            altText: string | null;
+          };
+        }[];
+      };
     };
   };
 };

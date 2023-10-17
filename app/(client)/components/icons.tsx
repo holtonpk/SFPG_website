@@ -108,11 +108,14 @@ import {
   MonitorSmartphone,
   Star,
   Circle,
+  FlameIcon,
+  StarHalf,
 } from "lucide-react";
 
 //   export type XIcon = LucideIcon;
 
 export const Icons = {
+  fire: FlameIcon,
   monitorSmartphone: MonitorSmartphone,
   star: Star,
   shoppingBag: ShoppingBag,
@@ -217,6 +220,17 @@ export const Icons = {
   check: Check,
   smartPhone: Smartphone,
   LaptopIcon: LaptopIcon,
+
+  halfStar: ({ ...props }: LucideProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path d="M8.031 7.678l3.276-6.49a.774.774 0 01.694-.438c.274 0 .549.145.697.438l3.276 6.49 7.347 1.045a.806.806 0 01.68.757.824.824 0 01-.256.668l-5.284 5.034 1.245 7.094c.117.665-.54 1.186-1.119.889l-6.586-3.384-6.584 3.384a.78.78 0 01-.219.075c-.513.09-1.002-.381-.9-.963l1.245-7.096L.26 10.148a.825.825 0 01-.258-.605.87.87 0 01.127-.453.77.77 0 01.555-.367l7.347-1.045zm3.97 10.363a.75.75 0 01.348.084l5.529 2.84-1.041-5.935a.847.847 0 01.242-.757l4.361-4.155-6.078-.864a.787.787 0 01-.59-.432l-2.77-5.487-.002.004v14.702z"></path>
+    </svg>
+  ),
 
   tiktok: ({ ...props }: LucideProps) => (
     <svg

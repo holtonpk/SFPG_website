@@ -7,6 +7,7 @@ import {
   setDoc,
   getFirestore,
   getDoc,
+  getDocs,
   updateDoc,
   deleteDoc,
   collection,
@@ -20,6 +21,26 @@ interface StorageContextType {
     subject: string,
     message: string
   ) => void;
+  SaveReview: (
+    name: string,
+    productId: string,
+    email: string,
+    rating: number,
+    date: number,
+    title: string,
+    body: string
+  ) => void;
+  FetchReviews: () => Promise<
+    {
+      name: string;
+      email: string;
+      productId: string;
+      rating: number;
+      date: number;
+      title: string;
+      body: string;
+    }[]
+  >;
 }
 
 const StorageContext = createContext<StorageContextType | null>(null);
@@ -48,7 +69,46 @@ export function StorageProvider({ children }: { children: React.ReactNode }) {
     console.log("Document written with ID: ", d);
   };
 
-  const value = { CreateNewMessage };
+  const SaveReview = async (
+    name: string,
+    productId: string,
+    email: string,
+    rating: number,
+    date: number,
+    title: string,
+    body: string
+  ) => {
+    const d = await addDoc(collection(db, "reviews"), {
+      name: name,
+      email: email,
+      productId: productId,
+      rating: rating,
+      date: date,
+      title: title,
+      body: body,
+      live: false,
+    });
+    console.log("Document written with ID: ", d);
+  };
+
+  const FetchReviews = async () => {
+    const reviews: {
+      name: string;
+      email: string;
+      productId: string;
+      rating: number;
+      date: number;
+      title: string;
+      body: string;
+    }[] = [];
+    const querySnapshot = await getDocs(collection(db, "reviews"));
+    querySnapshot.forEach((doc) => {
+      reviews.push(doc.data() as any);
+    });
+    return reviews;
+  };
+
+  const value = { CreateNewMessage, SaveReview, FetchReviews };
 
   return (
     <StorageContext.Provider value={value}>{children}</StorageContext.Provider>

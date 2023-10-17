@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/app/(client)/components/ui/button";
 import { LinkButton } from "@/app/(client)/components/ui/link";
 import { useStorage } from "@/context/storage";
-import { useToast } from "@/app/(client)/components/ui/use-toast";
+import { toast, useToast } from "@/app/(client)/components/ui/use-toast";
 import { Input } from "@/app/(client)/components/ui/input";
 import { Icons } from "@/app/(client)/components/icons";
 import { siteConfig } from "@/config/site";
@@ -12,12 +12,38 @@ import { useCart } from "@/context/cart";
 import { useRouter } from "next/navigation";
 import { getCheckoutLink } from "@/app/(client)/components/cart-preview";
 import Iphone from "@/public/image/iphone.png";
+import { Progress } from "@/app/(client)/components/ui/progress";
+import { cn } from "@/lib/utils";
+import { Label } from "@/app/(client)/components/ui/label";
+import { Textarea } from "@/app/(client)/components/ui/textarea";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/app/(client)/components/ui/accordion";
+import { timeSince } from "@/lib/utils";
+import { is } from "date-fns/locale";
+import { set } from "date-fns";
 // import previewVideo from "@/public/video/Video1.mp4";
 
 export default function Product({ productData }: { productData: any }) {
   const product = productData.product;
 
-  console.log(product);
+  const productRating =
+    product.reviews.reduce((acc: number, review: any) => {
+      return acc + review.rating;
+    }, 0) / product.reviews.length;
+
+  const [accordionValue, setAccordionValue] =
+    React.useState<string>("overview");
+
+  const Router = useRouter();
+
+  const jumpToReviews = () => {
+    setAccordionValue("reviews");
+    Router.push("#product-reviews");
+  };
 
   return (
     <div className="w-screen  overflow-hidden md:pt-20 pb-20 md:container bg-white md:bg-background">
@@ -32,24 +58,24 @@ export default function Product({ productData }: { productData: any }) {
             className="pl-4 pt-4 md:p-0"
           />
         </div>
-        <div className="flex flex-col  p-6 md:p-10 gap-2 md:gap-4 relative">
-          <span className="text-base md:text-xl lg:text-3xl font-head uppercase  ">
-            <h1 className="text-theme-blue text-xl md:text-3xl lg:text-5xl font-head font-bold mb-3 ">
+        <div className="flex flex-col  p-4 md:p-10 gap-2 md:gap-4 relative ">
+          <span className="text-base md:text-xl lg:text2xl  uppercase font-body text-muted-foreground ">
+            {product.collection}
+            <h1 className="text-theme-blue text-2xl md:text-3xl lg:text-5xl font-body font-bold ">
               {product.title}
             </h1>
-            {product.collection}
           </span>
-          <h1 className="capitalize text-[12px] md:text-xl">
+          {/* <h1 className="capitalize text-[12px] md:text-xl">
             by Short Form Publishing Group
-          </h1>
-          <div className="flex items-center gap-2   w-fit ">
-            <Icons.star className="h-5 w-5 text-theme-blue fill-theme-blue" />
-            <Icons.star className="h-5 w-5 text-theme-blue fill-theme-blue" />
-            <Icons.star className="h-5 w-5 text-theme-blue fill-theme-blue" />
-            <Icons.star className="h-5 w-5 text-theme-blue fill-theme-blue" />
-            <Icons.star className="h-5 w-5 text-theme-blue fill-theme-blue" />
-            <Button className="p-0  h-fit" variant={"link"}>
-              Reviews (21)
+          </h1> */}
+          <div className="flex items-center gap-1   w-fit ">
+            <Stars rating={productRating} />
+            <Button
+              onClick={jumpToReviews}
+              className="p-0  h-fit text-muted-foreground"
+              variant={"link"}
+            >
+              ({product.reviews.length})
             </Button>
           </div>
           {product.quantityAvailable > 0 ? (
@@ -63,11 +89,40 @@ export default function Product({ productData }: { productData: any }) {
           )}
         </div>
       </div>
-
-      <div id="product-overview" className="w-[80%] mx-auto">
-        <h1 className="text-4xl text-theme-blue font-bold mb-4">Overview</h1>
-        <div dangerouslySetInnerHTML={{ __html: product.description }} />
-      </div>
+      <Accordion
+        type="single"
+        collapsible
+        value={accordionValue}
+        onValueChange={setAccordionValue}
+        className="w-[90%] mx-auto"
+      >
+        <AccordionItem value="overview" id="product-overview">
+          <AccordionTrigger className="underline-0">
+            Book Overview
+          </AccordionTrigger>
+          <AccordionContent>
+            <div dangerouslySetInnerHTML={{ __html: product.description }} />
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="shipping">
+          <AccordionTrigger className="underline-0">
+            Shipping & Delivery
+          </AccordionTrigger>
+          <AccordionContent>
+            Shipping usually takes 5-7 business days. We ship to all countries
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="reviews" id="product-reviews">
+          <AccordionTrigger className="underline-0">Reviews</AccordionTrigger>
+          <AccordionContent>
+            <ProductReviews
+              productRating={productRating}
+              productId={product.id}
+              reviews={product.reviews}
+            />
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 }
@@ -135,65 +190,121 @@ const SaleBox = ({ product }: { product: any }) => {
     setRedirectToCheckout(true);
   };
 
+  // Random number for the "people are viewing this" section
+  const [randomNumber, setRandomNumber] = React.useState<number>();
+
+  useEffect(() => {
+    const updateRandomNumber = () => {
+      const min = 50;
+      const max = 170;
+      const newRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+      setRandomNumber(newRandomNumber);
+    };
+
+    // Initial update
+    updateRandomNumber();
+
+    // Schedule updates every 30 seconds (3,000 milliseconds)
+    const interval = setInterval(updateRandomNumber, 30000);
+
+    // Cleanup the interval when the component unmounts
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <div className="  gap-4 flex items-center">
         {selectedVariant.compareAtPriceV2 ? (
           <>
             <span className="text-theme-blue font-bold text-2xl md:text-3xl  text-center md:text-left">
               ${selectedVariant.priceV2.amount}
             </span>
-            <span className="line-through text-xl md:text-2xl mt-1 text-theme-blue/40 decoration-theme-blue/80 text-center md:text-left">
+            <span className="line-through text-xl md:text-2xl mt-1 text-theme-blue/40 decoration-theme-blue/40 text-center md:text-left">
               ${selectedVariant.compareAtPriceV2.amount}
-            </span>{" "}
+            </span>
+            <div className="bg-theme-blue p-2 py-1 text-sm  text-white rounded-full">
+              {"SAVE " +
+                Math.round(
+                  ((selectedVariant.compareAtPriceV2.amount -
+                    selectedVariant.priceV2.amount) /
+                    selectedVariant.compareAtPriceV2.amount) *
+                    100
+                ) +
+                "%"}
+            </div>
           </>
         ) : (
-          <h1 className=" font-bold text-theme-blue hidden md:block text-xl md:text-3xl text-center md:text-left">
+          <h1 className=" font-bold text-theme-blue hidden md:block text-2xl md:text-3xl text-center md:text-left">
             ${selectedVariant.priceV2.amount}
           </h1>
         )}
 
-        <div className="md:block hidden">
+        {/* <div className="md:block hidden">
           <QuantitySelector2
             product={selectedVariant}
             quantityLocal={quantityLocal}
             setQuantityLocal={setQuantityLocal}
           />
+        </div> */}
+      </div>
+      <p className="text-muted-foreground">
+        Craving a little motivation? Open this book to dive into a world of
+        riveting tales and lessons from history&apos;s most influential
+        businessman.
+      </p>
+
+      <div className="w-full flex  items-center gap-2 font-bold">
+        <Icons.showPassword className="h-6 w-6 text-muted-foreground" />
+        {randomNumber} people are viewing this right now.
+      </div>
+      <div className="w-full flex  p-2 items-center  bg-theme-pink/20 text-theme-pink rounded-md whitespace-nowrap">
+        <Icons.fire className="h-5 w-5 mr-2 " />
+        <p>
+          <span className="font-bold"> 75 products sold </span> in the last 15
+          hours.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-2 w-full md:hidden">
+        <p>
+          Hurry! only <span className="font-bold"> 25 items </span> left in
+          stock{" "}
+        </p>
+        <Progress className="h-2" value={33} />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <p>
+          {" "}
+          <span className="font-bold">Style:</span> {selectedVariant.title}
+        </p>
+        <div className="flex gap-4">
+          {product.variants.map((variant: any) => (
+            <ProductVariants
+              key={variant.id}
+              product={variant}
+              selectedVariant={selectedVariant}
+              setSelectedVariant={setSelectedVariant}
+            />
+          ))}
         </div>
       </div>
 
-      <div className="flex gap-4">
-        {product.variants.map((variant: any) => (
-          <ProductVariants
-            key={variant.id}
-            product={variant}
-            selectedVariant={selectedVariant}
-            setSelectedVariant={setSelectedVariant}
-          />
-        ))}
-      </div>
-      <div className="md:hidden block">
-        <QuantitySelector2
-          product={selectedVariant}
-          quantityLocal={quantityLocal}
-          setQuantityLocal={setQuantityLocal}
-        />
-      </div>
       <div
         id="buy-button-container"
-        className={`z-[50] relative md:grid-cols-2 gap-4 w-full grid `}
+        className={`z-[50] relative gap-4 w-full grid  `}
       >
         <div
           id="fixed-button-container"
-          className={`w-full px-6 left-0 md:hidden ${
-            isBuyButtonFixed ? "fixed bottom-4 " : "hidden "
+          className={`w-full px-6 flex flex-col items-center left-0 md:hidden border-t bg-white ${
+            isBuyButtonFixed ? "fixed bottom-0 py-4 " : "hidden "
           }`}
         >
           <Button
             id="buy-now-button-fixed"
             onClick={buyNow}
             variant={"blue"}
-            className={`text-base md:text-xl hover:bg-theme-blue/80  hover:text-white w-full border-theme-blue`}
+            className={`text-base md:text-xl hover:bg-theme-blue/80   hover:text-white w-full border-theme-blue rounded-md`}
             size={"lg"}
           >
             {redirectToCheckout ? (
@@ -202,14 +313,67 @@ const SaleBox = ({ product }: { product: any }) => {
               "Buy Now"
             )}
           </Button>
+          <div className="mt-2  gap-4 flex items-center">
+            {selectedVariant.compareAtPriceV2 ? (
+              <div className="flex items-center gap-2">
+                <span className="text-theme-blue font-bold text-2xl md:text-3xl  text-center md:text-left">
+                  ${selectedVariant.priceV2.amount}
+                </span>
+                <span className="line-through text-base md:text-2xl text-theme-blue/40 decoration-theme-blue/40 text-center md:text-left">
+                  ${selectedVariant.compareAtPriceV2.amount}
+                </span>
+                <div className="h-[16px] w-[1px] bg-theme-blue"></div>
+                <div className="  text-sm text-theme-blue ">
+                  {"SAVE " +
+                    Math.round(
+                      ((selectedVariant.compareAtPriceV2.amount -
+                        selectedVariant.priceV2.amount) /
+                        selectedVariant.compareAtPriceV2.amount) *
+                        100
+                    ) +
+                    "%"}
+                </div>
+              </div>
+            ) : (
+              <h1 className=" font-bold text-theme-blue hidden md:block text-2xl md:text-3xl text-center md:text-left">
+                ${selectedVariant.priceV2.amount}
+              </h1>
+            )}
+
+            <div className="md:block hidden">
+              <QuantitySelector2
+                product={selectedVariant}
+                quantityLocal={quantityLocal}
+                setQuantityLocal={setQuantityLocal}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="grid gap-4  overflow-hidden md:grid-cols-[1fr_70%] items-end w-full">
+          <QuantitySelector2
+            product={selectedVariant}
+            quantityLocal={quantityLocal}
+            setQuantityLocal={setQuantityLocal}
+          />
+
+          <Button
+            id="add-to-cart-button"
+            onClick={addItemToCart}
+            size={"lg"}
+            className="text-base whitespace-nowrap md:text-xl hover:bg-theme-blue/10 hover:text-theme-blue rounded-none w-full "
+            variant={"blueOutline"}
+          >
+            <Icons.shoppingBag className="h-4 w-4 mr-2" />
+            Add to Bag
+          </Button>
         </div>
         <Button
           id="buy-now-button-relative"
           onClick={buyNow}
           ref={buyNowButtonRef}
           variant={"blue"}
-          className={`text-base md:text-xl hover:bg-theme-blue/80  hover:text-white border-theme-blue ${
-            isBuyButtonFixed ? "invisible md:relative " : "relative"
+          className={`text-base md:text-xl hover:bg-theme-blue/80  hover:text-white border-theme-blue rounded-none ${
+            isBuyButtonFixed ? "invisible md:visible  " : "relative  "
           }}`}
           size={"lg"}
         >
@@ -219,17 +383,216 @@ const SaleBox = ({ product }: { product: any }) => {
             "Buy Now"
           )}
         </Button>
+      </div>
+
+      <div className="hidden md:flex flex-col gap-2 w-full">
+        <p>
+          Hurry! only <span className="font-bold"> 25 items </span> left in
+          stock{" "}
+        </p>
+        <Progress className="h-2" value={33} />
+      </div>
+    </div>
+  );
+};
+
+const ProductReviews = ({
+  productRating,
+  productId,
+  reviews,
+}: {
+  productRating: number;
+  productId: string;
+  reviews: {
+    id: string;
+    name: string;
+    email: string;
+    productId: string;
+    rating: number;
+    date: number;
+    title: string;
+    body: string;
+  }[];
+}) => {
+  const { SaveReview } = useStorage()!;
+
+  // create a review
+
+  const [writeReview, setWriteReview] = React.useState<boolean>(false);
+  const [ratingValue, setRatingValue] = React.useState<number>(2);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  const nameInputRef = React.useRef<HTMLInputElement>(null);
+  const emailInputRef = React.useRef<HTMLInputElement>(null);
+  const titleInputRef = React.useRef<HTMLInputElement>(null);
+  const bodyInputRef = React.useRef<HTMLTextAreaElement>(null);
+
+  const saveReview = async () => {
+    setIsLoading(true);
+    if (
+      !nameInputRef.current!.value ||
+      !emailInputRef.current!.value ||
+      !titleInputRef.current!.value ||
+      !bodyInputRef.current!.value
+    ) {
+      toast({
+        title: "You left one or more fields blank",
+        description: "Please fill out all fields to leave a review",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    await SaveReview(
+      nameInputRef.current!.value,
+      productId,
+      emailInputRef.current!.value,
+      ratingValue,
+      Date.now(),
+      titleInputRef.current!.value,
+      bodyInputRef.current!.value
+    );
+
+    toast({
+      title: "Thanks for your review!",
+      description: "Your review will be posted shortly.",
+    });
+    setIsLoading(false);
+    setWriteReview(false);
+  };
+
+  return (
+    <div className="w-full flex flex-col">
+      <div className="w-full bg-theme-blue/10 rounded-md flex flex-col gap-2 justify-center items-center p-8">
+        <div className="flex items-center gap-1   w-fit ">
+          <Stars rating={productRating} />
+        </div>
+        <p className="text-xl">Based on {reviews.length} reviews</p>
         <Button
-          id="add-to-cart-button"
-          onClick={addItemToCart}
-          size={"lg"}
-          className="text-base whitespace-nowrap md:text-xl hover:bg-theme-blue/10 hover:text-theme-blue "
           variant={"blueOutline"}
+          onClick={() => setWriteReview(!writeReview)}
         >
-          <Icons.add className="h-4 w-4 mr-2" />
-          Add to Bag
+          Write a review
         </Button>
       </div>
+      {writeReview && (
+        <div className="flex flex-col mt-6 gap-4 px-2">
+          <h1 className="text-2xl font-bold">Write a review</h1>
+          <div className="flex flex-col gap-2">
+            <Label className="font-bold">Name</Label>
+            <Input
+              ref={nameInputRef}
+              placeholder="Enter your name"
+              autoComplete="name"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label className="font-bold">Email</Label>
+            <Input
+              ref={emailInputRef}
+              placeholder="Enter your email"
+              autoComplete="email"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label className="font-bold">Rating</Label>
+            <div className="flex gap-2">
+              {[...Array(5)].map((_, index: number) => (
+                <Button
+                  key={index}
+                  onClick={() => setRatingValue(index + 1)}
+                  variant={ratingValue >= index + 1 ? "blue" : "blueOutline"}
+                  className="aspect-square p-1"
+                >
+                  <Icons.star className="h-4 w-4" />
+                </Button>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label className="font-bold">Review Title</Label>
+            <Input ref={titleInputRef} placeholder="Give your review a title" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label className="font-bold">Body of Review</Label>
+            <Textarea
+              ref={bodyInputRef}
+              placeholder="Enter your email"
+              className="bg-none ring-none"
+            />
+          </div>
+          <Button onClick={saveReview} variant={"blue"}>
+            {isLoading ? (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <Icons.send className="h-4 w-4 mr-2" />
+            )}
+            Submit Review
+          </Button>
+        </div>
+      )}
+      {reviews.map((review) => (
+        <div
+          key={review.id}
+          className="flex flex-col border-b border-border py-10 gap-2"
+        >
+          <div className="flex items-center gap-1   w-fit ">
+            <Stars rating={review.rating} />
+          </div>
+          <p className="text-sm">
+            {review.name + " " + timeSince(review.date)}
+          </p>
+          <h1 className="text-xl font-bold">{review.title}</h1>
+          <p className="text-muted-foreground">{review.body}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const Stars = ({
+  rating,
+  className,
+}: {
+  rating: number;
+  className?: string;
+}) => {
+  const rounded = Math.round(rating * 2) / 2;
+
+  return (
+    <>
+      {[...Array(5)].map((_, index: number) => {
+        if (index + 0.5 === rounded) {
+          return (
+            <Icons.halfStar
+              key={index}
+              className={cn(
+                `h-5 w-5 text-theme-blue fill-theme-blue`,
+                className
+              )}
+              color="red"
+            />
+          );
+        } else if (index < rounded) {
+          return (
+            <Icons.star
+              key={index}
+              className={cn(
+                `h-5 w-5 text-theme-blue fill-theme-blue`,
+                className
+              )}
+            />
+          );
+        } else {
+          return (
+            <Icons.star
+              key={index}
+              className={cn(`h-5 w-5 text-theme-blue`, className)}
+            />
+          );
+        }
+      })}
     </>
   );
 };
@@ -246,11 +609,11 @@ const ProductVariants = ({
   return (
     <button
       onClick={() => setSelectedVariant(product)}
-      className={`text-theme-blue flex flex-col items-center py-2 px-6 text-[12px] md:text-sm border  border-theme-blue rounded-lg  transition-colors ease-in 
+      className={`text-theme-blue flex flex-col items-center py-2 px-6 text-[12px] md:text-sm border  border-theme-blue rounded-md  transition-colors ease-in 
     ${
       product.id == selectedVariant.id
-        ? "bg-theme-blue/20 "
-        : " hover:bg-theme-blue/20 "
+        ? "bg-theme-blue/10 "
+        : " hover:bg-theme-blue/10  border-theme-blue/40"
     }`}
     >
       {product.title}
@@ -270,24 +633,35 @@ const QuantitySelector2 = ({
   quantityLocal: number;
   setQuantityLocal: React.Dispatch<React.SetStateAction<number>>;
 }) => {
-  return (
-    <div className="font-bold group hover:bg-theme-blue/10 cursor-pointer text-base  relative border w-fit rounded-full border-theme-blue text-theme-blue px-2 py-1">
-      <label className="flex items-center gap-1 absolute  pointer-events-none ">
-        Qty: {quantityLocal}
-        <Icons.chevronDown className="h-4 w-4 fill-theme-blue text-theme-blue" />
-      </label>
+  const changeQuantity = (amount: number) => {
+    if (
+      quantityLocal + amount < 1 ||
+      quantityLocal + amount > product.quantityAvailable
+    )
+      return;
+    setQuantityLocal(quantityLocal + amount);
+  };
 
-      <select
-        onChange={(event) => setQuantityLocal(parseInt(event.target.value))}
-        className="bg-transparent text-transparent w-16  cursor-pointer"
-        name="qtySelect"
-      >
-        {[...Array(product.quantityAvailable)].map((_: any, index: number) => (
-          <option key={index + 1} value={index + 1}>
-            {index + 1}
-          </option>
-        ))}
-      </select>
+  return (
+    <div className="font-bold   text-base  relative md:flex-col md:items-start md:gap-2  flex w-full   gap-4 items-center">
+      Quantity
+      <div className="flex-grow border-theme-blue/30 px-2 flex border md:w-full  justify-between items-center">
+        <Button
+          onClick={() => changeQuantity(-1)}
+          className="text-theme-blue/60 hover:bg-theme-blue/20 hover:text-theme-blue aspect-square"
+          variant={"ghost"}
+        >
+          -
+        </Button>
+        {quantityLocal}
+        <Button
+          onClick={() => changeQuantity(1)}
+          className="text-theme-blue/60 hover:bg-theme-blue/20 hover:text-theme-blue aspect-square"
+          variant={"ghost"}
+        >
+          +
+        </Button>
+      </div>
     </div>
   );
 };
