@@ -260,7 +260,7 @@ const SaleBox = ({ product }: { product: any }) => {
       <div className="w-full flex  p-2 items-center  bg-theme-pink/20 text-theme-pink rounded-md whitespace-nowrap">
         <Icons.fire className="h-5 w-5 mr-2 " />
         <p>
-          <span className="font-bold"> 75 copies sold </span> in the last 15
+          <span className="font-bold"> 46 copies sold </span> in the last 12
           hours.
         </p>
       </div>
