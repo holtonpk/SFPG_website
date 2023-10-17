@@ -71,7 +71,7 @@ export function formatNumber(input: number | string): string {
 
 export function timeSince(timestamp: number): string {
   const now: Date = new Date();
-  const inputDate: Date = new Date(timestamp * 1000);
+  const inputDate: Date = new Date(timestamp);
   const seconds: number = Math.floor(
     (now.getTime() - inputDate.getTime()) / 1000
   );

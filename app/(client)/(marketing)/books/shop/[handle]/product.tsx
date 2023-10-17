@@ -260,7 +260,7 @@ const SaleBox = ({ product }: { product: any }) => {
       <div className="w-full flex  p-2 items-center  bg-theme-pink/20 text-theme-pink rounded-md whitespace-nowrap">
         <Icons.fire className="h-5 w-5 mr-2 " />
         <p>
-          <span className="font-bold"> 75 products sold </span> in the last 15
+          <span className="font-bold"> 75 copies sold </span> in the last 15
           hours.
         </p>
       </div>
@@ -296,7 +296,7 @@ const SaleBox = ({ product }: { product: any }) => {
       >
         <div
           id="fixed-button-container"
-          className={`w-full px-6 flex flex-col items-center left-0 md:hidden border-t bg-white ${
+          className={`w-full px-6 z-20 flex flex-col items-center shadow-inner left-0 md:hidden  bg-white ${
             isBuyButtonFixed ? "fixed bottom-0 py-4 " : "hidden "
           }`}
         >
@@ -304,7 +304,7 @@ const SaleBox = ({ product }: { product: any }) => {
             id="buy-now-button-fixed"
             onClick={buyNow}
             variant={"blue"}
-            className={`text-base md:text-xl hover:bg-theme-blue/80   hover:text-white w-full border-theme-blue rounded-md`}
+            className={`text-base md:text-xl hover:bg-theme-blue/80  hover:text-white w-full border-theme-blue rounded-md `}
             size={"lg"}
           >
             {redirectToCheckout ? (
@@ -419,7 +419,7 @@ const ProductReviews = ({
   // create a review
 
   const [writeReview, setWriteReview] = React.useState<boolean>(false);
-  const [ratingValue, setRatingValue] = React.useState<number>(2);
+  const [ratingValue, setRatingValue] = React.useState<number>(5);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const nameInputRef = React.useRef<HTMLInputElement>(null);
@@ -463,7 +463,7 @@ const ProductReviews = ({
   };
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col gap-4">
       <div className="w-full bg-theme-blue/10 rounded-md flex flex-col gap-2 justify-center items-center p-8">
         <div className="flex items-center gap-1   w-fit ">
           <Stars rating={productRating} />
@@ -535,13 +535,13 @@ const ProductReviews = ({
       {reviews.map((review) => (
         <div
           key={review.id}
-          className="flex flex-col border-b border-border py-10 gap-2"
+          className="flex flex-col bg-theme-blue/10 md:px-6 p-4 md:py-10 gap-2 rounded-md"
         >
           <div className="flex items-center gap-1   w-fit ">
             <Stars rating={review.rating} />
           </div>
           <p className="text-sm">
-            {review.name + " " + timeSince(review.date)}
+            {review.name + " - " + timeSince(review.date)}
           </p>
           <h1 className="text-xl font-bold">{review.title}</h1>
           <p className="text-muted-foreground">{review.body}</p>
