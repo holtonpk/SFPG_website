@@ -238,19 +238,11 @@ const SaleBox = ({ product }: { product: any }) => {
             ${selectedVariant.priceV2.amount}
           </h1>
         )}
-
-        {/* <div className="md:block hidden">
-          <QuantitySelector2
-            product={selectedVariant}
-            quantityLocal={quantityLocal}
-            setQuantityLocal={setQuantityLocal}
-          />
-        </div> */}
       </div>
       <p className="text-muted-foreground">
         Craving a little motivation? Open this book to dive into a world of
         riveting tales and lessons from history&apos;s most influential
-        businessman.
+        entrepreneurs.
       </p>
 
       <div className="w-full flex  items-center gap-2 font-bold">
@@ -265,13 +257,13 @@ const SaleBox = ({ product }: { product: any }) => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-2 w-full md:hidden">
+      {/* <div className="flex flex-col gap-2 w-full md:hidden">
         <p>
           Hurry! only <span className="font-bold"> 25 items </span> left in
           stock{" "}
         </p>
         <Progress className="h-2" value={33} />
-      </div>
+      </div> */}
 
       <div className="flex flex-col gap-2">
         <p>
@@ -385,7 +377,7 @@ const SaleBox = ({ product }: { product: any }) => {
         </Button>
       </div>
 
-      <div className="hidden md:flex flex-col gap-2 w-full">
+      <div className="flex flex-col gap-2 w-full">
         <p>
           Hurry! only <span className="font-bold"> 25 items </span> left in
           stock{" "}
