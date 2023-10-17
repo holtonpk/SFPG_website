@@ -46,10 +46,20 @@ export default function Product({ productData }: { productData: any }) {
   };
 
   return (
-    <div className="w-screen  overflow-hidden md:pt-20 pb-20 md:container bg-white md:bg-background">
-      <div className="grid md:grid-cols-[40%_60%] lg::grid-cols-[50%_50%] md:w-[80%] mx-auto  ">
-        <div className="w-full max-w-screen h-[400px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] z-20  md:pl-0 relative mx-auto bg-background pt-10 rounded-b-[20px]  ">
+    <div
+      id="product"
+      className="w-screen  overflow-hidden md:pt-20 pb-20 md:container bg-white md:bg-background"
+    >
+      <div
+        id="product-box"
+        className="grid md:grid-cols-[40%_60%] lg::grid-cols-[50%_50%] md:w-[80%] mx-auto  "
+      >
+        <div
+          id="product-image-container"
+          className="w-full max-w-screen h-[400px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] z-20  md:pl-0 relative mx-auto bg-background pt-10 rounded-b-[20px]  "
+        >
           <Image
+            id="product-image"
             loading="eager"
             src={product.imageSrc}
             alt="logo"
@@ -58,18 +68,28 @@ export default function Product({ productData }: { productData: any }) {
             className="pl-4 pt-4 md:p-0"
           />
         </div>
-        <div className="flex flex-col  p-4 md:p-10 gap-2 md:gap-4 relative ">
-          <span className="text-base md:text-xl lg:text2xl  uppercase font-body text-muted-foreground ">
+        <div
+          id="product-saleBox-container"
+          className="flex flex-col  p-4 md:p-10 gap-2 md:gap-4 relative "
+        >
+          <span
+            id="product-collection-header"
+            className="text-base md:text-xl lg:text2xl  uppercase font-body text-muted-foreground "
+          >
             {product.collection}
-            <h1 className="text-theme-blue text-2xl md:text-3xl lg:text-5xl font-body font-bold ">
-              {product.title}
-            </h1>
           </span>
-          {/* <h1 className="capitalize text-[12px] md:text-xl">
-            by Short Form Publishing Group
-          </h1> */}
-          <div className="flex items-center gap-1   w-fit ">
+          <h1
+            id="product-title-header"
+            className="text-theme-blue text-2xl md:text-3xl lg:text-5xl font-body font-bold "
+          >
+            {product.title}
+          </h1>
+          <div
+            id="product-rating-preview"
+            className="flex items-center gap-1   w-fit "
+          >
             <Stars rating={productRating} />
+
             <Button
               onClick={jumpToReviews}
               className="p-0  h-fit text-muted-foreground"
@@ -81,11 +101,11 @@ export default function Product({ productData }: { productData: any }) {
           {product.quantityAvailable > 0 ? (
             <SaleBox product={product} />
           ) : (
-            <>
+            <div id="product-action-unavailable">
               Sorry this book is unavailable at the moment. Please sign up for
               the waitlist below and we will notify you when it is ready.
               <EmailForm />
-            </>
+            </div>
           )}
         </div>
       </div>
@@ -97,24 +117,38 @@ export default function Product({ productData }: { productData: any }) {
         className="w-[90%] mx-auto"
       >
         <AccordionItem value="overview" id="product-overview">
-          <AccordionTrigger className="underline-0">
+          <AccordionTrigger
+            id="product-overview-trigger"
+            className="underline-0"
+          >
             Book Overview
           </AccordionTrigger>
-          <AccordionContent>
-            <div dangerouslySetInnerHTML={{ __html: product.description }} />
+          <AccordionContent id="product-overview-content">
+            <div
+              id="product-overview-content-body"
+              dangerouslySetInnerHTML={{ __html: product.description }}
+            />
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="shipping">
-          <AccordionTrigger className="underline-0">
+        <AccordionItem value="shipping" id="product-delivery-details">
+          <AccordionTrigger
+            id="product-delivery-details-trigger"
+            className="underline-0"
+          >
             Shipping & Delivery
           </AccordionTrigger>
-          <AccordionContent>
+          <AccordionContent id="product-delivery-details-content">
             Shipping usually takes 5-7 business days. We ship to all countries
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="reviews" id="product-reviews">
-          <AccordionTrigger className="underline-0">Reviews</AccordionTrigger>
-          <AccordionContent>
+          <AccordionTrigger
+            id="product-reviews-trigger"
+            className="underline-0"
+          >
+            Reviews
+          </AccordionTrigger>
+          <AccordionContent id="product-reviews-content">
             <ProductReviews
               productRating={productRating}
               productId={product.id}
@@ -212,17 +246,26 @@ const SaleBox = ({ product }: { product: any }) => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="  gap-4 flex items-center">
+    <div id="product-saleBox" className="flex flex-col gap-4">
+      <div id="product-saleBox-prices" className="  gap-4 flex items-center">
         {selectedVariant.compareAtPriceV2 ? (
           <>
-            <span className="text-theme-blue font-bold text-2xl md:text-3xl  text-center md:text-left">
+            <span
+              id="product-saleBox-price1"
+              className="text-theme-blue font-bold text-2xl md:text-3xl  text-center md:text-left"
+            >
               ${selectedVariant.priceV2.amount}
             </span>
-            <span className="line-through text-xl md:text-2xl mt-1 text-theme-blue/40 decoration-theme-blue/40 text-center md:text-left">
+            <span
+              id="product-saleBox-compareAtPrice"
+              className="line-through text-xl md:text-2xl mt-1 text-theme-blue/40 decoration-theme-blue/40 text-center md:text-left"
+            >
               ${selectedVariant.compareAtPriceV2.amount}
             </span>
-            <div className="bg-theme-blue p-2 py-1 text-sm  text-white rounded-full">
+            <div
+              id="product-saleBox-discountPercent"
+              className="bg-theme-blue p-2 py-1 text-sm  text-white rounded-full"
+            >
               {"SAVE " +
                 Math.round(
                   ((selectedVariant.compareAtPriceV2.amount -
@@ -234,43 +277,55 @@ const SaleBox = ({ product }: { product: any }) => {
             </div>
           </>
         ) : (
-          <h1 className=" font-bold text-theme-blue hidden md:block text-2xl md:text-3xl text-center md:text-left">
+          <h1
+            id="product-saleBox-price1"
+            className=" font-bold text-theme-blue hidden md:block text-2xl md:text-3xl text-center md:text-left"
+          >
             ${selectedVariant.priceV2.amount}
           </h1>
         )}
       </div>
-      <p className="text-muted-foreground">
+      <p id="product-saleBox-description" className="text-muted-foreground">
         Craving a little motivation? Open this book to dive into a world of
         riveting tales and lessons from history&apos;s most influential
         entrepreneurs.
       </p>
 
-      <div className="w-full flex  items-center gap-2 font-bold">
+      <div
+        id="product-saleBox-pageViews"
+        className="w-full flex  items-center gap-2 font-bold"
+      >
         <Icons.showPassword className="h-6 w-6 text-muted-foreground" />
         {randomNumber} people are viewing this right now.
       </div>
-      <div className="w-full flex  p-2 items-center  bg-theme-pink/20 text-theme-pink rounded-md whitespace-nowrap">
-        <Icons.fire className="h-5 w-5 mr-2 " />
-        <p>
-          <span className="font-bold"> 46 copies sold </span> in the last 12
-          hours.
+      <div
+        id="product-saleBox-salesNumber"
+        className="w-full flex  p-2 items-center  bg-theme-pink/20 text-theme-pink rounded-md whitespace-nowrap"
+      >
+        <Icons.fire
+          id="product-saleBox-salesNumber-icon"
+          className="h-5 w-5 mr-2 "
+        />
+        <p id="product-saleBox-salesNumber-body">
+          <span id="product-saleBox-salesNumber-bold" className="font-bold">
+            {" "}
+            46 copies sold{" "}
+          </span>{" "}
+          in the last 12 hours.
         </p>
       </div>
 
-      {/* <div className="flex flex-col gap-2 w-full md:hidden">
-        <p>
-          Hurry! only <span className="font-bold"> 25 items </span> left in
-          stock{" "}
+      <div id="product-saleBox-variants" className="flex flex-col gap-2">
+        <p id="product-saleBox-variants-label">
+          <span
+            className="font-bold"
+            id="product-saleBox-variants-label-selected"
+          >
+            Style:
+          </span>{" "}
+          {selectedVariant.title}
         </p>
-        <Progress className="h-2" value={33} />
-      </div> */}
-
-      <div className="flex flex-col gap-2">
-        <p>
-          {" "}
-          <span className="font-bold">Style:</span> {selectedVariant.title}
-        </p>
-        <div className="flex gap-4">
+        <div id="product-saleBox-variants-options" className="flex gap-4">
           {product.variants.map((variant: any) => (
             <ProductVariants
               key={variant.id}
@@ -305,17 +360,35 @@ const SaleBox = ({ product }: { product: any }) => {
               "Buy Now"
             )}
           </Button>
-          <div className="mt-2  gap-4 flex items-center">
+          <div
+            id="buy-now-button-fixed-priceRow"
+            className="mt-2  gap-4 flex items-center b-b"
+          >
             {selectedVariant.compareAtPriceV2 ? (
-              <div className="flex items-center gap-2">
-                <span className="text-theme-blue font-bold text-2xl md:text-3xl  text-center md:text-left">
+              <div
+                id="buy-now-button-fixed-prices"
+                className="flex items-center gap-2"
+              >
+                <span
+                  id="buy-now-button-fixed-price1"
+                  className="text-theme-blue font-bold text-2xl md:text-3xl  text-center md:text-left"
+                >
                   ${selectedVariant.priceV2.amount}
                 </span>
-                <span className="line-through text-base md:text-2xl text-theme-blue/40 decoration-theme-blue/40 text-center md:text-left">
+                <span
+                  id="buy-now-button-fixed-compareAtPrice"
+                  className="line-through text-base md:text-2xl text-theme-blue/40 decoration-theme-blue/40 text-center md:text-left"
+                >
                   ${selectedVariant.compareAtPriceV2.amount}
                 </span>
-                <div className="h-[16px] w-[1px] bg-theme-blue"></div>
-                <div className="  text-sm text-theme-blue ">
+                <div
+                  id="buy-now-button-fixed-divider"
+                  className="h-[16px] w-[1px] bg-theme-blue"
+                ></div>
+                <div
+                  id="buy-now-button-fixed-discountPercent"
+                  className="  text-sm text-theme-blue "
+                >
                   {"SAVE " +
                     Math.round(
                       ((selectedVariant.compareAtPriceV2.amount -
@@ -327,12 +400,18 @@ const SaleBox = ({ product }: { product: any }) => {
                 </div>
               </div>
             ) : (
-              <h1 className=" font-bold text-theme-blue hidden md:block text-2xl md:text-3xl text-center md:text-left">
+              <h1
+                id="buy-now-button-fixed-price1"
+                className=" font-bold text-theme-blue hidden md:block text-2xl md:text-3xl text-center md:text-left"
+              >
                 ${selectedVariant.priceV2.amount}
               </h1>
             )}
 
-            <div className="md:block hidden">
+            <div
+              id="product-saleBox-desktop-quantity"
+              className="md:block hidden"
+            >
               <QuantitySelector2
                 product={selectedVariant}
                 quantityLocal={quantityLocal}
@@ -341,7 +420,10 @@ const SaleBox = ({ product }: { product: any }) => {
             </div>
           </div>
         </div>
-        <div className="grid gap-4  overflow-hidden md:grid-cols-[1fr_70%] items-end w-full">
+        <div
+          id="product-saleBox-buy-container"
+          className="grid gap-4  overflow-hidden md:grid-cols-[1fr_70%] items-end w-full"
+        >
           <QuantitySelector2
             product={selectedVariant}
             quantityLocal={quantityLocal}
@@ -377,12 +459,24 @@ const SaleBox = ({ product }: { product: any }) => {
         </Button>
       </div>
 
-      <div className="flex flex-col gap-2 w-full">
-        <p>
-          Hurry! only <span className="font-bold"> 25 items </span> left in
-          stock{" "}
+      <div
+        id="product-saleBox-available"
+        className="flex flex-col gap-2 w-full"
+      >
+        <p id="product-saleBox-available-body">
+          Hurry! only{" "}
+          <span
+            id="product-saleBox-quantity-available-bold"
+            className="font-bold"
+          >
+            {" "}
+            25 items{" "}
+          </span>{" "}
+          left in stock{" "}
         </p>
-        <Progress className="h-2" value={33} />
+        <div id="product-saleBox-available-progress">
+          <Progress className="h-2" value={33} />
+        </div>
       </div>
     </div>
   );
@@ -455,13 +549,22 @@ const ProductReviews = ({
   };
 
   return (
-    <div className="w-full flex flex-col gap-4">
-      <div className="w-full bg-theme-blue/10 rounded-md flex flex-col gap-2 justify-center items-center p-8">
-        <div className="flex items-center gap-1   w-fit ">
+    <div id="product-reviews-container" className="w-full flex flex-col gap-4">
+      <div
+        id="product-reviews-header"
+        className="w-full bg-theme-blue/10 rounded-md flex flex-col gap-2 justify-center items-center p-8"
+      >
+        <div
+          id="product-reviews-header-rating"
+          className="flex items-center gap-1   w-fit "
+        >
           <Stars rating={productRating} />
         </div>
-        <p className="text-xl">Based on {reviews.length} reviews</p>
+        <p id="product-reviews-header-rating-quantity" className="text-xl">
+          Based on {reviews.length} reviews
+        </p>
         <Button
+          id="product-reviews-header-create-review"
           variant={"blueOutline"}
           onClick={() => setWriteReview(!writeReview)}
         >
@@ -469,29 +572,61 @@ const ProductReviews = ({
         </Button>
       </div>
       {writeReview && (
-        <div className="flex flex-col mt-6 gap-4 px-2">
-          <h1 className="text-2xl font-bold">Write a review</h1>
-          <div className="flex flex-col gap-2">
-            <Label className="font-bold">Name</Label>
+        <div
+          id="product-reviews-create"
+          className="flex flex-col mt-6 gap-4 px-2"
+        >
+          <h1 id="product-reviews-create-title" className="text-2xl font-bold">
+            Write a review
+          </h1>
+          <div
+            id="product-reviews-create-name-container"
+            className="flex flex-col gap-2"
+          >
+            <Label id="product-reviews-create-name-label" className="font-bold">
+              Name
+            </Label>
             <Input
+              id="product-reviews-create-name-input"
               ref={nameInputRef}
               placeholder="Enter your name"
               autoComplete="name"
             />
           </div>
-          <div className="flex flex-col gap-2">
-            <Label className="font-bold">Email</Label>
+          <div
+            id="product-reviews-create-email-container"
+            className="flex flex-col gap-2"
+          >
+            <Label
+              className="font-bold"
+              id="product-reviews-create-email-label"
+            >
+              Email
+            </Label>
             <Input
+              id="product-reviews-create-email-input"
               ref={emailInputRef}
               placeholder="Enter your email"
               autoComplete="email"
             />
           </div>
-          <div className="flex flex-col gap-2">
-            <Label className="font-bold">Rating</Label>
-            <div className="flex gap-2">
+          <div
+            id="product-reviews-create-rating-container"
+            className="flex flex-col gap-2"
+          >
+            <Label
+              id="product-reviews-create-rating-label"
+              className="font-bold"
+            >
+              Rating
+            </Label>
+            <div
+              id="product-reviews-create-rating-stars"
+              className="flex gap-2"
+            >
               {[...Array(5)].map((_, index: number) => (
                 <Button
+                  id={`product-reviews-create-rating-stars-button-${index}`}
                   key={index}
                   onClick={() => setRatingValue(index + 1)}
                   variant={ratingValue >= index + 1 ? "blue" : "blueOutline"}
@@ -502,19 +637,41 @@ const ProductReviews = ({
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <Label className="font-bold">Review Title</Label>
-            <Input ref={titleInputRef} placeholder="Give your review a title" />
+          <div
+            id="product-reviews-create-title-container"
+            className="flex flex-col gap-2"
+          >
+            <Label
+              id="product-reviews-create-title-label"
+              className="font-bold"
+            >
+              Review Title
+            </Label>
+            <Input
+              id="product-reviews-create-title-input"
+              ref={titleInputRef}
+              placeholder="Give your review a title"
+            />
           </div>
-          <div className="flex flex-col gap-2">
-            <Label className="font-bold">Body of Review</Label>
+          <div
+            id="product-reviews-create-body-container"
+            className="flex flex-col gap-2"
+          >
+            <Label id="product-reviews-create-body-label" className="font-bold">
+              Body of Review
+            </Label>
             <Textarea
+              id="product-reviews-create-body-textArea"
               ref={bodyInputRef}
               placeholder="Enter your email"
               className="bg-none ring-none"
             />
           </div>
-          <Button onClick={saveReview} variant={"blue"}>
+          <Button
+            id="product-reviews-create-submit"
+            onClick={saveReview}
+            variant={"blue"}
+          >
             {isLoading ? (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             ) : (
@@ -526,17 +683,34 @@ const ProductReviews = ({
       )}
       {reviews.map((review) => (
         <div
+          id={`product-reviews-review-${review.id}`}
           key={review.id}
           className="flex flex-col bg-theme-blue/10 md:px-6 p-4 md:py-10 gap-2 rounded-md"
         >
-          <div className="flex items-center gap-1   w-fit ">
+          <div
+            id={`product-reviews-review-${review.id}-rating`}
+            className="flex items-center gap-1   w-fit "
+          >
             <Stars rating={review.rating} />
           </div>
-          <p className="text-sm">
+          <p
+            id={`product-reviews-review-${review.id}-authorDate`}
+            className="text-sm"
+          >
             {review.name + " - " + timeSince(review.date)}
           </p>
-          <h1 className="text-xl font-bold">{review.title}</h1>
-          <p className="text-muted-foreground">{review.body}</p>
+          <h1
+            id={`product-reviews-review-${review.id}-title`}
+            className="text-xl font-bold"
+          >
+            {review.title}
+          </h1>
+          <p
+            id={`product-reviews-review-${review.id}-body`}
+            className="text-muted-foreground"
+          >
+            {review.body}
+          </p>
         </div>
       ))}
     </div>
@@ -600,6 +774,7 @@ const ProductVariants = ({
 }) => {
   return (
     <button
+      id={`product-saleBox-variants-option-${selectedVariant.id}`}
       onClick={() => setSelectedVariant(product)}
       className={`text-theme-blue flex flex-col items-center py-2 px-6 text-[12px] md:text-sm border  border-theme-blue rounded-md  transition-colors ease-in 
     ${
@@ -609,7 +784,10 @@ const ProductVariants = ({
     }`}
     >
       {product.title}
-      <span className="font-bold text-base  md:text-xl">
+      <span
+        id={`product-saleBox-variants-option-price-${selectedVariant.id}`}
+        className="font-bold text-base  md:text-xl"
+      >
         ${product.priceV2.amount}
       </span>
     </button>
@@ -635,18 +813,31 @@ const QuantitySelector2 = ({
   };
 
   return (
-    <div className="font-bold   text-base  relative md:flex-col md:items-start md:gap-2  flex w-full   gap-4 items-center">
-      Quantity
-      <div className="flex-grow border-theme-blue/30 px-2 flex border md:w-full  justify-between items-center">
+    <div
+      id="product-saleBox-quantity-container"
+      className="font-bold   text-base  relative md:flex-col md:items-start md:gap-2  flex w-full   gap-4 items-center"
+    >
+      <h1 id="product-saleBox-quantity-label">Quantity</h1>
+      <div
+        id="product-saleBox-quantity-selector"
+        className="flex-grow border-theme-blue/30 px-2 flex border md:w-full  justify-between items-center"
+      >
         <Button
+          id="product-saleBox-quantity-sub"
           onClick={() => changeQuantity(-1)}
           className="text-theme-blue/60 hover:bg-theme-blue/20 hover:text-theme-blue aspect-square"
           variant={"ghost"}
         >
           -
         </Button>
-        <span className="text-theme-blue font-bold">{quantityLocal}</span>
+        <span
+          id="product-saleBox-quantity-value"
+          className="text-theme-blue font-bold"
+        >
+          {quantityLocal}
+        </span>
         <Button
+          id="product-saleBox-quantity-add"
           onClick={() => changeQuantity(1)}
           className="text-theme-blue/60 hover:bg-theme-blue/20 hover:text-theme-blue aspect-square"
           variant={"ghost"}

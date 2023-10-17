@@ -116,10 +116,10 @@ const MetaData = ({
     setLoading(false);
     setEditMetaData(false);
   }
-  console.log("liveMetaData", liveMetaData);
+  console.log("liveMetaData", liveMetaData?.favicons[0].href);
 
   return (
-    <div className="w-full">
+    <div className="w-full hidden md:block">
       {liveMetaData && !loadingData ? (
         <Card className="p-4 rounded-md  w-full overflow-hidden">
           <div className="flex gap-2 ">
@@ -127,7 +127,7 @@ const MetaData = ({
               {liveMetaData?.favicons[0]?.href ? (
                 <Image
                   alt="fav"
-                  src={"/" + liveMetaData?.favicons[0].href}
+                  src={liveMetaData?.favicons[0].href}
                   fill
                   objectFit="contain"
                 />

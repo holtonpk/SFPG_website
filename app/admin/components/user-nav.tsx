@@ -32,12 +32,19 @@ export function UserNav() {
       {currentUser && (
         <div className=" flex gap-4 items-center">
           <div>
-            <Input type="search" placeholder="Search..." />
+            <Input
+              className="md:block hidden"
+              type="search"
+              placeholder="Search..."
+            />
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-12 w-12 rounded-full ">
-                <Avatar className="h-10 w-10">
+              <Button
+                variant="ghost"
+                className="h-8 w-8 md:h-12 md:w-12 rounded-full "
+              >
+                <Avatar className="h-8 w-8 md:h-10 md:w-10">
                   <AvatarImage src={currentUser?.avatar} alt="avatar" />
                   <AvatarFallback>
                     {currentUser?.firstName[0] + currentUser?.lastName[0]}

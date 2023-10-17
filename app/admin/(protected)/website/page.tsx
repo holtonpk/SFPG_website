@@ -65,9 +65,9 @@ const Page = () => {
 
   return (
     <>
-      <div className=" w-full grid grid-cols-5 gap-8 container pt-6 flex-grow">
-        <Card className="flex flex-col gap-2 p-4 rounded-md h-fit col-span-3">
-          <div className="flex gap-4 w-full">
+      <div className=" w-full grid  md:grid-cols-5 gap-8 container pt-6 flex-grow ">
+        <Card className="md:flex hidden flex-col gap-2 p-4 rounded-md h-fit col-span-3">
+          <div className="gap-4 w-full flex  ">
             <div className="flex flex-grow max-w-[60%]">
               <PageSelector
                 displayPage={displayPage}
@@ -98,7 +98,7 @@ const Page = () => {
             />
           </div>
         </Card>
-        <div className="flex flex-col col-span-2 gap-8">
+        <div className="flex flex-col md:col-span-2 gap-8 col-span-1 max-w-full">
           {createRequest ? (
             <CreateRequest
               setSelectedLocation={setSelectedLocation}
@@ -117,6 +117,7 @@ const Page = () => {
                 setDisplayPage={setDisplayPage}
               />
               <SentRequests
+                setDisplayPage={setDisplayPage}
                 updateRequests={updateRequests}
                 setUpdateRequests={setUpdateRequests}
                 setCreateRequest={setCreateRequest}

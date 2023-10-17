@@ -94,9 +94,9 @@ const AnalyticsPage = () => {
         <PageSkeleton />
       ) : ( */}
       <div className="flex flex-col gap-8 items-center pt-8 container ">
-        <div className="col-span-4 w-[80%] flex flex-col  ">
+        <div className="md:col-span-4 md:w-[80%] flex flex-col  ">
           <div className="flex gap-4 items-end">
-            <Card className="w-1/4 rounded-b-none border-b-0 ">
+            <Card className="md:w-1/4 md:rounded-b-none md:border-b-0 ">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Page views
@@ -116,7 +116,7 @@ const AnalyticsPage = () => {
                   </p> */}
               </CardContent>
             </Card>
-            <Card className="w-1/4 rounded-b-none border-b-0">
+            <Card className=" md:w-1/4 md:rounded-b-none md:border-b-0">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Visitors</CardTitle>
                 <Icons.profile className="h-4 w-4 text-muted-foreground" />
@@ -134,7 +134,7 @@ const AnalyticsPage = () => {
                   </p> */}
               </CardContent>
             </Card>
-            <div className="ml-auto">
+            <div className="ml-auto hidden md:block">
               <Select
                 onValueChange={(value: string) =>
                   setTimeFrame(timeFrames[Number(value)])
@@ -155,7 +155,7 @@ const AnalyticsPage = () => {
               </Select>
             </div>
           </div>
-          <div className="border border-border rounded-t-none h-[382px] p-4 rounded-md flex flex-col relative">
+          <div className="border border-border rounded-t-none h-[382px] p-4 rounded-md hidden flex-col relative md:flex">
             {analyticsData && (
               <Overview
                 siteTrafficByDateData={analyticsData.siteTrafficByDateData}
@@ -169,8 +169,8 @@ const AnalyticsPage = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-6 gap-8 w-full">
-          <Card className="h-80  rounded-md border border-border col-span-3">
+        <div className="grid md:grid-cols-6 gap-8 w-full  overflow-hidden">
+          <Card className="h-80  rounded-md border border-border md:col-span-3  max-w-full ">
             <CardHeader className="border-b border-border">
               <CardTitle className="text-2xl font-semibold">
                 Top Pages
@@ -180,8 +180,8 @@ const AnalyticsPage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="mt-2 relative w-full">
-              <ScrollArea className="h-48 relative rounded-md  w-[600px] ">
-                <div className="w-[600px]">
+              <ScrollArea className="h-48 relative rounded-md  w-[300px] md:w-[600px] ">
+                <div className="w-[300px] md:w-[600px]">
                   {loading || !analyticsData ? (
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                       <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
@@ -208,7 +208,7 @@ const AnalyticsPage = () => {
               </ScrollArea>
             </CardContent>
           </Card>
-          <Card className="h-80 w-full rounded-md border border-border col-span-3">
+          <Card className="h-80 w-full rounded-md border border-border md:col-span-3">
             <CardHeader className="border-b border-border">
               <CardTitle className="text-2xl font-semibold">
                 Top Referrers
@@ -218,7 +218,7 @@ const AnalyticsPage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="mt-2">
-              <ScrollArea className="h-48 w-full rounded-md  col-span-2">
+              <ScrollArea className="h-48 w-full rounded-md  md:col-span-2">
                 {loading || !analyticsData ? (
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                     <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
@@ -262,7 +262,7 @@ const AnalyticsPage = () => {
               </ScrollArea>
             </CardContent>
           </Card>
-          <Card className="h-80 w-full rounded-md border border-border col-span-2">
+          <Card className="h-80 w-full rounded-md border border-border md:col-span-2">
             <CardHeader className="border-b border-border">
               <CardTitle className="text-2xl font-semibold">
                 Countries
@@ -272,7 +272,7 @@ const AnalyticsPage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="mt-2">
-              <ScrollArea className="h-48 w-full rounded-md  col-span-2">
+              <ScrollArea className="h-48 w-full rounded-md  md:col-span-2">
                 {loading || !analyticsData ? (
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                     <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
@@ -304,7 +304,7 @@ const AnalyticsPage = () => {
               </ScrollArea>
             </CardContent>
           </Card>
-          <Card className="h-80 w-full rounded-md border border-border col-span-2">
+          <Card className="h-80 w-full rounded-md border border-border md:col-span-2">
             <CardHeader className="border-b border-border">
               <CardTitle className="text-2xl font-semibold">
                 Operating Systems
@@ -314,7 +314,7 @@ const AnalyticsPage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="mt-2">
-              <ScrollArea className="h-48 w-full rounded-md  col-span-2">
+              <ScrollArea className="h-48 w-full rounded-md  md:col-span-2">
                 {loading || !analyticsData ? (
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                     <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
@@ -338,7 +338,7 @@ const AnalyticsPage = () => {
               </ScrollArea>
             </CardContent>
           </Card>
-          <Card className="h-80 w-full rounded-md border border-border col-span-2">
+          <Card className="h-80 w-full rounded-md border border-border md:col-span-2">
             <CardHeader className="border-b border-border">
               <CardTitle className="text-2xl font-semibold">Browsers</CardTitle>
               <CardDescription className="text-sm">
@@ -346,7 +346,7 @@ const AnalyticsPage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="mt-2">
-              <ScrollArea className="h-48 w-full rounded-md  col-span-2">
+              <ScrollArea className="h-48 w-full rounded-md  md:col-span-2">
                 {loading || !analyticsData ? (
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                     <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />

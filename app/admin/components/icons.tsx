@@ -117,11 +117,16 @@ import {
   Pointer,
   PlusCircleIcon,
   Circle,
+  CircleDashed,
+  CheckCircle,
+  LucideXCircle,
 } from "lucide-react";
 
 //   export type XIcon = LucideIcon;
 
 export const Icons = {
+  checkCircle: CheckCircle,
+  circleDashed: CircleDashed,
   circle: Circle,
   plusCircle: PlusCircleIcon,
   pointerClick: LucideMousePointerClick,
@@ -163,7 +168,7 @@ export const Icons = {
   share: Share,
   helpCircle: HelpCircleIcon,
   monitor: Monitor,
-  checkCircle: CheckCircle2,
+
   xCircle: XCircleIcon,
   accounts: Users2,
   ArrowUpRight: ArrowUpRight,

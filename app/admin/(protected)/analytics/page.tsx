@@ -14,7 +14,10 @@ import { Icons } from "../../components/icons";
 
 import { CalendarDateRangePicker } from "@/app/admin/(protected)/analytics/components/date-range-picker";
 import { MainNav } from "@/app/admin/(protected)/analytics/components/main-nav";
-import { Overview } from "@/app/admin/(protected)/analytics/components/overview";
+import {
+  Overview,
+  OverviewMobile,
+} from "@/app/admin/(protected)/analytics/components/overview";
 import AnalyticsFeed from "@/app/admin/(protected)/analytics/components/analytics-feed";
 import { Search } from "@/app/admin/(protected)/analytics/components/search";
 import TeamSwitcher from "@/app/admin/(protected)/analytics/components/team-switcher";
@@ -104,13 +107,15 @@ export default function DashboardPage() {
     getData();
   }, []);
 
+  console.log("d", Data?.listData.name);
+
   return (
     <>
-      <div className="hidden flex-col md:flex">
+      <div className=" flex-col flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Analytics</h2>
-            <div className="flex items-center space-x-2">
+            <div className="items-center space-x-2 hidden md:flex">
               <CalendarDateRangePicker />
               <Button>Download</Button>
             </div>
@@ -169,64 +174,19 @@ export default function DashboardPage() {
                 </p>
               </CardContent>
             </Card>
-
-            {/* <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Sales</CardTitle>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="h-4 w-4 text-muted-foreground"
-                >
-                  <rect width="20" height="14" x="2" y="5" rx="2" />
-                  <path d="M2 10h20" />
-                </svg>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">+12,234</div>
-                <p className="text-xs text-muted-foreground">
-                  +19% from last month
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Active Now
-                </CardTitle>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="h-4 w-4 text-muted-foreground"
-                >
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                </svg>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">+573</div>
-                <p className="text-xs text-muted-foreground">
-                  +201 since last hour
-                </p>
-              </CardContent>
-            </Card> */}
           </div>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 w-full">
+            <Card className="col-span-4  max-w-full overflow-scroll">
               <CardHeader>
                 <CardTitle>{Data ? Data.listData.name : "--"}</CardTitle>
               </CardHeader>
-              <CardContent className="pl-2 h-[400px] relative">
-                {Data && <Overview rawData={Data.listMetrics} />}
+              <CardContent className="pl-2 h-[200px] md:h-[400px] relative max-w-full overflow-scroll">
+                <div className="hidden md:block">
+                  {Data && <Overview rawData={Data.listMetrics} />}
+                </div>
+                <div className="md:hidden ">
+                  {Data && <OverviewMobile rawData={Data.listMetrics} />}
+                </div>
                 {loading && (
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                     <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />

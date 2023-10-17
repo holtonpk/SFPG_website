@@ -25,7 +25,7 @@ const AnalyticsFeed = ({ data }: { data: any }) => {
           </Avatar>
           <div className="ml-4 space-y-1">
             <p className="text-sm font-medium leading-none">{item.email}</p>
-            <p className="text-sm text-muted-foreground">{item.source}</p>
+            {/* <p className="text-sm text-muted-foreground">{item.source}</p> */}
           </div>
           <div className="ml-auto font-medium">{timeSince(item.date)}</div>
         </div>

@@ -20,6 +20,7 @@ export type ScreenSize = {
 };
 
 export type Location = {
+  page: DisplayPage;
   viewPort: string;
   element: string;
   text: string;

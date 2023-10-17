@@ -189,6 +189,7 @@ const Iframe = ({
             console.log("targetElement", targetElement);
             if (!hasClassInParents(targetElement, "adminNote")) {
               const location = {
+                page: displayPage,
                 element: targetElement.tagName,
                 text:
                   targetElement.innerText || targetElement.textContent || "",
@@ -333,12 +334,20 @@ const Iframe = ({
         );
       }
     };
-  }, [iframeElement, scale, showLive, screenSize.title, setSelectedLocation]);
+  }, [
+    iframeElement,
+    scale,
+    showLive,
+    screenSize.title,
+    setSelectedLocation,
+    displayPage,
+  ]);
 
   const MapRequest = useCallback(() => {
     const contentWindow = iframeElement?.contentWindow?.document;
     if (!contentWindow) return;
     updateRequests.forEach((request) => {
+      if (request.status == "completed" || request.status == "rejected") return;
       const locations = request.locations;
       locations.forEach((loc) => {
         const targetElement = contentWindow.getElementById(loc.location.id);
@@ -593,6 +602,7 @@ const Iframe = ({
     ) as HTMLElement;
     setSelectedLocation([
       {
+        page: displayPage,
         viewPort: screenSize.title,
         element: targetElement.tagName,
         text: targetElement.textContent || "",

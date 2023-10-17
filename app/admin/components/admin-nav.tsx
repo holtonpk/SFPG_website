@@ -6,9 +6,15 @@ import { UserNav } from "@/app/admin/components/user-nav";
 
 const AdminNav = () => {
   return (
-    <div className="border-b border-border">
-      <div className="flex h-16 items-center px-4">
+    <div className="border-b border-border ">
+      <div className="h-16 items-center px-4 md:flex hidden ">
         <TeamSwitcher />
+        <MainNav className="mx-6" />
+        <div className="ml-auto flex items-center space-x-4">
+          <UserNav />
+        </div>
+      </div>
+      <div className="h-16 items-center px-4 md:hidden flex ">
         <MainNav className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
           <UserNav />

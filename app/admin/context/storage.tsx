@@ -27,6 +27,10 @@ interface StorageContextType {
   CreateNote: (note: Note) => void;
   FetchNotes: () => Promise<Note[]>;
   DeleteNote: (id: string) => void;
+  changeUpdateRequestStatus: (
+    id: string,
+    status: "pending" | "in progress" | "completed" | "rejected"
+  ) => void;
 }
 
 const StorageContext = createContext<StorageContextType | null>(null);
@@ -76,6 +80,16 @@ export function AdminStorageProvider({
     }
   };
 
+  const changeUpdateRequestStatus = async (
+    id: string,
+    status: "pending" | "in progress" | "completed" | "rejected"
+  ) => {
+    const updateRequestRef = doc(db, "admin/updateRequests/active", id);
+    await updateDoc(updateRequestRef, {
+      status: status,
+    });
+  };
+
   //  Note actions
 
   const CreateNote = async (note: Note) => {
@@ -107,6 +121,7 @@ export function AdminStorageProvider({
     CreateNote,
     FetchNotes,
     DeleteNote,
+    changeUpdateRequestStatus,
   };
 
   return (
