@@ -355,11 +355,10 @@ export function constructMetadata({
   title?: string;
   description?: string;
 }): Metadata {
-  const image = "image/favicon.ico";
+  const image = `${siteConfig.url}/favicon.ico`;
   return {
     title,
     description,
-
     openGraph: {
       title,
       description,
@@ -369,17 +368,10 @@ export function constructMetadata({
         },
       ],
     },
-    // twitter: {
-    //   card: "summary_large_image",
-    //   title,
-    //   description,
-    //   images: [image],
-    //   creator: "@dubdotsh",
-    // },
     icons: {
-      icon: "image/brand/favicon.ico",
-      shortcut: "image/brand/favicon-16x16.png",
-      apple: "image/brand/apple-touch-icon.png",
+      icon: `${siteConfig.url}/image/brand/favicon.ico`,
+      shortcut: `${siteConfig.url}/image/brand/favicon-16x16.png `,
+      apple: `${siteConfig.url}/image/brand/apple-touch-icon.png`,
     },
     metadataBase: new URL("https://shortformbooks.com"),
     themeColor: "#FFF",
