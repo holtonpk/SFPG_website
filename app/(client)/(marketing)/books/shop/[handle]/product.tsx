@@ -214,16 +214,21 @@ const SaleBox = ({ product }: { product: any }) => {
   }, [redirectToCheckout, checkoutObject, router]);
 
   const addItemToCart = () => {
-    if (analytics) {
-      logEvent(analytics, "added to cart", {
-        product: product.id,
-      });
-    }
+    // if (analytics) {
+    //   logEvent(analytics, "added to cart", {
+    //     product: product.id,
+    //   });
+    // }
     addToCart({ ...product, selectedVariant: selectedVariant }, quantityLocal);
     setShowCartPreview(true);
   };
 
   const buyNow = async () => {
+    // if (analytics) {
+    //   logEvent(analytics, "Buy Now", {
+    //     product: product.id,
+    //   });
+    // }
     await addToCart(
       { ...product, selectedVariant: selectedVariant },
       quantityLocal
