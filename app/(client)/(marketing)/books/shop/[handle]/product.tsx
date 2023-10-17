@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { Label } from "@/app/(client)/components/ui/label";
 import { Textarea } from "@/app/(client)/components/ui/textarea";
 import { logEvent } from "firebase/analytics";
-import { getAnalyticsIfNotLocalhost } from "@/config/firebase";
+import { analytics } from "@/config/firebase";
 import {
   Accordion,
   AccordionContent,
@@ -165,7 +165,8 @@ export default function Product({ productData }: { productData: any }) {
 
 const SaleBox = ({ product }: { product: any }) => {
   const [redirectToCheckout, setRedirectToCheckout] = React.useState(false);
-  const { addToCart, setShowCartPreview, checkoutObject } = useCart();
+  const { addToCart, setShowCartPreview, checkoutObject, cartTotalPrice } =
+    useCart();
   const [quantityLocal, setQuantityLocal] = React.useState<number>(1);
   const router = useRouter();
 
@@ -214,22 +215,22 @@ const SaleBox = ({ product }: { product: any }) => {
   }, [redirectToCheckout, checkoutObject, router]);
 
   const addItemToCart = () => {
-    const analytics = getAnalyticsIfNotLocalhost();
-    if (analytics) {
-      logEvent(analytics, "added to cart", {
-        product: product.id,
-      });
-    }
+    logEvent(analytics, "add_to_cart", {
+      currency: "USD",
+      value: selectedVariant.priceV2.amount,
+      items: [selectedVariant],
+    });
+
     addToCart({ ...product, selectedVariant: selectedVariant }, quantityLocal);
     setShowCartPreview(true);
   };
 
   const buyNow = async () => {
-    // if (analytics) {
-    //   logEvent(analytics, "Buy Now", {
-    //     product: product.id,
-    //   });
-    // }
+    logEvent(analytics, "begin_checkout", {
+      currency: "USD",
+      value: cartTotalPrice,
+      items: [checkoutObject],
+    });
     await addToCart(
       { ...product, selectedVariant: selectedVariant },
       quantityLocal

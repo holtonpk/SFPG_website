@@ -7,7 +7,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { handle } = req.query; // Extract the id (handle) from the query parameters
+  // const { handle } = req.query; // Extract the id (handle) from the query parameters
+
+  const handle =
+    "snapshots-of-success-the-50-greatest-business-success-stories";
 
   const data = await postToShopify({
     query: `

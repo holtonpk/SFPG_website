@@ -1,8 +1,8 @@
 "use client";
 import React, { useContext, useState, useEffect, createContext } from "react";
-import { app, auth } from "@/config/firebase";
+import { app } from "@/config/firebase";
 import { Author } from "@/app/admin/types";
-// import nookies from "nookies";
+import { getAuth } from "firebase/auth";
 import {
   User as FirebaseUser,
   signInWithEmailAndPassword,
@@ -78,6 +78,8 @@ export interface UserData extends FirebaseUser {
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const auth = getAuth(app);
+
   const [currentUser, setCurrentUser] = useState<UserData | undefined>(
     undefined
   );
@@ -376,7 +378,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     return unsubscribe;
-  }, [rerender]);
+  }, [rerender, auth]);
 
   const value = {
     currentUser,

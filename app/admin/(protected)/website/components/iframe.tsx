@@ -31,7 +31,6 @@ import {
   DisplayPage,
 } from "@/app/admin/types";
 import { useAuth } from "@/app/admin/context/user-auth";
-import { auth } from "@/config/firebase";
 import { useAdminStorage } from "@/app/admin/context/storage";
 
 const Iframe = ({
