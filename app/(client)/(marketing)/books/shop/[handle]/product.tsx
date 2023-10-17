@@ -653,7 +653,7 @@ const QuantitySelector2 = ({
         >
           -
         </Button>
-        {quantityLocal}
+        <span className="text-theme-blue font-bold">{quantityLocal}</span>
         <Button
           onClick={() => changeQuantity(1)}
           className="text-theme-blue/60 hover:bg-theme-blue/20 hover:text-theme-blue aspect-square"
@@ -691,7 +691,7 @@ const QuantitySelector = ({
         -
       </Button>
       <div className=" h-full  rounded-md w-fit group relative ">
-        <label className="flex font- font-body top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-1 absolute text-lg md:text-2xl  pointer-events-none group-hover:text-theme-blue ">
+        <label className="flex fontfont-body top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-1 absolute text-lg md:text-2xl  pointer-events-none text-theme-blue ">
           {quantityLocal}
         </label>
         <Icons.chevronDown className="h-4 w-4  absolute -bottom-3 left-1/2 -translate-x-1/2  pointer-events-none text-theme-blue hidden group-hover:block" />
