@@ -16,8 +16,8 @@ import { Progress } from "@/app/(client)/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { Label } from "@/app/(client)/components/ui/label";
 import { Textarea } from "@/app/(client)/components/ui/textarea";
-// import { logEvent } from "firebase/analytics";
-// import { analytics } from "@/config/firebase";
+import { logEvent } from "firebase/analytics";
+import { getAnalyticsIfNotLocalhost } from "@/config/firebase";
 import {
   Accordion,
   AccordionContent,
@@ -214,11 +214,12 @@ const SaleBox = ({ product }: { product: any }) => {
   }, [redirectToCheckout, checkoutObject, router]);
 
   const addItemToCart = () => {
-    // if (analytics) {
-    //   logEvent(analytics, "added to cart", {
-    //     product: product.id,
-    //   });
-    // }
+    const analytics = getAnalyticsIfNotLocalhost();
+    if (analytics) {
+      logEvent(analytics, "added to cart", {
+        product: product.id,
+      });
+    }
     addToCart({ ...product, selectedVariant: selectedVariant }, quantityLocal);
     setShowCartPreview(true);
   };

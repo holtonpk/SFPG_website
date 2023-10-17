@@ -18,7 +18,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-export const analytics = getAnalyticsIfNotLocalhost();
+// export const analytics = getAnalyticsIfNotLocalhost();
 // Export a function to get analytics conditionally
 export function getAnalyticsIfNotLocalhost() {
   const router = useRouter(); // Get the router instance
