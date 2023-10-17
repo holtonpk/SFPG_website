@@ -16,8 +16,8 @@ import { Progress } from "@/app/(client)/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { Label } from "@/app/(client)/components/ui/label";
 import { Textarea } from "@/app/(client)/components/ui/textarea";
-import { logEvent } from "firebase/analytics";
-import { analytics } from "@/config/firebase";
+// import { logEvent } from "firebase/analytics";
+// import { analytics } from "@/config/firebase";
 import {
   Accordion,
   AccordionContent,
