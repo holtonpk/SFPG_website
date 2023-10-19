@@ -664,7 +664,7 @@ const ProductReviews = ({
                   key={index}
                   onClick={() => setRatingValue(index + 1)}
                   variant={ratingValue >= index + 1 ? "blue" : "blueOutline"}
-                  className="aspect-square p-1"
+                  className="aspect-square p-1 hover:bg-theme-blue hover:text-white"
                 >
                   <Icons.star className="h-4 w-4" />
                 </Button>
