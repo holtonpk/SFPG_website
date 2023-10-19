@@ -130,6 +130,16 @@ export default function Product({ productData }: { productData: any }) {
               id="product-overview-content-body"
               dangerouslySetInnerHTML={{ __html: product.description }}
             />
+            <h1 className="my-3 font-bold">
+              The book includes stories of the following entrepreneurs:
+            </h1>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              {storyNames.map((name) => (
+                <div className="font-bold" key={name}>
+                  -{name}
+                </div>
+              ))}
+            </div>
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="details" id="product-details">
@@ -140,15 +150,13 @@ export default function Product({ productData }: { productData: any }) {
             Details
           </AccordionTrigger>
           <AccordionContent id="product-delivery-details-content">
-            <h1 className="my-3">
-              The book includes stories of the following entrepreneurs:
-            </h1>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-              {storyNames.map((name) => (
-                <div className="font-bold" key={name}>
-                  -{name}
-                </div>
-              ))}
+            <div className="grid grid-cols-2 mt-4 sm:w-1/2 sm:mx-auto gap-4 bg-theme-blue/20 p-4 rounded-md">
+              <h1 className="font-bold">Publisher:</h1>
+              <h2 className="">Short Form Books</h2>
+              <h1 className="font-bold">Publication date:</h1> 10/9/2023
+              <h1 className="font-bold">Pages:</h1> 165
+              <h1 className="font-bold">Book dimensions:</h1> (6 x 9 in / 152 x
+              229 mm)
             </div>
           </AccordionContent>
         </AccordionItem>
