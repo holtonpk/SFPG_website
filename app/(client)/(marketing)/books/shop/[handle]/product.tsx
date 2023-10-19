@@ -150,7 +150,7 @@ export default function Product({ productData }: { productData: any }) {
             Details
           </AccordionTrigger>
           <AccordionContent id="product-delivery-details-content">
-            <div className="grid grid-cols-2 mt-4 sm:w-1/2 sm:mx-auto gap-4 bg-theme-blue/20 p-4 rounded-md">
+            <div className="grid grid-cols-2  sm:w-1/2 sm:mx-auto gap-4 bg-theme-blue/20 p-4 rounded-md">
               <h1 className="font-bold">Publisher:</h1>
               <h2 className="">Short Form Books</h2>
               <h1 className="font-bold">Publication date:</h1> 10/9/2023
