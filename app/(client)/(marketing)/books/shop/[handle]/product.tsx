@@ -132,6 +132,26 @@ export default function Product({ productData }: { productData: any }) {
             />
           </AccordionContent>
         </AccordionItem>
+        <AccordionItem value="details" id="product-details">
+          <AccordionTrigger
+            id="product-details-trigger"
+            className="underline-0"
+          >
+            Details
+          </AccordionTrigger>
+          <AccordionContent id="product-delivery-details-content">
+            <h1 className="my-3">
+              The book includes stories of the following entrepreneurs:
+            </h1>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              {storyNames.map((name) => (
+                <div className="font-bold" key={name}>
+                  -{name}
+                </div>
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
         <AccordionItem value="shipping" id="product-delivery-details">
           <AccordionTrigger
             id="product-delivery-details-trigger"
@@ -981,3 +1001,56 @@ const AmazonButton = () => {
     </LinkButton>
   );
 };
+
+const storyNames: string[] = [
+  "Justin Kan",
+  "Bernard Arnault",
+  "Tyler Perry",
+  "Ray Kroc",
+  "Elon Musk",
+  "Mrs. B",
+  "Howard Schultz",
+  "Michael Dell",
+  "Austin Russell",
+  "Mr. Beast",
+  "Richard Branson",
+  "Pavel Durov",
+  "Reed Hastings",
+  "Tope Awotona",
+  "Ingvar Kamprad",
+  "Travis Kalanick",
+  "Whitney Wolfe Herd",
+  "Jan Koum",
+  "The Collison Brothers",
+  "Masayoshi Son",
+  "Peter Thiel",
+  "Michael Rubin",
+  "Mark Zuckerberg",
+  "Sophia Amoruso",
+  "Palmer Luckey",
+  "Jamie Siminoff",
+  "Phil Knight",
+  "Shahid Khan",
+  "Dave Portnoy",
+  "Tony Xu",
+  "Stewart Butterfield",
+  "Henry Ford",
+  "Felix Dennis",
+  "Dana White",
+  "Oprah",
+  "Jeff Bezos",
+  "Samwer Brothers",
+  "Ben Francis",
+  "Steve Ells",
+  "Luis von Ahn",
+  "Walt Disney",
+  "Mark Cuban",
+  "Sam Altman",
+  "Marc Lore",
+  "Flexport",
+  "Rocket Labs",
+  "Melanie Perkins",
+  "Apoorva Mehta",
+  "Steve Jobs",
+  "Sam Zemurray",
+];
