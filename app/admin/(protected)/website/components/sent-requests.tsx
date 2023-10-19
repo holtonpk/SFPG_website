@@ -49,7 +49,7 @@ const SentRequests = ({
   return (
     <>
       {updateRequests.length <= 0 ? (
-        <Card className="col-span-2 h-[420px] flex flex-col items-center justify-center">
+        <Card className="col-span-2 h-fit md:h-[420px] flex flex-col items-center justify-center">
           <CardContent className="flex flex-col items-center gap-4">
             <div className="p-6 border border-border rounded-md items-center flex justify-center w-fit">
               <Icons.send className="h-12 w-12 " />
@@ -64,7 +64,7 @@ const SentRequests = ({
           </CardContent>
         </Card>
       ) : (
-        <Card className="col-span-2 h-[420px] flex flex-col ">
+        <Card className="col-span-2 h-fit md:h-[420px] flex flex-col ">
           <CardHeader>
             <CardTitle>Website Update Requests</CardTitle>
             <CardDescription>

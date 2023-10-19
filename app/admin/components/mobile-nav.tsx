@@ -60,6 +60,7 @@ export default function MobileNav() {
               Sales Dashboard
             </Link>
             <Link
+              onClick={() => toggleOpen()}
               href="/admin/website"
               className={`flex w-full font-bold text-2xl transition-colors hover:text-primary ${
                 segment === "website" ? "text-primary" : ""
@@ -76,6 +77,7 @@ export default function MobileNav() {
         Analytics
       </Link> */}
             <Link
+              onClick={() => toggleOpen()}
               href="/admin/site-data"
               className={`flex w-full  font-bold text-2xl transition-colors hover:text-primary ${
                 segment === "site-data" ? "text-primary" : ""
@@ -84,6 +86,7 @@ export default function MobileNav() {
               Site Data
             </Link>
             <Link
+              onClick={() => toggleOpen()}
               href="/admin/settings"
               className={`flex w-full font-bold text-2xl transition-colors hover:text-primary ${
                 segment === "settings" ? "text-primary" : ""
