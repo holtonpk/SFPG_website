@@ -99,150 +99,135 @@ export default function DashboardPage() {
       <div className=" flex-col flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
-            <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Sales Dashboard
+            </h2>
           </div>
-          <Tabs defaultValue="sales" className="space-y-4">
-            <TabsList>
-              <TabsTrigger value="sales">Sales</TabsTrigger>
-              <TabsTrigger value="analytics" disabled>
-                Analytics
-              </TabsTrigger>
-              <TabsTrigger value="reports" disabled>
-                Reports
-              </TabsTrigger>
-              <TabsTrigger value="notifications" disabled>
-                Notifications
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="sales" className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Total Revenue
-                    </CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="h-4 w-4 text-muted-foreground"
-                    >
-                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                    </svg>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">
-                      ${data?.totalRevenue ? data.totalRevenue : "--"}
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      {typeof revenuePercentChange === "number"
-                        ? (revenuePercentChange > 0 ? "+" : "") +
-                          revenuePercentChange.toFixed(2) +
-                          "% from last week"
-                        : "--"}
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Profit
-                    </CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="h-4 w-4 text-muted-foreground"
-                    >
-                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                    </svg>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">
-                      ${data?.totalProfit ? data.totalProfit : "--"}
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      {typeof profitPercentChange === "number"
-                        ? (profitPercentChange > 0 ? "+" : "") +
-                          profitPercentChange.toFixed(2) +
-                          "% from last week"
-                        : "--"}
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Sales</CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="h-4 w-4 text-muted-foreground"
-                    >
-                      <rect width="20" height="14" x="2" y="5" rx="2" />
-                      <path d="M2 10h20" />
-                    </svg>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">
-                      {data?.totalSales ? data.totalSales : "--"}
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      {typeof totalSalesPercentChange === "number"
-                        ? (totalSalesPercentChange > 0 ? "+" : "") +
-                          totalSalesPercentChange.toFixed(2) +
-                          "% from last week"
-                        : "--"}
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-              <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-4 relative">
-                  <CardHeader>
-                    <CardTitle>Sales </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pl-2 min-h-[200px] md:min-h-[400px]">
-                    {data?.data && <OverviewCard salesData={data.data} />}
-                    {loading && (
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-                <Card className="col-span-4 md:col-span-3 relative">
-                  <CardHeader>
-                    <CardTitle>Recent Sales</CardTitle>
-                    <CardDescription>
-                      {data?.data ? getTodayTotalCount(data.data) : "--"} sales
-                      today
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className=" min-h-[200px] md:min-h-[400px]">
-                    {data?.data && <RecentSales data={data.data} />}
-                    {loading && (
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-          </Tabs>
+
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Total Revenue
+                </CardTitle>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-muted-foreground"
+                >
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  ${data?.totalRevenue ? data.totalRevenue : "--"}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {typeof revenuePercentChange === "number"
+                    ? (revenuePercentChange > 0 ? "+" : "") +
+                      revenuePercentChange.toFixed(2) +
+                      "% from last week"
+                    : "--"}
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Profit</CardTitle>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-muted-foreground"
+                >
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  ${data?.totalProfit ? data.totalProfit : "--"}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {typeof profitPercentChange === "number"
+                    ? (profitPercentChange > 0 ? "+" : "") +
+                      profitPercentChange.toFixed(2) +
+                      "% from last week"
+                    : "--"}
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Sales</CardTitle>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-muted-foreground"
+                >
+                  <rect width="20" height="14" x="2" y="5" rx="2" />
+                  <path d="M2 10h20" />
+                </svg>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {data?.totalSales ? data.totalSales : "--"}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {typeof totalSalesPercentChange === "number"
+                    ? (totalSalesPercentChange > 0 ? "+" : "") +
+                      totalSalesPercentChange.toFixed(2) +
+                      "% from last week"
+                    : "--"}
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
+            <Card className="col-span-4 relative">
+              <CardHeader>
+                <CardTitle>Sales </CardTitle>
+              </CardHeader>
+              <CardContent className="pl-2 min-h-[200px] md:min-h-[400px]">
+                {data?.data && <OverviewCard salesData={data.data} />}
+                {loading && (
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+            <Card className="col-span-4 md:col-span-3 relative">
+              <CardHeader>
+                <CardTitle>Recent Sales</CardTitle>
+                <CardDescription>
+                  {data?.data ? getTodayTotalCount(data.data) : "--"} sales
+                  today
+                </CardDescription>
+              </CardHeader>
+              <CardContent className=" min-h-[200px] md:min-h-[400px]">
+                {data?.data && <RecentSales data={data.data} />}
+                {loading && (
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </>

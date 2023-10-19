@@ -20,7 +20,7 @@ export function MainNav({
           segment === "dashboard" ? "text-default" : "text-muted-foreground"
         }`}
       >
-        Dashboard
+        Sales Dashboard
       </Link>
       <Link
         href="/admin/website"

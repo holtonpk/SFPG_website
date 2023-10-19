@@ -27,7 +27,7 @@ const sidebar = {
 };
 
 export default function MobileNav() {
-  const [isOpen, toggleOpen] = useCycle(true, false);
+  const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
   const segment = useSelectedLayoutSegment();
@@ -57,7 +57,7 @@ export default function MobileNav() {
                 segment === "dashboard" ? "text-primary" : ""
               }`}
             >
-              Dashboard
+              Sales Dashboard
             </Link>
             <Link
               href="/admin/website"
