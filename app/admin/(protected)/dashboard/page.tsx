@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useState } from "react";
 import { Metadata } from "next";
 import Image from "next/image";
 import { Button } from "@/app/admin/components/ui/button";
@@ -19,47 +21,45 @@ import { CalendarDateRangePicker } from "@/app/admin/(protected)/dashboard/compo
 import { RecentSales } from "@/app/admin/(protected)/dashboard/components/recent-sales";
 import { siteConfig } from "@/config/site";
 import { SalesData } from "@/app/admin/types/index";
+import { Icons } from "@/app/admin/components/icons";
 
-export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Admin dashboard ",
+type SalesDataFull = {
+  totalRevenue: number;
+  totalProfit: number;
+  totalSales: number;
+  data: SalesData[];
 };
 
-const getData = async () => {
-  try {
-    const salesDataRes = await fetch(
-      `${siteConfig.url}/api/admin/shopify/sales-data`,
-      {
-        cache: "no-cache",
-      }
-    );
-
-    if (!salesDataRes.ok) {
-      throw new Error("Failed to fetch sales data");
+const fetchData = async (): Promise<SalesDataFull> => {
+  const salesDataRes = await fetch(
+    `${siteConfig.url}/api/admin/shopify/sales-data`,
+    {
+      cache: "no-cache",
     }
+  );
 
-    const data = (await salesDataRes.json()) as SalesData[];
-
-    const totalRevenue = data.reduce((acc, curr) => acc + curr.revenue, 0);
-    const totalProfit = data.reduce((acc, curr) => acc + curr.profit, 0);
-    const totalSales = data.length;
-
-    const salesData = {
-      totalRevenue,
-      totalProfit,
-      totalSales,
-      data,
-    };
-
-    return salesData;
-  } catch (error) {
-    console.error("Error fetching sales data:", error);
-    throw error; // Rethrow the error for error handling further up the chain
+  if (!salesDataRes.ok) {
+    throw new Error("Failed to fetch sales data");
   }
+
+  const data = (await salesDataRes.json()) as SalesData[];
+
+  const totalRevenue = data.reduce((acc, curr) => acc + curr.revenue, 0);
+  const totalProfit = data.reduce((acc, curr) => acc + curr.profit, 0);
+  const totalSales = data.length;
+
+  const salesData = {
+    totalRevenue,
+    totalProfit,
+    totalSales,
+    data,
+  };
+
+  return salesData as SalesDataFull;
 };
 
 // Example usage:
-getData()
+fetchData()
   .then((result) => {
     console.log("Sales Data:", result);
   })
@@ -67,12 +67,32 @@ getData()
     console.error("Error:", error);
   });
 
-export default async function DashboardPage() {
-  const data = await getData();
+export default function DashboardPage() {
+  // const data = await getData();
+  const [data, setData] = useState<SalesDataFull | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    async function getData() {
+      try {
+        const salesDataRes = await fetchData();
+        setData(salesDataRes);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+    getData();
+  }, []);
 
-  const revenuePercentChange = calculatePercentChange(data.data, "revenue");
-  const profitPercentChange = calculatePercentChange(data.data, "profit");
-  const totalSalesPercentChange = calculateTotalSalesPercentChange(data.data);
+  const revenuePercentChange = data?.data
+    ? calculatePercentChange(data.data, "revenue")
+    : "--";
+  const profitPercentChange = data?.data
+    ? calculatePercentChange(data.data, "profit")
+    : "--";
+  const totalSalesPercentChange = data?.data
+    ? calculateTotalSalesPercentChange(data.data)
+    : "--";
 
   return (
     <>
@@ -116,11 +136,14 @@ export default async function DashboardPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">
-                      ${data.totalRevenue}
+                      ${data?.totalRevenue ? data.totalRevenue : "--"}
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      {revenuePercentChange > 0 ? "+" : ""}
-                      {revenuePercentChange.toFixed(2)}% from last week
+                      {typeof revenuePercentChange === "number"
+                        ? (revenuePercentChange > 0 ? "+" : "") +
+                          revenuePercentChange.toFixed(2) +
+                          "% from last week"
+                        : "--"}
                     </p>
                   </CardContent>
                 </Card>
@@ -144,11 +167,14 @@ export default async function DashboardPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">
-                      ${data.totalProfit}
+                      ${data?.totalProfit ? data.totalProfit : "--"}
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      {profitPercentChange > 0 ? "+" : ""}
-                      {profitPercentChange.toFixed(2)}% from last week
+                      {typeof profitPercentChange === "number"
+                        ? (profitPercentChange > 0 ? "+" : "") +
+                          profitPercentChange.toFixed(2) +
+                          "% from last week"
+                        : "--"}
                     </p>
                   </CardContent>
                 </Card>
@@ -170,25 +196,48 @@ export default async function DashboardPage() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">{data.totalSales}</div>
+                    <div className="text-2xl font-bold">
+                      {data?.totalSales ? data.totalSales : "--"}
+                    </div>
                     <p className="text-xs text-muted-foreground">
-                      {totalSalesPercentChange > 0 ? "+" : ""}
-                      {totalSalesPercentChange.toFixed(2)}% from last week
+                      {typeof totalSalesPercentChange === "number"
+                        ? (totalSalesPercentChange > 0 ? "+" : "") +
+                          totalSalesPercentChange.toFixed(2) +
+                          "% from last week"
+                        : "--"}
                     </p>
                   </CardContent>
                 </Card>
               </div>
               <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
-                <OverviewCard salesData={data.data} />
-                <Card className="col-span-4 md:col-span-3">
+                <Card className="col-span-4 relative">
+                  <CardHeader>
+                    <CardTitle>Sales </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pl-2 min-h-[200px] md:min-h-[400px]">
+                    {data?.data && <OverviewCard salesData={data.data} />}
+                    {loading && (
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+                <Card className="col-span-4 md:col-span-3 relative">
                   <CardHeader>
                     <CardTitle>Recent Sales</CardTitle>
                     <CardDescription>
-                      {getTodayTotalCount(data.data)} sales today
+                      {data?.data ? getTodayTotalCount(data.data) : "--"} sales
+                      today
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="">
-                    <RecentSales data={data.data} />
+                  <CardContent className=" min-h-[200px] md:min-h-[400px]">
+                    {data?.data && <RecentSales data={data.data} />}
+                    {loading && (
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </div>

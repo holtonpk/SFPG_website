@@ -66,29 +66,22 @@ export function OverviewCard({ salesData }: { salesData: SalesData[] }) {
   console.log(combinedDataArray);
 
   return (
-    <Card className="col-span-4 relative">
-      <CardHeader>
-        <CardTitle>Sales </CardTitle>
-      </CardHeader>
-      <CardContent className="pl-2">
-        <Tabs defaultValue="bar" className="w-full flex flex-col">
-          <TabsList className="absolute right-6 top-6">
-            <TabsTrigger value="bar">
-              <Icons.barChart className="h-5 w-5" />
-            </TabsTrigger>
-            <TabsTrigger value="line">
-              <Icons.lineChart className="h-5 w-5" />
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="bar">
-            <BarOverview data={combinedDataArray} />
-          </TabsContent>
-          <TabsContent value="line">
-            <LineOverview data={combinedDataArray} />
-          </TabsContent>
-        </Tabs>
-      </CardContent>
-    </Card>
+    <Tabs defaultValue="bar" className="w-full flex flex-col">
+      <TabsList className="absolute right-6 top-6">
+        <TabsTrigger value="bar">
+          <Icons.barChart className="h-5 w-5" />
+        </TabsTrigger>
+        <TabsTrigger value="line">
+          <Icons.lineChart className="h-5 w-5" />
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="bar">
+        <BarOverview data={combinedDataArray} />
+      </TabsContent>
+      <TabsContent value="line">
+        <LineOverview data={combinedDataArray} />
+      </TabsContent>
+    </Tabs>
   );
 }
 
