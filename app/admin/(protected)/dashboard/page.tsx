@@ -10,12 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/admin/components/ui/card";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/app/admin/components/ui/tabs";
+import { ScrollArea } from "@/app/admin/components/ui/scroll-area";
 import { OverviewCard } from "@/app/admin/(protected)/dashboard/components/overview";
 import { CalendarDateRangePicker } from "@/app/admin/(protected)/dashboard/components/date-range-picker";
 import { RecentSales } from "@/app/admin/(protected)/dashboard/components/recent-sales";
@@ -125,7 +120,7 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  ${data?.totalRevenue ? data.totalRevenue : "--"}
+                  ${data?.totalRevenue ? data.totalRevenue.toFixed(2) : "--"}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   {typeof revenuePercentChange === "number"
@@ -154,7 +149,7 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  ${data?.totalProfit ? data.totalProfit : "--"}
+                  ${data?.totalProfit ? data.totalProfit.toFixed(2) : "--"}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   {typeof profitPercentChange === "number"
@@ -196,12 +191,12 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           </div>
-          <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-4 relative">
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-6 ">
+            <Card className="col-span-1 md:col-span-3 relative max-w-full">
               <CardHeader>
                 <CardTitle>Sales </CardTitle>
               </CardHeader>
-              <CardContent className="pl-2 min-h-[200px] md:min-h-[400px]">
+              <CardContent className="pl-2 ">
                 {data?.data && <OverviewCard salesData={data.data} />}
                 {loading && (
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -210,22 +205,24 @@ export default function DashboardPage() {
                 )}
               </CardContent>
             </Card>
-            <Card className="col-span-4 md:col-span-3 relative">
-              <CardHeader>
+            <Card className="col-span-1 md:col-span-3 relative ">
+              <CardHeader className="md:pb-0 pb-6">
                 <CardTitle>Recent Sales</CardTitle>
                 <CardDescription>
                   {data?.data ? getTodayTotalCount(data.data) : "--"} sales
                   today
                 </CardDescription>
               </CardHeader>
-              <CardContent className=" min-h-[200px] md:min-h-[400px]">
-                {data?.data && <RecentSales data={data.data} />}
-                {loading && (
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
-                  </div>
-                )}
-              </CardContent>
+              <ScrollArea className="h-[200px] md:h-[400px] w-full">
+                <CardContent className="max-w-full ">
+                  {data?.data && <RecentSales data={data.data} />}
+                  {loading && (
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                      <Icons.spinner className="h-12 w-12 text-primary  ml-auto animate-spin " />
+                    </div>
+                  )}
+                </CardContent>
+              </ScrollArea>
             </Card>
           </div>
         </div>

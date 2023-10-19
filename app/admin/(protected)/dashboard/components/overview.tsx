@@ -162,7 +162,7 @@ export function BarOverview({
           axisLine={false}
           tickFormatter={(value) => `$${value}`}
         />
-        <Tooltip content={<CustomTooltip />} />
+        <Tooltip content={<CustomTooltip />} cursor={{ fill: "transparent" }} />
 
         <Bar dataKey="total" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
       </BarChart>

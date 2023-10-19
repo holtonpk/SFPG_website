@@ -112,7 +112,7 @@ export default async function handler(
 
     // Sort the salesData array by createdAt in ascending order (oldest to newest)
     salesData.sort(
-      (a, b) =>
+      (b, a) =>
         new Date(a.createdAt as string).getTime() -
         new Date(b.createdAt as string).getTime()
     );
