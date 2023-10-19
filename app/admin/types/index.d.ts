@@ -72,3 +72,18 @@ export interface AnalyticsResponseData {
   browserData: { title: string; value: string }[];
   topPagesData: { title: string; value: string }[];
 }
+
+export type SalesData = {
+  id: string;
+  customerId: string;
+  customer: {
+    firstName: string;
+    lastName: string;
+  };
+  name: string;
+  email: string;
+  revenue: number;
+  profit: number;
+  shippingPrice: number;
+  createdAt: string;
+};
