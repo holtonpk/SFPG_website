@@ -31,27 +31,39 @@ import { Icons } from "@/app/admin/components/icons";
 export function OverviewCard({ salesData }: { salesData: SalesData[] }) {
   // Assuming you have your sales data in the 'salesData' array
 
-  // Create an object to store the combined data
-  const combinedData: { [date: string]: number } = {};
+  const combinedData: { [date: string]: { total: number; sales: number } } = {};
 
-  // Iterate through the sales data and combine revenue for the same date
+  // Iterate through the sales data and combine revenue and sales for the same date
   salesData.forEach((item) => {
     const formattedDate = formatDateMonthDay(item.createdAt);
     if (combinedData[formattedDate]) {
-      combinedData[formattedDate] += item.revenue;
+      combinedData[formattedDate].total += item.revenue;
+      combinedData[formattedDate].sales += item.lineItems.reduce(
+        (acc, lineItem) => acc + lineItem.quantity,
+        0
+      );
     } else {
-      combinedData[formattedDate] = item.revenue;
+      combinedData[formattedDate] = {
+        total: item.revenue,
+        sales: item.lineItems.reduce(
+          (acc, lineItem) => acc + lineItem.quantity,
+          0
+        ),
+      };
     }
   });
 
-  // Ensure there are always 7 days of data, filling in any missing days with 0 revenue
+  // Ensure there are always 7 days of data, filling in any missing days with 0 values
   const today = new Date();
   for (let i = 6; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(today.getDate() - i);
     const formattedDate = formatDateMonthDay(date.toISOString());
     if (!combinedData[formattedDate]) {
-      combinedData[formattedDate] = 0;
+      combinedData[formattedDate] = {
+        total: 0,
+        sales: 0,
+      };
     }
   }
 
@@ -60,7 +72,8 @@ export function OverviewCard({ salesData }: { salesData: SalesData[] }) {
     .sort((a, b) => new Date(a).getTime() - new Date(b).getTime())
     .map((date) => ({
       name: date,
-      total: combinedData[date],
+      total: combinedData[date].total,
+      sales: combinedData[date].sales,
     }));
 
   console.log(combinedDataArray);
@@ -90,6 +103,7 @@ export function LineOverview({
 }: {
   data: { name: string; total: number }[];
 }) {
+  console.log(data.length);
   return (
     <ResponsiveContainer width="100%" height={350}>
       <AreaChart
@@ -115,7 +129,7 @@ export function LineOverview({
           stroke="#888888"
           fontSize={12}
           tickLine={false}
-          interval={1}
+          // interval={1}
           axisLine={false}
         />
         <YAxis
@@ -172,10 +186,12 @@ export function BarOverview({
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
+    console.log(payload);
     return (
       <div className="custom-tooltip bg-popover border border-border rounded-md p-3">
         <span className="h-4 w-4 rounded-full bg-primary"></span>
-        <p className="label">{`Revenue: ${payload[0].value}`}</p>
+        <p className="label">{`Sales: ${payload[0].payload.sales}`}</p>
+        <p className="label">{`Revenue: $${payload[0].value.toFixed(2)}`}</p>
         <p className="desc">{`${label}`}</p>
       </div>
     );

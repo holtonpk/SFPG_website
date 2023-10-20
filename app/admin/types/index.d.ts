@@ -86,4 +86,20 @@ export type SalesData = {
   profit: number;
   shippingPrice: number;
   createdAt: string;
+  order: any;
+  lineItems: {
+    title: string;
+    quantity: number;
+    variant: {
+      price: string;
+      product: {
+        handle: string;
+      };
+      inventoryItem: {
+        unitCost: {
+          amount: string;
+        };
+      };
+    };
+  }[];
 };

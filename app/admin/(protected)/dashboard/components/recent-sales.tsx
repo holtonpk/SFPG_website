@@ -45,26 +45,23 @@ export function RecentSales({ data }: { data: SalesData[] }) {
         </TableBody>
       </Table>
       <div className="space-y-8 md:hidden">
-        {data
-          .reverse()
-          .slice(0, 5)
-          .map((sale, i) => (
-            <div key={i} className="flex items-center">
-              <Avatar className="h-9 w-9">
-                <AvatarImage src={`/avatars/0${i + 1}.png`} alt="Avatar" />
-                <AvatarFallback>
-                  {sale.customer.firstName[0] + sale.customer.lastName[0]}
-                </AvatarFallback>
-              </Avatar>
-              <div className="ml-4 space-y-1">
-                <p className="text-sm font-medium leading-none">
-                  {sale.customer.firstName + " " + sale.customer.lastName}
-                </p>
-                <p className="text-sm text-muted-foreground">{sale.email}</p>
-              </div>
-              <div className="ml-auto font-medium">${sale.revenue}</div>
+        {data.map((sale, i) => (
+          <div key={i} className="flex items-center">
+            <Avatar className="h-9 w-9">
+              <AvatarImage src={`/avatars/0${i + 1}.png`} alt="Avatar" />
+              <AvatarFallback>
+                {sale.customer.firstName[0] + sale.customer.lastName[0]}
+              </AvatarFallback>
+            </Avatar>
+            <div className="ml-4 space-y-1">
+              <p className="text-sm font-medium leading-none">
+                {sale.customer.firstName + " " + sale.customer.lastName}
+              </p>
+              <p className="text-sm text-muted-foreground">{sale.email}</p>
             </div>
-          ))}
+            <div className="ml-auto font-medium">${sale.revenue}</div>
+          </div>
+        ))}
       </div>
     </>
   );
