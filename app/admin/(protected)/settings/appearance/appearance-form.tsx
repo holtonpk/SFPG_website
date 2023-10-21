@@ -1,12 +1,12 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Icons } from "@/app/admin/components/icons";
-import { useForm } from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {Icons} from "@/app/admin/components/icons";
+import {useForm} from "react-hook-form";
 import * as z from "zod";
 
-import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/app/admin/components/ui/button";
+import {cn} from "@/lib/utils";
+import {Button, buttonVariants} from "@/app/admin/components/ui/button";
 import {
   Form,
   FormControl,
@@ -20,15 +20,11 @@ import {
   RadioGroup,
   RadioGroupItem,
 } from "@/app/admin/components/ui/radio-group";
-import { toast } from "@/app/admin/components/ui/use-toast";
+import {toast} from "@/app/admin/components/ui/use-toast";
 
 const appearanceFormSchema = z.object({
   theme: z.enum(["light", "dark"], {
     required_error: "Please select a theme.",
-  }),
-  font: z.enum(["inter", "manrope", "system"], {
-    invalid_type_error: "Select a font",
-    required_error: "Please select a font.",
   }),
 });
 
@@ -36,7 +32,7 @@ type AppearanceFormValues = z.infer<typeof appearanceFormSchema>;
 
 // This can come from your database or API.
 const defaultValues: Partial<AppearanceFormValues> = {
-  theme: "light",
+  theme: "dark",
 };
 
 export function AppearanceForm() {
@@ -61,37 +57,8 @@ export function AppearanceForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="font"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Font</FormLabel>
-              <div className="relative w-max">
-                <FormControl>
-                  <select
-                    className={cn(
-                      buttonVariants({ variant: "outline" }),
-                      "w-[200px] appearance-none bg-transparent font-normal"
-                    )}
-                    {...field}
-                  >
-                    <option value="inter">Inter</option>
-                    <option value="manrope">Manrope</option>
-                    <option value="system">System</option>
-                  </select>
-                </FormControl>
-                <Icons.chevronDown className="absolute right-3 top-2.5 h-4 w-4 opacity-50" />
-              </div>
-              <FormDescription>
-                Set the font you want to use in the dashboard.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="theme"
-          render={({ field }) => (
+          render={({field}) => (
             <FormItem className="space-y-1">
               <FormLabel>Theme</FormLabel>
               <FormDescription>

@@ -4,10 +4,10 @@ import {
   AvatarImage,
 } from "@/app/admin/components/ui/avatar";
 
-import { Icons } from "@/app/(client)/components/icons";
-import { Button } from "@/app/admin/components/ui/button";
-import { Input } from "@/app/admin/components/ui/input";
-import { useTheme } from "next-themes";
+import {Icons} from "@/app/(client)/components/icons";
+import {Button} from "@/app/admin/components/ui/button";
+import {Input} from "@/app/admin/components/ui/input";
+import {useTheme} from "next-themes";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,26 +18,19 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/app/admin/components/ui/dropdown-menu";
-import { useAuth } from "@/app/admin/context/user-auth";
+import {useAuth} from "@/app/admin/context/user-auth";
 import Image from "next/image";
 
 export function UserNav() {
-  const { setTheme } = useTheme();
+  const {setTheme} = useTheme();
 
-  const { currentUser, logOut } = useAuth()!;
+  const {currentUser, logOut} = useAuth()!;
   console.log("user", currentUser);
 
   return (
     <>
       {currentUser && (
         <div className=" flex gap-4 items-center">
-          <div>
-            <Input
-              className="md:block hidden"
-              type="search"
-              placeholder="Search..."
-            />
-          </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
