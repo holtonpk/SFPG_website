@@ -1,35 +1,35 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
-import { Button } from "@/app/(client)/components/ui/button";
-import { LinkButton } from "@/app/(client)/components/ui/link";
-import { useStorage } from "@/context/storage";
-import { toast, useToast } from "@/app/(client)/components/ui/use-toast";
-import { Input } from "@/app/(client)/components/ui/input";
-import { Icons } from "@/app/(client)/components/icons";
-import { siteConfig } from "@/config/site";
-import { useCart } from "@/context/cart";
-import { useRouter } from "next/navigation";
-import { getCheckoutLink } from "@/app/(client)/components/cart-preview";
+import React, {useEffect} from "react";
+import {Button} from "@/app/(client)/components/ui/button";
+import {LinkButton} from "@/app/(client)/components/ui/link";
+import {useStorage} from "@/context/storage";
+import {toast, useToast} from "@/app/(client)/components/ui/use-toast";
+import {Input} from "@/app/(client)/components/ui/input";
+import {Icons} from "@/app/(client)/components/icons";
+import {siteConfig} from "@/config/site";
+import {useCart} from "@/context/cart";
+import {useRouter} from "next/navigation";
+import {getCheckoutLink} from "@/app/(client)/components/cart-preview";
 import Iphone from "@/public/image/iphone.png";
-import { Progress } from "@/app/(client)/components/ui/progress";
-import { cn } from "@/lib/utils";
-import { Label } from "@/app/(client)/components/ui/label";
-import { Textarea } from "@/app/(client)/components/ui/textarea";
-import { logEvent } from "firebase/analytics";
-import { analytics } from "@/config/firebase";
+import {Progress} from "@/app/(client)/components/ui/progress";
+import {cn} from "@/lib/utils";
+import {Label} from "@/app/(client)/components/ui/label";
+import {Textarea} from "@/app/(client)/components/ui/textarea";
+import {logEvent} from "firebase/analytics";
+import {analytics} from "@/config/firebase";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/app/(client)/components/ui/accordion";
-import { timeSince } from "@/lib/utils";
-import { is } from "date-fns/locale";
-import { set } from "date-fns";
+import {timeSince} from "@/lib/utils";
+import {is} from "date-fns/locale";
+import {set} from "date-fns";
 // import previewVideo from "@/public/video/Video1.mp4";
 
-export default function Product({ productData }: { productData: any }) {
+export default function Product({productData}: {productData: any}) {
   const product = productData.product;
 
   const productRating =
@@ -128,7 +128,7 @@ export default function Product({ productData }: { productData: any }) {
           <AccordionContent id="product-overview-content">
             <div
               id="product-overview-content-body"
-              dangerouslySetInnerHTML={{ __html: product.description }}
+              dangerouslySetInnerHTML={{__html: product.description}}
             />
             <h1 className="my-3 font-bold">
               The book includes stories of the following entrepreneurs:
@@ -191,9 +191,9 @@ export default function Product({ productData }: { productData: any }) {
   );
 }
 
-const SaleBox = ({ product }: { product: any }) => {
+const SaleBox = ({product}: {product: any}) => {
   const [redirectToCheckout, setRedirectToCheckout] = React.useState(false);
-  const { addToCart, setShowCartPreview, checkoutObject, cartTotalPrice } =
+  const {addToCart, setShowCartPreview, checkoutObject, cartTotalPrice} =
     useCart();
   const [quantityLocal, setQuantityLocal] = React.useState<number>(1);
   const router = useRouter();
@@ -249,7 +249,7 @@ const SaleBox = ({ product }: { product: any }) => {
       items: [selectedVariant],
     });
 
-    addToCart({ ...product, selectedVariant: selectedVariant }, quantityLocal);
+    addToCart({...product, selectedVariant: selectedVariant}, quantityLocal);
     setShowCartPreview(true);
   };
 
@@ -260,7 +260,7 @@ const SaleBox = ({ product }: { product: any }) => {
       items: [checkoutObject],
     });
     await addToCart(
-      { ...product, selectedVariant: selectedVariant },
+      {...product, selectedVariant: selectedVariant},
       quantityLocal
     );
     setRedirectToCheckout(true);
@@ -333,7 +333,7 @@ const SaleBox = ({ product }: { product: any }) => {
         entrepreneurs.
       </p>
 
-      <div
+      {/* <div
         id="product-saleBox-pageViews"
         className="w-full flex  items-center gap-2 font-bold"
       >
@@ -355,7 +355,7 @@ const SaleBox = ({ product }: { product: any }) => {
           </span>{" "}
           in the last 12 hours.
         </p>
-      </div>
+      </div> */}
 
       <div id="product-saleBox-variants" className="flex flex-col gap-2">
         <p id="product-saleBox-variants-label">
@@ -501,7 +501,7 @@ const SaleBox = ({ product }: { product: any }) => {
         </Button>
       </div>
 
-      <div
+      {/* <div
         id="product-saleBox-available"
         className="flex flex-col gap-2 w-full"
       >
@@ -519,7 +519,7 @@ const SaleBox = ({ product }: { product: any }) => {
         <div id="product-saleBox-available-progress">
           <Progress className="h-2" value={33} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -542,7 +542,7 @@ const ProductReviews = ({
     body: string;
   }[];
 }) => {
-  const { SaveReview } = useStorage()!;
+  const {SaveReview} = useStorage()!;
 
   // create a review
 
@@ -589,6 +589,8 @@ const ProductReviews = ({
     setIsLoading(false);
     setWriteReview(false);
   };
+
+  const orderedReviews = reviews.sort((a, b) => b.date - a.date);
 
   return (
     <div id="product-reviews-container" className="w-full flex flex-col gap-4">
@@ -723,7 +725,7 @@ const ProductReviews = ({
           </Button>
         </div>
       )}
-      {reviews.map((review) => (
+      {orderedReviews.map((review) => (
         <div
           id={`product-reviews-review-${review.id}`}
           key={review.id}
@@ -759,13 +761,7 @@ const ProductReviews = ({
   );
 };
 
-const Stars = ({
-  rating,
-  className,
-}: {
-  rating: number;
-  className?: string;
-}) => {
+const Stars = ({rating, className}: {rating: number; className?: string}) => {
   const rounded = Math.round(rating * 2) / 2;
 
   return (
@@ -949,7 +945,7 @@ const EmailForm = () => {
   const emailRef = React.useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  const { toast } = useToast();
+  const {toast} = useToast();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
