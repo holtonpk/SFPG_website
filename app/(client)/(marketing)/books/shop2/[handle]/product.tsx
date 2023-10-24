@@ -191,25 +191,29 @@ const ProductImagesMobile = ({product}: {product: any}) => {
           scrollArea.querySelectorAll(".snap-center")
         );
         const scrollLeft = scrollArea.scrollLeft;
+        const containerWidth = scrollArea.offsetWidth;
 
         for (let i = 0; i < scrollSnapPoints.length; i++) {
           const image = scrollSnapPoints[i];
           const {left, width} = image.getBoundingClientRect();
-          if (left <= 0 && left + width >= 0) {
+          const rightEdgePosition = left + width;
+
+          // Check if the right edge's left position is greater than half of the container width
+          if (rightEdgePosition > containerWidth / 2) {
             setSelectedImage(i);
-            break;
+            break; // No need to check the rest
           }
         }
       };
 
       scrollArea.addEventListener("scroll", handleScroll);
       handleScroll(); // Initial check
+
       return () => {
         scrollArea.removeEventListener("scroll", handleScroll);
       };
     }
   }, []);
-
   return (
     <div className="relative">
       <div
@@ -222,7 +226,7 @@ const ProductImagesMobile = ({product}: {product: any}) => {
             <div
               id={`product-image-${i}`}
               key={i}
-              className="snap-center relative h-[400px] w-screen md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] pt-10"
+              className="snap-center  relative h-[400px] w-screen md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] pt-10"
             >
               <Image
                 id="product-image"
