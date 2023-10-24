@@ -182,10 +182,10 @@ const ProductImagesMobile = ({product}: {product: any}) => {
   return (
     <div
       id="product-image-container"
-      className="w-screen b-b overflow-scroll flex items-center  z-20  md:pl-0 relative mx-auto bg-background  rounded-b-[20px]  "
+      className="w-screen b-b snap-mandatory snap-x overflow-scroll flex items-center  z-20  md:pl-0 relative mx-auto bg-background  rounded-b-[20px]  "
     >
-      <div className="flex w-fit">
-        <div className="relative h-[400px] w-[300px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px]  b-r pt-10 ">
+      <div className="flex w-fit ">
+        <div className=" snap-center relative h-[400px] w-screen md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px]  b-r pt-10 ">
           <Image
             id="product-image"
             loading="eager"
@@ -196,7 +196,18 @@ const ProductImagesMobile = ({product}: {product: any}) => {
             className="pl-4 pt-4 md:p-0"
           />
         </div>
-        <div className="relative h-[400px] w-[300px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px]  b-r pt-10 ">
+        <div className=" snap-center relative h-[400px] w-screen md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px]  b-r pt-10 ">
+          <Image
+            id="product-image"
+            loading="eager"
+            src={product.imageSrc}
+            alt="logo"
+            fill
+            objectFit="contain"
+            className="pl-4 pt-4 md:p-0"
+          />
+        </div>
+        <div className=" snap-center relative h-[400px] w-screen md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px]  b-r pt-10 ">
           <Image
             id="product-image"
             loading="eager"
