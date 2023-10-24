@@ -278,7 +278,7 @@ const ProductImagesMobile = ({product}: {product: any}) => {
     <div className="relative">
       <div
         id="product-image-scroll-area"
-        className="w-screen hideScrollbar snap-mandatory snap-x overflow-scroll flex items-center z-20 relative bg-background rounded-b-[20px]"
+        className="w-screen hideScrollbar snap-mandatory snap-x overflow-scroll flex items-center z-20 relative bg-background  pb-4"
         ref={scrollAreaRef}
       >
         <div id="product-image-container" className="flex w-fit">
@@ -310,7 +310,7 @@ const ProductImagesMobile = ({product}: {product: any}) => {
             key={`scroll-position-indicator-${i}`}
             id={`scroll-position-indicator-${i}`}
             className={`rounded-full  h-[7px] w-[7px] ${
-              selectedImage === i ? "bg-theme-blue" : "bg-theme-blue/40 "
+              selectedImage === i ? "bg-theme-blue/80" : "bg-theme-blue/20 "
             }`}
           />
         ))}
@@ -336,11 +336,13 @@ const SaleBox = ({product}: {product: any}) => {
   React.useEffect(() => {
     // Function to handle scroll event
     const handleScroll = () => {
-      const buttonContainer = document.getElementById("buy-button-container");
+      const buttonContainer = document.getElementById(
+        "buy-now-button-relative"
+      );
       if (buttonContainer) {
         const buttonContainerTop =
           window.innerHeight - buttonContainer.getBoundingClientRect().top;
-        if (buttonContainerTop < 16 + buyNowButtonRef.current!.offsetHeight) {
+        if (buttonContainerTop < 100 + buyNowButtonRef.current!.offsetHeight) {
           // The button container is above the viewport, set the button position to fixed
           setIsBuyButtonFixed(true);
         } else {
@@ -513,7 +515,7 @@ const SaleBox = ({product}: {product: any}) => {
       >
         <div
           id="fixed-button-container"
-          className={`w-full px-6 z-20 flex flex-col items-center shadow-inner left-0 md:hidden  bg-white ${
+          className={`w-full px-6 z-20 flex flex-col items-center shadow-inner left-0 md:hidden  bg-white top-shadow ${
             isBuyButtonFixed ? "fixed bottom-0 py-4 " : "hidden "
           }`}
         >
