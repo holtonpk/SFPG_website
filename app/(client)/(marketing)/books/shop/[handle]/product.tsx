@@ -988,7 +988,7 @@ const QuantitySelector2 = ({
       <h1 id="product-saleBox-quantity-label">Quantity</h1>
       <div
         id="product-saleBox-quantity-selector"
-        className="flex-grow border-theme-blue/30 px-2 flex border md:w-full  justify-between items-center rounded-md"
+        className="flex-grow border-theme-blue px-2 flex border md:w-full  justify-between items-center rounded-md"
       >
         <Button
           id="product-saleBox-quantity-sub"
