@@ -245,8 +245,8 @@ const ProductImagesMobile = ({product}: {product: any}) => {
           <div
             key={`scroll-position-indicator-${i}`}
             id={`scroll-position-indicator-${i}`}
-            className={`rounded-full bg-white h-[6px] ${
-              selectedImage === i ? "bg-white w-6" : "bg-white/70 w-[6px]"
+            className={`rounded-full  h-[6px] w-[6px] ${
+              selectedImage === i ? "bg-theme-blue" : "bg-theme-blue/40 "
             }`}
           />
         ))}
