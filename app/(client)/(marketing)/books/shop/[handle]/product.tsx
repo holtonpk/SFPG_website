@@ -37,13 +37,14 @@ export default function Product({productData}: {productData: any}) {
       return acc + review.rating;
     }, 0) / product.reviews.length;
 
-  const [accordionValue, setAccordionValue] =
-    React.useState<string>("overview");
+  const [accordionValue, setAccordionValue] = React.useState<string[]>([
+    "overview",
+  ]);
 
   const Router = useRouter();
 
   const jumpToReviews = () => {
-    setAccordionValue("reviews");
+    setAccordionValue([...accordionValue, "reviews"]);
     Router.push("#product-reviews");
   };
 
@@ -105,8 +106,7 @@ export default function Product({productData}: {productData: any}) {
         </div>
       </div>
       <Accordion
-        type="single"
-        collapsible
+        type="multiple"
         value={accordionValue}
         onValueChange={setAccordionValue}
         className="w-[90%] mx-auto"
