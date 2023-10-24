@@ -226,7 +226,7 @@ const ProductImagesMobile = ({product}: {product: any}) => {
             <div
               id={`product-image-${i}`}
               key={i}
-              className="snap-center  relative h-[400px] w-screen md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] pt-10"
+              className="snap-center   relative h-[400px] w-[300px]  pt-10"
             >
               <Image
                 id="product-image"
@@ -249,7 +249,7 @@ const ProductImagesMobile = ({product}: {product: any}) => {
           <div
             key={`scroll-position-indicator-${i}`}
             id={`scroll-position-indicator-${i}`}
-            className={`rounded-full  h-[6px] w-[6px] ${
+            className={`rounded-full  h-[7px] w-[7px] ${
               selectedImage === i ? "bg-theme-blue" : "bg-theme-blue/40 "
             }`}
           />
