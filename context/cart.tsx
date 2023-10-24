@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, createContext, useState, useEffect } from "react";
+import React, {useContext, createContext, useState, useEffect} from "react";
 
 const CartContext = createContext<any | null>(null);
 
@@ -12,7 +12,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export const CartProvider = ({ children }: Props) => {
+export const CartProvider = ({children}: Props) => {
   const [showCartPreview, setShowCartPreview] = useState(false);
   const [cart, setCart] = useState<any>([]);
 
@@ -25,7 +25,7 @@ export const CartProvider = ({ children }: Props) => {
       newCart[productIndex].quantity =
         newCart[productIndex].quantity + quantity;
     } else {
-      newCart.push({ ...product, quantity: quantity });
+      newCart.push({...product, quantity: quantity});
     }
     setCart(newCart);
   };
@@ -76,14 +76,9 @@ export const CartProvider = ({ children }: Props) => {
 
   const cartTotalPrice =
     cart.length > 0 &&
-    cart
-      .reduce((total: any, product: any) => {
-        return (
-          total +
-          parseInt(product.selectedVariant.priceV2.amount) * product.quantity
-        );
-      }, 0)
-      .toFixed(2);
+    cart.reduce((total: any, product: any) => {
+      return total + product.selectedVariant.priceV2.amount * product.quantity;
+    }, 0);
 
   const cartTotalQuantity = cart.reduce(
     (total: any, product: any) => total + product.quantity,
