@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { siteConfig } from "@/config/site";
+import React, {useEffect} from "react";
+import {siteConfig} from "@/config/site";
 import Product from "./product";
 interface Props {
   products: any;
   data: any;
 }
-import { constructMetadata } from "@/lib/utils";
-import { Metadata } from "next";
+import {constructMetadata} from "@/lib/utils";
+import {Metadata} from "next";
 
 type Params = {
   params: {
@@ -15,7 +15,7 @@ type Params = {
 };
 
 export async function generateMetadata({
-  params: { handle },
+  params: {handle},
 }: Params): Promise<Metadata> {
   return constructMetadata({
     title: siteConfig.pages[handle].title,
@@ -55,7 +55,7 @@ const getData = async (handle: string): Promise<any> => {
   };
 };
 
-export default async function ProductPage2({ params }: Params) {
+export default async function ProductPage2({params}: Params) {
   const data = await getData(params.handle);
 
   return (
