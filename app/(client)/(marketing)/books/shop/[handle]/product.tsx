@@ -513,7 +513,7 @@ const SaleBox = ({product}: {product: any}) => {
         id="buy-button-container"
         className={`z-[50] relative gap-4 w-full grid  `}
       >
-        <div
+        {/* <div
           id="fixed-button-container"
           className={`w-full px-6 z-20 flex flex-col items-center shadow-inner left-0 md:hidden  bg-white top-shadow ${
             isBuyButtonFixed ? "fixed bottom-0 py-4 " : "hidden "
@@ -591,7 +591,7 @@ const SaleBox = ({product}: {product: any}) => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
         <div
           id="product-saleBox-buy-container"
           className="grid gap-4   md:grid-cols-[1fr_70%]  items-end w-full"
@@ -618,9 +618,9 @@ const SaleBox = ({product}: {product: any}) => {
           onClick={buyNow}
           ref={buyNowButtonRef}
           variant={"blue"}
-          className={`text-base md:text-xl hover:bg-theme-blue/80  hover:text-white border-theme-blue rounded-md ${
-            isBuyButtonFixed ? "invisible md:visible  " : "relative  "
-          }}`}
+          className={`text-base md:text-xl hover:bg-theme-blue/80  hover:text-white border-theme-blue rounded-md 
+          ${isBuyButtonFixed ? "visible  " : "relative  "}
+        }`}
           size={"lg"}
         >
           {redirectToCheckout ? (
