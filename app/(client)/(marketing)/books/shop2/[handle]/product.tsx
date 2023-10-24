@@ -179,28 +179,75 @@ export default function Product({productData}: {productData: any}) {
 }
 
 const ProductImagesMobile = ({product}: {product: any}) => {
-  console.log(product.images);
+  const [selectedImage, setSelectedImage] = React.useState<number>(0);
+  const scrollAreaRef = React.useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const scrollArea = scrollAreaRef.current;
+
+    if (scrollArea) {
+      const handleScroll = () => {
+        const scrollSnapPoints = Array.from(
+          scrollArea.querySelectorAll(".snap-center")
+        );
+        const scrollLeft = scrollArea.scrollLeft;
+
+        for (let i = 0; i < scrollSnapPoints.length; i++) {
+          const image = scrollSnapPoints[i];
+          const {left, width} = image.getBoundingClientRect();
+          if (left <= 0 && left + width >= 0) {
+            setSelectedImage(i);
+            break;
+          }
+        }
+      };
+
+      scrollArea.addEventListener("scroll", handleScroll);
+      handleScroll(); // Initial check
+      return () => {
+        scrollArea.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, []);
+
   return (
-    <div
-      id="product-image-container b-b"
-      className="w-screen  snap-mandatory snap-x overflow-scroll flex items-center  z-20  relative bg-background  rounded-b-[20px]  "
-    >
-      <div className="flex w-fit ">
+    <div className="relative">
+      <div
+        id="product-image-scroll-area"
+        className="w-screen hideScrollbar snap-mandatory snap-x overflow-scroll flex items-center z-20 relative bg-background rounded-b-[20px]"
+        ref={scrollAreaRef}
+      >
+        <div id="product-image-container" className="flex w-fit">
+          {product.images.map((image: any, i: any) => (
+            <div
+              id={`product-image-${i}`}
+              key={i}
+              className="snap-center relative h-[400px] w-screen md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] pt-10"
+            >
+              <Image
+                id="product-image"
+                loading="eager"
+                src={image.node.src}
+                alt="logo"
+                fill
+                objectFit="contain"
+                className="pl-4 pt-4 md:p-0"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div
+        id="scroll-position-container"
+        className="flex gap-1 w-fit h-2 absolute bottom-2 left-1/2 -translate-x-1/2 z-30"
+      >
         {product.images.map((image: any, i: any) => (
           <div
-            key={i}
-            className=" snap-center relative h-[400px] w-screen md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px]   pt-10 "
-          >
-            <Image
-              id="product-image"
-              loading="eager"
-              src={image.node.src}
-              alt="logo"
-              fill
-              objectFit="contain"
-              className="pl-4 pt-4 md:p-0"
-            />
-          </div>
+            id={`scroll-position-indicator-${i}`}
+            className={`rounded-full bg-white h-[6px] ${
+              selectedImage === i ? "bg-white w-6" : "bg-white/70 w-[6px]"
+            }`}
+          />
         ))}
       </div>
     </div>
