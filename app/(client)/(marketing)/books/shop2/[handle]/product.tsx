@@ -243,6 +243,7 @@ const ProductImagesMobile = ({product}: {product: any}) => {
       >
         {product.images.map((image: any, i: any) => (
           <div
+            key={`scroll-position-indicator-${i}`}
             id={`scroll-position-indicator-${i}`}
             className={`rounded-full bg-white h-[6px] ${
               selectedImage === i ? "bg-white w-6" : "bg-white/70 w-[6px]"
