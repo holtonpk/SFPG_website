@@ -50,26 +50,19 @@ export default function Product({productData}: {productData: any}) {
   return (
     <div
       id="product"
-      className="w-screen  overflow-hidden md:pt-20 pb-20 md:container bg-white md:bg-background"
+      className="w-screen  overflow-hidden md:pt-20 pb-20 md:container bg-white md:bg-background "
     >
       <div
         id="product-box"
-        className="grid md:grid-cols-[40%_60%] lg::grid-cols-[50%_50%] md:w-[80%] mx-auto  "
+        className="grid md:grid-cols-[45%_55%] items-center md:items-start    mx-auto  "
       >
-        <div
-          id="product-image-container"
-          className="w-full max-w-screen h-[400px] md:w-[300px] md:h-[500px] lg:w-[400px] lg:h-[600px] z-20  md:pl-0 relative mx-auto bg-background pt-10 rounded-b-[20px]  "
-        >
-          <Image
-            id="product-image"
-            loading="eager"
-            src={product.imageSrc}
-            alt="logo"
-            fill
-            objectFit="contain"
-            className="pl-4 pt-4 md:p-0"
-          />
+        <div className="md:hidden block">
+          <ProductImagesMobile product={product} />
         </div>
+        <div className="hidden md:block ">
+          <ProductImages product={product} />
+        </div>
+
         <div
           id="product-saleBox-container"
           className="flex flex-col  p-4 md:p-10 gap-2 md:gap-4 relative "
@@ -190,6 +183,141 @@ export default function Product({productData}: {productData: any}) {
     </div>
   );
 }
+
+const ProductImages = ({product}: {product: any}) => {
+  const [selectedImage, setSelectedImage] = React.useState<string>(
+    product.images[0].node.src
+  );
+
+  return (
+    <div id="product-image-container" className="flex w-full   pt-10 ">
+      <div
+        className="flex flex-col gap-4"
+        id="product-image-selector-container"
+      >
+        {product.images.map((image: any, i: any) => (
+          <div
+            onClick={() => setSelectedImage(image.node.src)}
+            id={`product-image-${i}`}
+            key={i}
+            className={`snap-center cursor-pointer  relative h-[50px] w-[30px]  lg:h-[75px] lg:w-[57px]  pt-10 rounded-md border-4 
+            ${
+              selectedImage === image.node.src
+                ? "border-theme-blue"
+                : "hover:border-theme-blue/60"
+            }
+            `}
+          >
+            <Image
+              id="product-image"
+              loading="eager"
+              src={image.node.src}
+              alt="logo"
+              fill
+              objectFit="contain"
+              className="p-0 pointer-events-none"
+            />
+          </div>
+        ))}
+      </div>
+      <div
+        id={`product-image-main`}
+        className="w-[300px] h-[400px]  lg:w-[400px] lg:h-[500px] z-20 relative mx-auto bg-background rounded-b-[20px] "
+      >
+        <Image
+          id="product-image"
+          loading="eager"
+          src={selectedImage}
+          alt="logo"
+          fill
+          objectFit="contain"
+          className="p-0"
+        />
+      </div>
+    </div>
+  );
+};
+
+const ProductImagesMobile = ({product}: {product: any}) => {
+  const [selectedImage, setSelectedImage] = React.useState<number>(0);
+  const scrollAreaRef = React.useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const scrollArea = scrollAreaRef.current;
+
+    if (scrollArea) {
+      const handleScroll = () => {
+        const scrollSnapPoints = Array.from(
+          scrollArea.querySelectorAll(".snap-center")
+        );
+        const scrollLeft = scrollArea.scrollLeft;
+        const containerWidth = scrollArea.offsetWidth;
+
+        for (let i = 0; i < scrollSnapPoints.length; i++) {
+          const image = scrollSnapPoints[i];
+          const {left, width} = image.getBoundingClientRect();
+          const rightEdgePosition = left + width;
+
+          // Check if the right edge's left position is greater than half of the container width
+          if (rightEdgePosition > containerWidth / 2) {
+            setSelectedImage(i);
+            break; // No need to check the rest
+          }
+        }
+      };
+
+      scrollArea.addEventListener("scroll", handleScroll);
+      handleScroll(); // Initial check
+
+      return () => {
+        scrollArea.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, []);
+  return (
+    <div className="relative">
+      <div
+        id="product-image-scroll-area"
+        className="w-screen hideScrollbar snap-mandatory snap-x overflow-scroll flex items-center z-20 relative bg-background rounded-b-[20px]"
+        ref={scrollAreaRef}
+      >
+        <div id="product-image-container" className="flex w-fit">
+          {product.images.map((image: any, i: any) => (
+            <div
+              id={`product-image-${i}`}
+              key={i}
+              className="snap-center   relative h-[400px] w-[300px]  pt-10"
+            >
+              <Image
+                id="product-image"
+                loading="eager"
+                src={image.node.src}
+                alt="logo"
+                fill
+                objectFit="contain"
+                className="pl-4 pt-4 md:p-0"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div
+        id="scroll-position-container"
+        className="flex gap-1 w-fit h-2 absolute bottom-2 left-1/2 -translate-x-1/2 z-30"
+      >
+        {product.images.map((image: any, i: any) => (
+          <div
+            key={`scroll-position-indicator-${i}`}
+            id={`scroll-position-indicator-${i}`}
+            className={`rounded-full  h-[7px] w-[7px] ${
+              selectedImage === i ? "bg-theme-blue" : "bg-theme-blue/40 "
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const SaleBox = ({product}: {product: any}) => {
   const [redirectToCheckout, setRedirectToCheckout] = React.useState(false);
@@ -464,7 +592,7 @@ const SaleBox = ({product}: {product: any}) => {
         </div>
         <div
           id="product-saleBox-buy-container"
-          className="grid gap-4  overflow-hidden md:grid-cols-[1fr_70%] items-end w-full"
+          className="grid gap-4   md:grid-cols-[1fr_70%]  items-end w-full"
         >
           <QuantitySelector2
             product={selectedVariant}
@@ -1051,8 +1179,8 @@ const storyNames: string[] = [
   "Mark Cuban",
   "Sam Altman",
   "Marc Lore",
-  "Flexport",
-  "Rocket Labs",
+  "Ryan Peterson",
+  "Peter Beck",
   "Melanie Perkins",
   "Apoorva Mehta",
   "Steve Jobs",
