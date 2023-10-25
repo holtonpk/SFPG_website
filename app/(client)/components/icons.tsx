@@ -110,11 +110,13 @@ import {
   Circle,
   FlameIcon,
   StarHalf,
+  BadgeCheck,
 } from "lucide-react";
 
 //   export type XIcon = LucideIcon;
 
 export const Icons = {
+  badgeCheck: BadgeCheck,
   fire: FlameIcon,
   monitorSmartphone: MonitorSmartphone,
   star: Star,
@@ -221,7 +223,7 @@ export const Icons = {
   smartPhone: Smartphone,
   LaptopIcon: LaptopIcon,
 
-  halfStar: ({ ...props }: LucideProps) => (
+  halfStar: ({...props}: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       {...props}
@@ -232,7 +234,7 @@ export const Icons = {
     </svg>
   ),
 
-  tiktok: ({ ...props }: LucideProps) => (
+  tiktok: ({...props}: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       {...props}
@@ -242,7 +244,7 @@ export const Icons = {
       <path d="M224 72a44.05 44.05 0 01-44-44 12 12 0 00-12-12h-40a12 12 0 00-12 12v128a16 16 0 11-22.851-14.466 12 12 0 006.85-10.84L100 89.057a12 12 0 00-14.104-11.814A80.005 80.005 0 10180 156v-29.328A107.476 107.476 0 00224 136a12 12 0 0012-12V84a12 12 0 00-12-12zm-12 39.154a83.228 83.228 0 01-36.993-14.912 12 12 0 00-19.007 9.74V156a56 56 0 11-80-50.64v18.648A39.997 39.997 0 10140 156V40h17.06A68.19 68.19 0 00212 94.94z"></path>
     </svg>
   ),
-  logo: ({ ...props }: LucideProps) => (
+  logo: ({...props}: LucideProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 930 920" {...props}>
       <path
         fill={props.color}
@@ -264,7 +266,7 @@ export const Icons = {
     </svg>
   ),
 
-  AmazonLogo: ({ ...props }: LucideProps) => (
+  AmazonLogo: ({...props}: LucideProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"

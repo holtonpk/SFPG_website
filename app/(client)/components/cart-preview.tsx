@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Image from "next/image";
-import { useCart } from "../../../context/cart";
+import {useCart} from "../../../context/cart";
 import Link from "next/link";
-import { Icons } from "./icons";
-import { useRouter } from "next/navigation";
-import { siteConfig } from "@/config/site";
-import { Button } from "@/app/(client)/components/ui/button";
+import {Icons} from "./icons";
+import {useRouter} from "next/navigation";
+import {siteConfig} from "@/config/site";
+import {Button} from "@/app/(client)/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -15,8 +15,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/app/(client)/components/ui/sheet";
-import { logEvent } from "firebase/analytics";
-import { analytics } from "@/config/firebase";
+import {logEvent} from "firebase/analytics";
+import {analytics} from "@/config/firebase";
 
 export const formatPrice = (price: number) => {
   return price.toLocaleString("en-US", {
@@ -114,8 +114,7 @@ const CartPreview = () => {
                       <div className="flex flex-col items-start h-fit w-2/3 ">
                         <Link
                           href={
-                            "/Product/" +
-                            product.title.slice(0, 25).replaceAll(" ", "_")
+                            "/books/shop/snapshots-of-success-the-50-greatest-business-success-stories"
                           }
                         >
                           <h2 className="text-base font-f1">{product.title}</h2>

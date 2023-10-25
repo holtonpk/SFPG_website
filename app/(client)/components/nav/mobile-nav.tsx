@@ -1,14 +1,14 @@
 "use client";
 
-import { motion, useCycle } from "framer-motion";
+import {motion, useCycle} from "framer-motion";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
-import { Icons } from "@/app/(client)/components/icons";
-import { marketingConfig } from "@/config/marketing";
-import { siteConfig } from "@/config/site";
-import { useCart } from "@/context/cart";
-import { Button } from "@/app/(client)/components/ui/button";
+import {useParams} from "next/navigation";
+import {ReactNode, useEffect, useMemo, useRef, useState} from "react";
+import {Icons} from "@/app/(client)/components/icons";
+import {marketingConfig} from "@/config/marketing";
+import {siteConfig} from "@/config/site";
+import {useCart} from "@/context/cart";
+import {Button} from "@/app/(client)/components/ui/button";
 const sidebar = {
   open: (height = 1000) => ({
     clipPath: `circle(${height * 2 + 200}px at 100% 0)`,
@@ -33,8 +33,8 @@ const navItems = ["pricing", "changelog"];
 export default function MobileNav() {
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
-  const { height } = useDimensions(containerRef);
-  const { showCartPreview, setShowCartPreview, cartTotalQuantity } = useCart();
+  const {height} = useDimensions(containerRef);
+  const {showCartPreview, setShowCartPreview, cartTotalQuantity} = useCart();
 
   const toggleCart = () => {
     setShowCartPreview(!showCartPreview);
@@ -72,7 +72,7 @@ export default function MobileNav() {
         ))}
       </motion.ul>
 
-      <div className="flex items-center justify-between px-4 relative z-20 pt-2">
+      <div className="flex items-center justify-between px-4 relative z-20 py-2 bg-white">
         <Link href="/#" className="">
           <span className="text-2xl text-primary font-bold  flex items-center ">
             <div className="h-10 w-10 relative  -mr-2">
@@ -86,11 +86,10 @@ export default function MobileNav() {
             </span>
           </span>
         </Link>
-        <div className="flex gap-4">
-          <Button
-            variant={"blueOutline"}
+        <div className="flex gap-2">
+          <button
             onClick={toggleCart}
-            className="rounded-full relative  z-[60] flex items-center justify-center p-2 aspect-square"
+            className="rounded-full relative  z-[60] flex items-center justify-center p-2 aspect-square text-theme-blue "
             id="mobile-header-cart-button"
           >
             {cartTotalQuantity > 0 && (
@@ -101,8 +100,8 @@ export default function MobileNav() {
                 {cartTotalQuantity}
               </span>
             )}
-            <Icons.shoppingBag className="h-5 w-5 " id="header-cart-icon" />
-          </Button>
+            <Icons.shoppingBag className="h-6 w-6 " id="header-cart-icon" />
+          </button>
           <MenuToggle toggle={toggleOpen} isOpen={isOpen} />
         </div>
       </div>
@@ -110,18 +109,17 @@ export default function MobileNav() {
   );
 }
 
-const MenuToggle = ({ toggle, isOpen }: { toggle: any; isOpen: boolean }) => (
-  <Button
-    variant={"blueOutline"}
+const MenuToggle = ({toggle, isOpen}: {toggle: any; isOpen: boolean}) => (
+  <button
     onClick={toggle}
-    className="pointer-events-auto z-20 aspect-square p-2"
+    className="pointer-events-auto z-20 aspect-square p-2 text-theme-blue"
   >
     {isOpen ? (
-      <Icons.close className="w-5 h-5" />
+      <Icons.close className="w-6 h-6" />
     ) : (
-      <Icons.menu className="w-5 h-5" />
+      <Icons.menu className="w-6 h-6" />
     )}
-  </Button>
+  </button>
 );
 
 const Path = (props: any) => (
@@ -153,14 +151,14 @@ const MenuItemVariants = {
     y: 0,
     opacity: 1,
     transition: {
-      y: { stiffness: 1000, velocity: -100 },
+      y: {stiffness: 1000, velocity: -100},
     },
   },
   closed: {
     y: 50,
     opacity: 0,
     transition: {
-      y: { stiffness: 1000 },
+      y: {stiffness: 1000},
       duration: 0.04,
     },
   },
@@ -168,15 +166,15 @@ const MenuItemVariants = {
 
 const variants = {
   open: {
-    transition: { staggerChildren: 0.04, delayChildren: 0.2 },
+    transition: {staggerChildren: 0.04, delayChildren: 0.2},
   },
   closed: {
-    transition: { staggerChildren: 0.02, staggerDirection: -1 },
+    transition: {staggerChildren: 0.02, staggerDirection: -1},
   },
 };
 
 const useDimensions = (ref: any) => {
-  const dimensions = useRef({ width: 0, height: 0 });
+  const dimensions = useRef({width: 0, height: 0});
 
   useEffect(() => {
     dimensions.current.width = ref.current.offsetWidth;
